@@ -18,8 +18,6 @@ def worker( run_in ):
     motile.doRK()
     return { 'index' : run_in[ 'index' ], 'value' : motile.getValue() }
 
-
-
 for ( iT, T ), ( iE, E ) in itertools.product( enumerate( P.temp ), enumerate( P.energy ) ):
     
     strings = [ 'GAM_R_F', 'GAM_R_B' ]
