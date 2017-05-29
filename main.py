@@ -18,10 +18,12 @@ def worker( run_in ):
     motile.doRK()
     return { 'index' : run_in[ 'index' ], 'value' : motile.getValue() }
 
-strings = [ 'GAM_R_F', 'GAM_R_B' ]
-DATA = dict()
+
 
 for ( iT, T ), ( iE, E ) in itertools.product( enumerate( P.temp ), enumerate( P.energy ) ):
+    
+    strings = [ 'GAM_R_F', 'GAM_R_B' ]
+    DATA = dict()
 
     for string in strings:
         print 'computing %s...' % ( string ) 
