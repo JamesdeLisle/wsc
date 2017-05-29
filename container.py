@@ -1,5 +1,6 @@
 import numpy as np
 import itertools
+from bisect import bisect_left
 
 class RunContainer:
 
@@ -47,25 +48,48 @@ class RunContainer:
         
         R = out[ 'R_now' ]
         P = out[ 'P_now' ]
-
+        
         if R > self.store[ 'constants' ][ 'space_radial_max' ]:
             R = self.store[ 'constants' ][ 'space_radial_max' ]
         
         strings = [ 'GAM_R_F', 'GAM_R_B' ]
             
+        data = dict()
+        for string in strings:
+            data[ string ] = 0.0 
         
-        data = { string : 0.0 for string in strings  }
-        if self.store[ 'func_str' ] in [ 'DIST_F', 'DIST_B' ]: 
-            for func_str in strings:
+        R_lst = np.linspace( 0, self.store[ 'constants' ][ 'space_radial_max' ], self.store[ 'constants' ][ 'nspace_radial' ] )
+        P_lst = np.linspace( 0, self.store[ 'constants' ][ 'space_azimuthal_max' ], self.store[ 'constants' ][ 'nspace_azimuthal' ] )
+        
+        pos_R = bisect_left( R_lst, R )
+        pos_P = bisect_left( P_lst, P )
+       
+        if self.store[ 'func_str' ] == 'DIST_F':
+            relevant_string = 'GAM_R_F'
+        elif self.store[ 'func_str' ] == 'DIST_B':
+            relevant_string = 'GAM_R_B'
+
+        try:
+            if self.store[ 'func_str' ] in [ 'DIST_F', 'DIST_B' ]: 
                 counter = 0
-                for ir, r in enumerate( np.linspace( 0, self.store[ 'constants' ][ 'space_radial_max' ], self.store[ 'constants' ][ 'nspace_radial' ] ) ):
-                    if R - r <  self.store[ 'constants' ][ 'dspace_radial' ]:
-                        for ip, p in enumerate( np.linspace( 0, self.store[ 'constants' ][ 'space_azimuthal_max' ], self.store[ 'constants' ][ 'nspace_azimuthal' ] ) ):
-                            if P - p < self.store[ 'constants' ][ 'dspace_azimuthal' ]:
-                                data[ func_str ] += self.store[ 'data' ][ func_str ][ ir, ip ]
+                for ir in range( pos_R - 2, pos_R + 3, 1 ):
+                    if ir - ( len( R_lst ) - 1 ) > 0:
+                        ir = len( R_lst ) - 1
+                    elif ir < 0:
+                        ir = 0
+                    if np.abs( R - R_lst[ ir ] ) < self.store[ 'constants' ][ 'dspace_radial' ]:
+                        for ip in range( pos_P - 2, pos_P + 3, 1 ):
+                            if ip - ( len( P_lst ) - 1 ) > 0:
+                                ip = ip - len( P_lst )
+                            elif ip < 0:
+                                ip = len( P_lst ) + ip 
+                            if np.abs( P - P_lst[ ip ] ) < self.store[ 'constants' ][ 'dspace_azimuthal' ]:
+                                data[ relevant_string ] += self.store[ 'data' ][ relevant_string ][ ir, ip ]
                                 counter += 1
-                if counter != 0:
-                    data[ func_str ] = data[ func_str ] / counter
+        except IndexError:
+            print ir, ip
+            if counter != 0:
+                data[ relevant_string ] = data[ relevant_string ] / counter
             
         #TODO might need fixing.
         data[ 'GAM_A_F' ] = -np.conj( data[ 'GAM_R_B' ] )

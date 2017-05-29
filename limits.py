@@ -10,8 +10,8 @@ class Limits:
         self.store[ 'nenergy' ] =           1
         self.store[ 'nspace_radial' ] =     25
         self.store[ 'nspace_azimuthal' ] =  25
-        self.store[ 'nk_polar' ] =          5
-        self.store[ 'nk_azimuthal' ] =      5
+        self.store[ 'nk_polar' ] =          15
+        self.store[ 'nk_azimuthal' ] =      30
         self.store[ 'ntemp' ] =             1
         self.store[ 'nAlpha' ] =            50
 

@@ -26,6 +26,7 @@ for string in strings:
     run = P.getRun( string )
     p = Pool()
     DATA[ string ] = p.map( worker, run ) 
+    print time.time() - t0
 
 for string in strings:
     P.updateData( DATA[ string ], string )
@@ -40,6 +41,7 @@ for string in strings:
     run = P.getRun( string )
     p = Pool()
     DATA[ string ] = p.map( worker, run ) 
+    print time.time() - t0
 
 for string in strings:
     P.updateData( DATA[ string ], string )
