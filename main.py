@@ -30,8 +30,9 @@ for ( iT, T ), ( iE, E ) in itertools.product( enumerate( P.temp ), enumerate( P
         run = P.getRun( iT, iE, string )
         p = Pool()
         DATA[ string ] = p.map( worker, run ) 
+        p.close()
         print time.time() - t0
-
+        
     for string in strings:
         P.updateData( DATA[ string ], string )
 
@@ -45,10 +46,13 @@ for ( iT, T ), ( iE, E ) in itertools.product( enumerate( P.temp ), enumerate( P
         run = P.getRun( iT, iE, string )
         p = Pool()
         DATA[ string ] = p.map( worker, run ) 
+        p.close()
         print time.time() - t0
 
     for string in strings:
         P.updateData( DATA[ string ], string )
+    
+    del DATA
 
 print 'Done!'
 
