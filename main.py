@@ -4,7 +4,7 @@ import RK as rk
 import ldos
 from multiprocessing import Pool, Manager
 import time
-
+import itertools
 
 
 t0 = time.time()
@@ -21,30 +21,32 @@ def worker( run_in ):
 strings = [ 'GAM_R_F', 'GAM_R_B' ]
 DATA = dict()
 
-for string in strings:
-    print 'computing %s...' % ( string ) 
-    run = P.getRun( string )
-    p = Pool()
-    DATA[ string ] = p.map( worker, run ) 
-    print time.time() - t0
+for ( iT, T ), ( iE, E ) in itertools.product( enumerate( P.temp ), enumerate( P.energy ) ):
 
-for string in strings:
-    P.updateData( DATA[ string ], string )
+    for string in strings:
+        print 'computing %s...' % ( string ) 
+        run = P.getRun( iT, iE, string )
+        p = Pool()
+        DATA[ string ] = p.map( worker, run ) 
+        print time.time() - t0
 
-del DATA
-DATA = dict()
+    for string in strings:
+        P.updateData( DATA[ string ], string )
 
-strings = [ 'DIST_F', 'DIST_B' ]
+    del DATA
+    DATA = dict()
 
-for string in strings:
-    print 'computing %s...' % ( string ) 
-    run = P.getRun( string )
-    p = Pool()
-    DATA[ string ] = p.map( worker, run ) 
-    print time.time() - t0
+    strings = [ 'DIST_F', 'DIST_B' ]
 
-for string in strings:
-    P.updateData( DATA[ string ], string )
+    for string in strings:
+        print 'computing %s...' % ( string ) 
+        run = P.getRun( iT, iE, string )
+        p = Pool()
+        DATA[ string ] = p.map( worker, run ) 
+        print time.time() - t0
+
+    for string in strings:
+        P.updateData( DATA[ string ], string )
 
 print 'Done!'
 

@@ -38,20 +38,18 @@ class ParamSpace:
         
         return out
 
-    def getRun( self, func_str ):
+    def getRun( self, iT, iE, func_str ):
 
-        DOF = itertools.product( enumerate( self.temp ), \
-                                 enumerate( self.energy ), \
-                                 enumerate( self.space_radial ), \
+        DOF = itertools.product( enumerate( self.space_radial ), \
                                  enumerate( self.space_azimuthal ), \
                                  enumerate( self.k_polar ), \
                                  enumerate( self.k_azimuthal ) )
         
         run = list()
 
-        for ( iT, T ), ( iE, E ), ( iR, R ), ( iPhi, Phi ), ( iXi, Xi ), ( iTheta, Theta ) in DOF: 
+        for ( iR, R ), ( iPhi, Phi ), ( iXi, Xi ), ( iTheta, Theta ) in DOF: 
             index = ( iT, iE, iR, iPhi, iXi, iTheta )
-            run.append( cont.RunContainer( func_str, index, T, E, R, Phi, Xi, Theta, self.constants, self.getSlice( iT, iE, iXi, iTheta ) ) )
+            run.append( cont.RunContainer( func_str, index, self.temp[ iT ], self.energy[ iE ], R, Phi, Xi, Theta, self.constants, self.getSlice( iT, iE, iXi, iTheta ) ) )
         
         return run 
     
