@@ -7,7 +7,7 @@ class Limits:
         
         self.store = dict()
 
-        self.store[ 'nenergy' ] =           1
+        self.store[ 'nenergy' ] =           60
         self.store[ 'nspace_radial' ] =     25
         self.store[ 'nspace_azimuthal' ] =  25
         self.store[ 'nk_polar' ] =          15
@@ -15,8 +15,8 @@ class Limits:
         self.store[ 'ntemp' ] =             1
         self.store[ 'nAlpha' ] =            50
 
-        self.store[ 'energy_min' ] = 0.05
-        self.store[ 'energy_max' ] = 2 * self.store[ 'energy_min' ]
+        self.store[ 'energy_min' ] = -6.0
+        self.store[ 'energy_max' ] = -self.store[ 'energy_min' ]
 
         self.store[ 'space_radial_max' ] = 5.0
 
