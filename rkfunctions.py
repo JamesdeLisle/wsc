@@ -66,3 +66,5 @@ class RKFunctions:
                 + AV[ 'GAM_R_B' ] * ENV[ 'SIGMA_K_F' ] * AV[ 'GAM_A_F' ] \
                 + ENV[ 'SIGMA_K_B' ] )
 
+    #HOHOHOHOHOH
+
