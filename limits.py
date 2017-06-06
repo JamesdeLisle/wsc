@@ -36,6 +36,14 @@ class Limits:
         self.store[ 'temp_increment' ] = 1.0 / 200.0 
 
         self.store[ 'Alpha_limit' ] = -2.0 * self.store[ 'space_radial_max' ]
+        
+        self.store[ 'd_vector' ] = dict()
+        self.store[ 'd_vector' ][ 'a1' ] = 0.0
+        self.store[ 'd_vector' ][ 'a2' ] = 0.0
+        self.store[ 'd_vector' ][ 'a3' ] = 0.0
+        self.store[ 'd_vector' ][ 'a4' ] = 0.0
+
+        self.store[ 'supercurrent_phase' ] = 0.0
 
         self.store[ 'denergy' ] = ( self.store[ 'energy_max' ] - self.store[ 'energy_min' ] ) / self.store[ 'nenergy' ]
         self.store[ 'dspace_radial' ] = self.store[ 'space_radial_max' ] / self.store[ 'nspace_radial' ]
@@ -65,7 +73,9 @@ class Limits:
                                self.store[ 'space_radial_max' ], \
                                self.store[ 'space_azimuthal_min' ], \
                                self.store[ 'space_azimuthal_max' ], \
-                               self.store[ 'temp_increment' ] )   
+                               self.store[ 'temp_increment' ], \
+                               self.store[ 'd_vector' ], \
+                               self.store[ 'supercurrent_phase' ] )   
 
     def replaceStore( self, store ):
 

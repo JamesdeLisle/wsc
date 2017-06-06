@@ -109,7 +109,9 @@ class Constants:
                                                   space_radial_max, \
                                                   space_azimuthal_min, \
                                                   space_azimuthal_max, \
-                                                  temp_increment ):
+                                                  temp_increment, \
+                                                  d_vector, 
+                                                  supercurrent_phase ):
 
         self.store = dict()
         self.store[ 'T_c' ] = T_c
@@ -124,6 +126,8 @@ class Constants:
         self.store[ 'space_azimuthal_min' ] = space_azimuthal_min
         self.store[ 'space_azimuthal_max' ] = space_azimuthal_max
         self.store[ 'temp_increment' ] = temp_increment
+        self.store[ 'd_vector' ] = d_vector
+        self.store[ 'supercurrent_phase' ] = supercurrent_phase
 
     
     def __getitem__( self, key ):
