@@ -33,7 +33,7 @@ class LDOS:
                     dosTh = dosTh * ( 1 - self.data[ 'GAM_R_F' ][ index_in ] * self.data[ 'GAM_R_B' ][ index_in ] )
                     dosTh = dosTh / ( 1 + self.data[ 'GAM_R_F' ][ index_in ] * self.data[ 'GAM_R_B' ][ index_in ] )
                     dosTh = dosTh * dtheta / 3.0
-                    if itheta == 0 or itheta == self.limits[ 'nk_azimuthal' ]:
+                    if itheta == 0 or itheta == self.limits[ 'nk_azimuthal' ] - 1:
                         pass
                     elif itheta % 2 == 0:
                         dosTh = dosTh * 4.0
@@ -41,7 +41,7 @@ class LDOS:
                         dosTh = dosTh * 2.0
                     dosXi = dosXi + np.imag ( dosTh )
                 dosXi = dosXi * np.sin( xi ) * dxi / 3.0
-                if ixi == 0 or ixi == self.limits[ 'nk_polar' ]:
+                if ixi == 0 or ixi == self.limits[ 'nk_polar' ] - 1:
                     pass
                 elif ixi % 2 == 0:
                     dosXi = dosXi * 4.0
