@@ -7,13 +7,13 @@ class Limits:
         
         self.store = dict()
 
-        self.store[ 'nenergy' ] =           60
-        self.store[ 'nspace_radial' ] =     25
-        self.store[ 'nspace_azimuthal' ] =  25
-        self.store[ 'nk_polar' ] =          15
-        self.store[ 'nk_azimuthal' ] =      30
-        self.store[ 'ntemp' ] =             1
-        self.store[ 'nAlpha' ] =            50
+        self.store[ 'nenergy' ] =           10
+        self.store[ 'nspace_radial' ] =     2
+        self.store[ 'nspace_azimuthal' ] =  2
+        self.store[ 'nk_polar' ] =          2
+        self.store[ 'nk_azimuthal' ] =      2
+        self.store[ 'ntemp' ] =             10
+        self.store[ 'nAlpha' ] =            2
 
         self.store[ 'energy_min' ] = -6.0
         self.store[ 'energy_max' ] = -self.store[ 'energy_min' ]
@@ -44,6 +44,8 @@ class Limits:
         self.store[ 'dk_azimuthal' ] = ( self.store[ 'k_azimuthal_max' ] - self.store[ 'k_azimuthal_min' ] ) / self.store[ 'nk_azimuthal' ]
         self.store[ 'dtemp' ] = ( self.store[ 'temp_max' ] - self.store[ 'temp_min' ] ) / self.store[ 'ntemp' ]
         self.store[ 'dAlpha' ] = self.store[ 'Alpha_limit' ] / self.store[ 'nAlpha' ]
+
+        self.store[ 'info' ] = "The solution to the quasiclassical Eilenberger equation for a Weyl SC with vortex and lateral supercurrent"
 
 
     def __getitem__( self, key ):

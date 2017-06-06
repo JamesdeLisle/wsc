@@ -6,60 +6,70 @@ from multiprocessing import Pool, Manager
 import time
 import itertools
 
-
-t0 = time.time()
-
-L = lim.Limits()
-P = sp.ParamSpace( L )
-
 def worker( run_in ):
 
     motile = rk.RK( run_in )
     motile.doRK()
     return { 'index' : run_in[ 'index' ], 'value' : motile.getValue() }
 
-for ( iT, T ), ( iE, E ) in itertools.product( enumerate( P.temp ), enumerate( P.energy ) ):
-    
-    strings = [ 'GAM_R_F', 'GAM_R_B' ]
-    DATA = dict()
-
-    for string in strings:
-        print 'computing %s...' % ( string ) 
-        run = P.getRun( iT, iE, string )
-        p = Pool()
-        DATA[ string ] = p.map( worker, run ) 
-        p.close()
-        print time.time() - t0
+if __name__ == '__main__':
         
-    for string in strings:
-        P.updateData( DATA[ string ], string )
+    data_folder = 'data/'
+    t0 = time.time()
 
-    del DATA
-    DATA = dict()
+    L = lim.Limits()
+    P = sp.ParamSpace( L )
 
-    strings = [ 'DIST_F', 'DIST_B' ]
-
-    for string in strings:
-        print 'computing %s...' % ( string ) 
-        run = P.getRun( iT, iE, string )
-        p = Pool()
-        DATA[ string ] = p.map( worker, run ) 
-        p.close()
-        print time.time() - t0
-
-    for string in strings:
-        P.updateData( DATA[ string ], string )
+    run_time = time.strftime( '%Y%m%d%H%M' )
     
-    del DATA
+    for ( iT, T ), ( iE, E ) in itertools.product( enumerate( P.temp ), enumerate( P.energy ) ):
+        
+        P.initialiseData( ( iT, iE ) )    
+        strings = [ 'GAM_R_F', 'GAM_R_B' ]
+        DATA = dict()
 
-print 'Done!'
+        for string in strings:
+            ti = time.time()
+            print 'computing %s...' % ( string ) 
+            run = P.getRun( iT, iE, string )
+            p = Pool()
+            DATA[ string ] = p.map( worker, run ) 
+            p.close()
+            print time.time() - ti
+            
+        for string in strings:
+            P.updateData( DATA[ string ], string )
 
-print time.time() - t0
+        del DATA
 
-P.writeData( 'data/gdata.dat' )
+        DATA = dict()
 
-###################################
+        strings = [ 'DIST_F', 'DIST_B' ]
 
-A = ldos.LDOS( P )
-A.compute()
-A.writeData( 'data/ldos.dat' )
+        for string in strings:
+            ti = time.time()
+            print 'computing %s...' % ( string ) 
+            run = P.getRun( iT, iE, string )
+            p = Pool()
+            DATA[ string ] = p.map( worker, run ) 
+            p.close()
+            print time.time() - ti
+
+        for string in strings:
+            P.updateData( DATA[ string ], string )
+        
+        del DATA
+
+        P.writeData( '%s%s' % ( data_folder, run_time ) )
+        print '#######--%d-%d--#######' % ( iT, iE )
+
+    print 'Done!'
+
+    print time.time() - t0
+
+
+    ###################################
+
+    #A = ldos.LDOS( P )
+    #A.compute()
+    #A.writeData( 'data/ldos.dat' )

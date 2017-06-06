@@ -21,20 +21,16 @@ class ParamSpace:
         self.k_azimuthal    = np.linspace( limits[ 'k_azimuthal_min' ], limits[ 'k_azimuthal_max' ], limits[ 'nk_azimuthal' ] )
         self.temp           = np.linspace( limits[ 'temp_min' ], limits[ 'temp_max' ], limits[ 'ntemp' ] )
         
-        self.data = span = ( self.limits[ 'ntemp' ], \
-                             self.limits[ 'nenergy' ], \
-                             self.limits[ 'nspace_radial' ], \
-                             self.limits[ 'nspace_azimuthal' ], \
-                             self.limits[ 'nk_polar' ], \
-                             self.limits[ 'nk_azimuthal' ] )
+        self.span = ( self.limits[ 'nspace_radial' ], \
+                      self.limits[ 'nspace_azimuthal' ], \
+                      self.limits[ 'nk_polar' ], \
+                      self.limits[ 'nk_azimuthal' ] )
         
-        self.data = { string : np.zeros( shape=span, dtype=np.complex64 ) for string in self.strings } 
-
-    def getSlice( self, iT, iE, iXi, iTheta ):
+    def getSlice( self, iXi, iTheta ):
 
         out = dict()
-        out[ 'GAM_R_F' ] = self.data[ 'GAM_R_F' ][ iT, iE, :, :, iXi, iTheta ]
-        out[ 'GAM_R_B' ] = self.data[ 'GAM_R_B' ][ iT, iE, :, :, iXi, iTheta ]
+        out[ 'GAM_R_F' ] = self.data[ 'GAM_R_F' ][ :, :, iXi, iTheta ]
+        out[ 'GAM_R_B' ] = self.data[ 'GAM_R_B' ][ :, :, iXi, iTheta ]
         
         return out
 
@@ -49,19 +45,25 @@ class ParamSpace:
 
         for ( iR, R ), ( iPhi, Phi ), ( iXi, Xi ), ( iTheta, Theta ) in DOF: 
             index = ( iT, iE, iR, iPhi, iXi, iTheta )
-            run.append( cont.RunContainer( func_str, index, self.temp[ iT ], self.energy[ iE ], R, Phi, Xi, Theta, self.constants, self.getSlice( iT, iE, iXi, iTheta ) ) )
+            run.append( cont.RunContainer( func_str, index, self.temp[ iT ], self.energy[ iE ], R, Phi, Xi, Theta, self.constants, self.getSlice( iXi, iTheta ) ) )
         
         return run 
     
     def updateData( self, array, func_str ):
-
+        
         for element in array:
+            index = element[ 'index' ][ 2 : len( element[ 'index' ] ) ]
+            self.data[ func_str ][ index ] = element[ 'value' ]
 
-            self.data[ func_str ][ element[ 'index' ] ] = element[ 'value' ]
+    def initialiseData( self, label ):
+        
+        self.label = label
+        self.data = { string : np.zeros( shape=self.span, dtype=np.complex64 ) for string in self.strings }
 
     def writeData( self, path ):
         
-        with open( path, 'w' ) as f:
+        path_complete = path + '-T%02dE%02d' % ( self.label[0], self.label[1] )
+        with open( path_complete, 'w' ) as f:
             f.write( json.dumps( { 'param' : self.limits.store, 'data': self.data }, cls=NumericEncoder, indent=4, sort_keys=True ) )
         f.close()
 
@@ -70,3 +72,4 @@ class ParamSpace:
         with open( path, 'r' ) as f:
             content = json.loads( f.read(), cls=NumericDecoder )
         self.data = content[ 'data' ]
+        self.label = ( int( path[ -5 : -3 ] ), int( path[ -2 : ] ) )
