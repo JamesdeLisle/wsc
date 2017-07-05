@@ -2,4 +2,4 @@ data/
 kobayashi/
 testing/
 *.pyc
-
+.ipynb_checkpoints/

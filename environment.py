@@ -24,16 +24,16 @@ class Environment:
     def DELTA_R_F( self ):
         
         VAL = self.value_set
+        CON = VAL[ 'constants' ]
 
         a = 1.764 / ( 2 * np.pi ) 
-        b = np.tanh( np.sqrt( VAL[ 'constants' ][ 'T_c' ] / VAL[ 'temperature' ] - 1.0 ) ) 
-        c = np.tanh( VAL[ 'R_now' ] ) * np.exp( 1j * VAL[ 'P_now' ] )
-        d = np.sin( VAL[ 'k_polar' ] ) * np.exp( 1j * VAL[ 'k_azimuthal' ] )
+        b = np.tanh( np.sqrt( CON[ 'T_c' ] / VAL[ 'temperature' ] - 1.0 ) ) 
+        c = np.sin( VAL[ 'k_polar' ] ) * ( CON[ 'gamma' ] * np.cos( VAL[ 'k_azimuthal' ] ) + 1j * CON[ 'gamma_b' ] * np.cos( VAL[ 'k_azimuthal' ] ) )
         
-        if np.abs( a * b * c * d ) > 1.0:
+        if np.abs( a * b * c ) > 1.0:
             raise RuntimeWarning( 'The magnitude of the gap is greater than 1' )
-        
-        return a * b * c * d
+
+        return a * b * c
 
     def DELTA_R_B( self ):
 
@@ -42,16 +42,16 @@ class Environment:
     def DELTA_A_F( self ):
         
         VAL = self.value_set
+        CON = VAL[ 'constants' ]
 
         a = 1.764 / ( 2 * np.pi ) 
-        b = np.tanh( np.sqrt( VAL[ 'constants' ][ 'T_c' ] / VAL[ 'temperature' ] - 1.0 ) ) 
-        c = np.tanh( VAL[ 'R_now' ] ) * np.exp( 1j * VAL[ 'P_now' ] )
-        d = np.sin( VAL[ 'k_polar' ] ) * np.exp( 1j * VAL[ 'k_azimuthal' ] )
+        b = np.tanh( np.sqrt( CON[ 'T_c' ] / VAL[ 'temperature' ] - 1.0 ) ) 
+        c = np.sin( VAL[ 'k_polar' ] ) * ( CON[ 'gamma' ] * np.cos( VAL[ 'k_azimuthal' ] ) + 1j * CON[ 'gamma_b' ] * np.cos( VAL[ 'k_azimuthal' ] ) )
         
-        if np.abs( a * b * c * d ) > 1.0:
+        if np.abs( a * b * c ) > 1.0:
             raise RuntimeWarning( 'The magnitude of the gap is greater than 1' )
 
-        return a * b * c * d
+        return a * b * c
 
     def DELTA_A_B( self ):
 
