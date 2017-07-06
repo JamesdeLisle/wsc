@@ -27,14 +27,32 @@ class Boundary:
 
         return -ENV[ 'DELTA_R_F' ] / ( epsilon + 1j * np.sqrt( ENV[ 'DELTA_R_F' ] * np.conj( ENV[ 'DELTA_R_F' ] ) - epsilon * epsilon ) )
     
-    def GAM_R_B( self ):
+    def GAM_A_F( self ):
 
         VAL = self.value_set
         ENV = self.environment
 
         epsilon = VAL[ 'energy' ] - ( ENV[ 'SIGMA_R_F' ] - ENV[ 'SIGMA_R_B' ] ) / 2.0
 
-        return -ENV[ 'DELTA_R_B' ] / ( epsilon + 1j * np.sqrt( ENV[ 'DELTA_R_F' ] * np.conj( ENV[ 'DELTA_R_F' ] ) - epsilon * epsilon ) )
+        return -ENV[ 'DELTA_A_F' ] / ( epsilon - 1j * np.sqrt( ENV[ 'DELTA_A_F' ] * np.conj( ENV[ 'DELTA_A_F' ] ) - epsilon * epsilon ) )
+    
+    def GAM_R_B( self ):
+
+        VAL = self.value_set
+        ENV = self.environment
+
+        epsilon = VAL[ 'energy' ] - ( ENV[ 'SIGMA_A_F' ] - ENV[ 'SIGMA_A_B' ] ) / 2.0
+
+        return -ENV[ 'DELTA_R_B' ] / ( epsilon + 1j * np.sqrt( ENV[ 'DELTA_R_B' ] * np.conj( ENV[ 'DELTA_R_B' ] ) - epsilon * epsilon ) )
+    
+    def GAM_A_B( self ):
+
+        VAL = self.value_set
+        ENV = self.environment
+
+        epsilon = VAL[ 'energy' ] - ( ENV[ 'SIGMA_A_F' ] - ENV[ 'SIGMA_A_B' ] ) / 2.0
+
+        return -ENV[ 'DELTA_A_B' ] / ( epsilon - 1j * np.sqrt( ENV[ 'DELTA_A_B' ] * np.conj( ENV[ 'DELTA_A_B' ] ) - epsilon * epsilon ) )
 
     def DIST_F( self ):
         
@@ -59,3 +77,34 @@ class Boundary:
                 / ( 2.0 * VAL[ 'temperature' ] * VAL[ 'temperature' ] \
                 * np.cosh( -2.0 * np.pi * VAL[ 'energy' ] / ( 2.0 * VAL[ 'temperature' ] ) ) \
                 * np.cosh( -2.0 * np.pi * VAL[ 'energy' ] / ( 2.0 * VAL[ 'temperature' ] ) ) )
+
+    def g_RET( self ):
+        
+        NORM = np.zeros( shape=(2,2), dtype=np.complex128 )
+        NORM[ 0, 0 ] = 1.0 - self.GAM_R_F() * self.GAM_R_B() 
+        NORM[ 1, 1 ] = 1.0 - self.GAM_R_F() * self.GAM_R_B() 
+
+        GRET = np.zeros( shape=(2,2), dtype=np.complex128 )
+        GRET[ 0, 0 ] = 1 + self.GAM_R_F() * self.GAM_R_B()
+        GRET[ 1, 1 ] = -1 - self.GAM_R_F() * self.GAM_R_B()
+        GRET[ 0, 1 ] = 2 * self.GAM_R_F()
+        GRET[ 1, 0 ] = -2 * self.GAM_R_B()
+
+        return np.dot( NORM, GRET )
+
+    def g_KEL( self ):
+        
+        NORMR = np.zeros( shape=(2,2), dtype=np.complex128 )
+        NORMR[ 0, 0 ] = 1.0 - self.GAM_R_F() * self.GAM_R_B() 
+        NORMR[ 1, 1 ] = 1.0 - self.GAM_R_F() * self.GAM_R_B() 
+        NORMA = np.zeros( shape=(2,2), dtype=np.complex128 )
+        NORMA[ 0, 0 ] = 1.0 - self.GAM_A_F() * self.GAM_A_B() 
+        NORMA[ 1, 1 ] = 1.0 - self.GAM_A_F() * self.GAM_A_B() 
+
+        GKEL = np.zeros( shape=(2,2), dtype=np.complex128 )
+        GKEL[ 0, 0 ] = self.DIST_F() - self.GAM_R_F() * self.DIST_B() * self.GAM_A_B() 
+        GKEL[ 1, 1 ] = self.DIST_B() - self.GAM_R_B() * self.DIST_F() * self.GAM_A_F() 
+        GKEL[ 0, 1 ] = -self.GAM_R_F * self.DIST_B() + self.DIST_F() * self.GAM_A_F() 
+        GKEL[ 1, 0 ] = -self.GAM_R_B * self.DIST_F() + self.DIST_B() * self.GAM_A_B() 
+
+        return -2j * np.pi * np.dot( np.dot( NORMR, GKEL ), NORMA )

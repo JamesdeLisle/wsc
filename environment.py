@@ -80,3 +80,41 @@ class Environment:
     def SIGMA_K_B( self ):
 
         return -1j * 0.01
+
+    def HAM_R( self ):
+
+        HAMR = np.zeros( shape=(2,2), dtype=np.complex128 )
+        HAMR[ 0, 0 ] = self.SIGMA_R_F()
+        HAMR[ 1, 1 ] = self.SIGMA_R_B()
+        HAMR[ 0, 1 ] = self.DELTA_R_F()
+        HAMR[ 1, 0 ] = self.DELTA_R_B()
+
+        return HAMR
+
+    def HAM_A( self ):
+
+        HAMA = np.zeros( shape=(2,2), dtype=np.complex128 )
+        HAMA[ 0, 0 ] = self.SIGMA_A_F()
+        HAMA[ 1, 1 ] = self.SIGMA_A_B()
+        HAMA[ 0, 1 ] = self.DELTA_A_F()
+        HAMA[ 1, 0 ] = self.DELTA_A_B()
+
+        return HAMA
+
+    def HAM_A( self ):
+
+        HAMA = np.zeros( shape=(2,2), dtype=np.complex128 )
+        HAMA[ 0, 0 ] = self.SIGMA_A_F()
+        HAMA[ 1, 1 ] = self.SIGMA_A_B()
+        HAMA[ 0, 1 ] = self.DELTA_A_F()
+        HAMA[ 1, 0 ] = self.DELTA_A_B()
+
+        return HAMA
+
+    def HAMK( self ):
+
+        HAMK = np.zeros( shape=(2,2), dtype=np.complex128 )
+        HAMK[ 0, 0 ] = self.SIGMA_K_F()
+        HAMK[ 1, 1 ] = self.SIGMA_K_B()
+
+        return HAMK
