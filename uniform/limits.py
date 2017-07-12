@@ -1,5 +1,4 @@
 import numpy as np
-import container as cont
 
 class Limits:
     
@@ -31,13 +30,21 @@ class Limits:
         self.store[ 'Alpha_min' ] = -2.0 * 6
         self.store[ 'Alpha_max' ] = 0.0
 
+        self.store[ 'a1' ] = 1.0
+        self.store[ 'a2' ] = 1.0
+        self.store[ 'a3' ] = 1.0
+        self.store[ 'a4' ] = 1.0
+
+        self.store[ 'gamma' ] = self.store[ 'a1' ] - self.store[ 'a4' ]
+        self.store[ 'gamma_b' ] = self.store[ 'a2' ] + self.store[ 'a3' ]
+
         self.store[ 'denergy' ] = ( self.store[ 'energy_max' ] - self.store[ 'energy_min' ] ) / self.store[ 'nenergy' ]
         self.store[ 'dk_polar' ] = ( self.store[ 'k_polar_max' ] - self.store[ 'k_polar_min' ] ) / self.store[ 'nk_polar' ]
         self.store[ 'dk_azimuthal' ] = ( self.store[ 'k_azimuthal_max' ] - self.store[ 'k_azimuthal_min' ] ) / self.store[ 'nk_azimuthal' ]
         self.store[ 'dtemp' ] = ( self.store[ 'temp_max' ] - self.store[ 'temp_min' ] ) / self.store[ 'ntemp' ]
-        self.store[ 'dAlpha' ] = self.store[ 'Alpha_limit' ] / self.store[ 'nAlpha' ]
+        self.store[ 'dAlpha' ] = ( self.store[ 'Alpha_max' ] - self.store[ 'Alpha_min' ] ) / self.store[ 'nAlpha' ]
 
-        self.store[ 'info' ] = "The solution to the quasiclassical Eilenberger equation for a Weyl SC with vortex and lateral supercurrent"
+        self.store[ 'info' ] = "The solution to the quasiclassical Eilenberger equation for a Weyl SC in uniform Magnetic field and parallel heat current"
 
 
     def __getitem__( self, key ):
@@ -46,7 +53,7 @@ class Limits:
 
     def getConstants( self ):
         
-        keys = [ 'T_c', 'Alpha_limit', 'nAlpha', 'dAlpha', 'temp_increment' ]
+        keys = [ 'T_c', 'nAlpha', 'dAlpha', 'temp_increment', 'gamma', 'gamma_b', 'temp_increment' ]
 
         return dict( ( key, self.store[ key ] ) for key in keys ) 
 

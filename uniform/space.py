@@ -2,6 +2,7 @@ import itertools
 import numpy as np
 from jsci.Coding import NumericEncoder, NumericDecoder
 import json
+import os
 
 class RunContainer:
 
@@ -31,7 +32,7 @@ class RunContainer:
         
         x = self.store[ 'Alpha' ] * np.sin( self.store[ 'k_polar' ] ) * np.cos( self.store[ 'k_azimuthal' ] ) 
         y = self.store[ 'Alpha' ] * np.sin( self.store[ 'k_polar' ] ) * np.sin( self.store[ 'k_azimuthal' ] ) 
-        z = self.store[ 'Alpha' ] * np.cos( xi ) 
+        z = self.store[ 'Alpha' ] * np.cos( self.store[ 'k_polar' ] ) 
         
         return { 'R_now' : np.sqrt( x * x + y * y ), 'P_now' : np.arctan2( y, x ), 'Z_now' : self.store[ 'Alpha' ] * np.cos( self.store[ 'k_polar' ] ) }
 
@@ -43,7 +44,7 @@ class ParamSpace:
         self.limits = limits
         self.constants = self.limits.getConstants()
         
-        self.strings = [ 'GAM_R_F', 'GAM_R_B', 'GAM_A_F', 'GAM_A_B', 'DIST_F', 'DIST_B' ]
+        self.strings = [ 'g_RET', 'g_KEL' ]
 
         self.temp           = np.linspace( limits[ 'temp_min' ], limits[ 'temp_max' ], limits[ 'ntemp' ] )
         self.energy         = np.linspace( limits[ 'energy_min' ], limits[ 'energy_max' ], limits[ 'nenergy' ] )
@@ -56,6 +57,10 @@ class ParamSpace:
                       self.limits[ 'nk_azimuthal' ], \
                       2, \
                       2 )
+
+        if not os.path.exists( 'data/' ):
+            os.makedirs( 'data/' )
+
 
     def getRun( self, iT, iE, func_str ):
 
@@ -84,7 +89,7 @@ class ParamSpace:
 
     def writeData( self, path ):
         
-        path_complete = path + '-T%03dE%03d' % ( self.label[0], self.label[1] )
+        path_complete = path + '-G0-T%03dE%03d' % ( self.label[0], self.label[1] )
         with open( path_complete, 'w' ) as f:
             f.write( json.dumps( { 'param' : self.limits.store, 'data': self.data }, cls=NumericEncoder, indent=4, sort_keys=True ) )
         f.close()

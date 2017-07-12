@@ -17,6 +17,10 @@ class Uniform:
         self.store[ 'g_RET' ] = self.g_RET
         self.store[ 'g_KEL' ] = self.g_KEL
 
+    def __getitem__( self, key ):
+
+        return self.store[ key ]()
+    
     def GAM_R_F( self ):
         
         ENV = self.environment
@@ -58,26 +62,24 @@ class Uniform:
         VAL = self.value_set
         ENV = self.environment 
         
-        return VAL[ 'temp_gradient' ] \
-                * ( 1.0 - VAL[ 'data' ][ 'GAM_R_F' ] * VAL[ 'data' ][ 'GAM_A_B' ] ) \
+        return ( 1.0 -self.GAM_R_F() * self.GAM_A_B() ) \
                 * ( -VAL[ 'energy' ] ) \
                 / ( 2.0 * VAL[ 'temperature' ] * VAL[ 'temperature' ] \
                 * np.cosh( VAL[ 'energy' ] / ( 2.0 * VAL[ 'temperature' ] ) ) \
                 * np.cosh( VAL[ 'energy' ] / ( 2.0 * VAL[ 'temperature' ] ) ) ) \
-                * VAL[ 'Z_now' ] * VAL[ 'temp_increment' ] 
+                * VAL[ 'Z_now' ] * VAL[ 'constants' ][ 'temp_increment' ] 
     
     def DIST_B( self ):
         
         VAL = self.value_set
         ENV = self.environment 
         
-        return VAL[ 'temp_gradient' ] \
-                * ( 1.0 - VAL[ 'data' ][ 'GAM_R_F' ] * VAL[ 'data' ][ 'GAM_A_B' ] ) \
+        return ( 1.0 - self.GAM_R_F() * self.GAM_A_B() ) \
                 * ( 2.0 * np.pi * VAL[ 'energy' ] ) \
                 / ( 2.0 * VAL[ 'temperature' ] * VAL[ 'temperature' ] \
                 * np.cosh( -2.0 * np.pi * VAL[ 'energy' ] / ( 2.0 * VAL[ 'temperature' ] ) ) \
                 * np.cosh( -2.0 * np.pi * VAL[ 'energy' ] / ( 2.0 * VAL[ 'temperature' ] ) ) ) \
-                * VAL[ 'Z_now' ] * VAL[ 'temp_increment' ] 
+                * VAL[ 'Z_now' ] * VAL[ 'constants' ][ 'temp_increment' ] 
 
     def g_RET( self ):
         
@@ -105,7 +107,7 @@ class Uniform:
         GKEL = np.zeros( shape=(2,2), dtype=np.complex128 )
         GKEL[ 0, 0 ] = self.DIST_F() - self.GAM_R_F() * self.DIST_B() * self.GAM_A_B() 
         GKEL[ 1, 1 ] = self.DIST_B() - self.GAM_R_B() * self.DIST_F() * self.GAM_A_F() 
-        GKEL[ 0, 1 ] = -self.GAM_R_F * self.DIST_B() + self.DIST_F() * self.GAM_A_F() 
-        GKEL[ 1, 0 ] = -self.GAM_R_B * self.DIST_F() + self.DIST_B() * self.GAM_A_B() 
+        GKEL[ 0, 1 ] = -self.GAM_R_F() * self.DIST_B() + self.DIST_F() * self.GAM_A_F() 
+        GKEL[ 1, 0 ] = -self.GAM_R_B() * self.DIST_F() + self.DIST_B() * self.GAM_A_B() 
 
         return -2j * np.pi * np.dot( np.dot( NORMR, GKEL ), NORMA )
