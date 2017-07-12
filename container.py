@@ -171,6 +171,8 @@ class ValueSet:
                 + self.store[ 'Alpha' ] * np.sin( self.store[ 'k_polar' ] ) * np.cos( self.store[ 'k_azimuthal' ] ) 
         y = self.store[ 'space_radial' ] * np.sin ( self.store[ 'space_azimuthal' ] ) \
                 + self.store[ 'Alpha' ] * np.sin( self.store[ 'k_polar' ] ) * np.sin( self.store[ 'k_azimuthal' ] ) 
-        
+        z = self.store[ 'Alpha' ] * np.cos( xi ) 
+
         self.store[ 'R_now' ] = np.sqrt( x * x + y * y )
         self.store[ 'P_now' ] = np.arctan2( y, x )
+        self.store[ 'Z_now' ] = z 

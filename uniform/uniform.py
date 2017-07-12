@@ -1,60 +1,57 @@
-import numpy as np
 import environment as env
+import numpy as np
 
-
-class Boundary:
+class Uniform:
 
     def __init__( self, value_set ):
-        
+
         self.value_set = value_set
         self.environment = env.Environment( value_set )
         self.store = dict()
         self.store[ 'GAM_R_F' ] = self.GAM_R_F
         self.store[ 'GAM_R_B' ] = self.GAM_R_B
+        self.store[ 'GAM_A_F' ] = self.GAM_A_F
+        self.store[ 'GAM_A_B' ] = self.GAM_A_B
         self.store[ 'DIST_F' ] = self.DIST_F
         self.store[ 'DIST_B' ] = self.DIST_B
         self.store[ 'g_RET' ] = self.g_RET
         self.store[ 'g_KEL' ] = self.g_KEL
 
-    def get( self ):
-
-        return self.store[ self.value_set[ 'func_str' ] ]()
-
     def GAM_R_F( self ):
-
-        VAL = self.value_set
+        
         ENV = self.environment
+        VAL = self.value_set
 
         epsilon = VAL[ 'energy' ] - ( ENV[ 'SIGMA_R_F' ] - ENV[ 'SIGMA_R_B' ] ) / 2.0
 
-        return -ENV[ 'DELTA_R_F' ] / ( epsilon + 1j * np.sqrt( ENV[ 'DELTA_R_F' ] * np.conj( ENV[ 'DELTA_R_F' ] ) - epsilon * epsilon ) )
+        return ENV[ 'DELTA_R_F' ] / ( epsilon + 1j * np.sqrt( ENV[ 'DELTA_R_F' ] * np.conj( ENV[ 'DELTA_R_F' ] ) - epsilon * epsilon ) )
+
+    def GAM_R_B( self ):
+        
+        ENV = self.environment
+        VAL = self.value_set
+
+        epsilon = VAL[ 'energy' ] - ( ENV[ 'SIGMA_R_F' ] - ENV[ 'SIGMA_R_B' ] ) / 2.0
+
+        return -np.conj( ENV[ 'DELTA_R_B' ] ) / ( epsilon + 1j * np.sqrt( ENV[ 'DELTA_R_B' ] * np.conj( ENV[ 'DELTA_R_B' ] ) - epsilon * epsilon ) )
     
     def GAM_A_F( self ):
-
-        VAL = self.value_set
+        
         ENV = self.environment
+        VAL = self.value_set
 
         epsilon = VAL[ 'energy' ] - ( ENV[ 'SIGMA_R_F' ] - ENV[ 'SIGMA_R_B' ] ) / 2.0
 
-        return -ENV[ 'DELTA_A_F' ] / ( epsilon - 1j * np.sqrt( ENV[ 'DELTA_A_F' ] * np.conj( ENV[ 'DELTA_A_F' ] ) - epsilon * epsilon ) )
-    
-    def GAM_R_B( self ):
+        return ENV[ 'DELTA_A_F' ] / ( epsilon + 1j * np.sqrt( ENV[ 'DELTA_A_F' ] * np.conj( ENV[ 'DELTA_A_F' ] ) - epsilon * epsilon ) )
 
-        VAL = self.value_set
-        ENV = self.environment
-
-        epsilon = VAL[ 'energy' ] - ( ENV[ 'SIGMA_A_F' ] - ENV[ 'SIGMA_A_B' ] ) / 2.0
-
-        return -ENV[ 'DELTA_R_B' ] / ( epsilon + 1j * np.sqrt( ENV[ 'DELTA_R_B' ] * np.conj( ENV[ 'DELTA_R_B' ] ) - epsilon * epsilon ) )
-    
     def GAM_A_B( self ):
-
-        VAL = self.value_set
+        
         ENV = self.environment
+        VAL = self.value_set
 
-        epsilon = VAL[ 'energy' ] - ( ENV[ 'SIGMA_A_F' ] - ENV[ 'SIGMA_A_B' ] ) / 2.0
+        epsilon = VAL[ 'energy' ] - ( ENV[ 'SIGMA_R_F' ] - ENV[ 'SIGMA_R_B' ] ) / 2.0
 
-        return -ENV[ 'DELTA_A_B' ] / ( epsilon - 1j * np.sqrt( ENV[ 'DELTA_A_B' ] * np.conj( ENV[ 'DELTA_A_B' ] ) - epsilon * epsilon ) )
+        return -np.conj( ENV[ 'DELTA_A_B' ] ) / ( epsilon + 1j * np.sqrt( ENV[ 'DELTA_A_B' ] * np.conj( ENV[ 'DELTA_A_B' ] ) - epsilon * epsilon ) )
 
     def DIST_F( self ):
         
@@ -66,7 +63,8 @@ class Boundary:
                 * ( -VAL[ 'energy' ] ) \
                 / ( 2.0 * VAL[ 'temperature' ] * VAL[ 'temperature' ] \
                 * np.cosh( VAL[ 'energy' ] / ( 2.0 * VAL[ 'temperature' ] ) ) \
-                * np.cosh( VAL[ 'energy' ] / ( 2.0 * VAL[ 'temperature' ] ) ) ) 
+                * np.cosh( VAL[ 'energy' ] / ( 2.0 * VAL[ 'temperature' ] ) ) ) \
+                * VAL[ 'Z_now' ] * VAL[ 'temp_increment' ] 
     
     def DIST_B( self ):
         
@@ -78,7 +76,8 @@ class Boundary:
                 * ( 2.0 * np.pi * VAL[ 'energy' ] ) \
                 / ( 2.0 * VAL[ 'temperature' ] * VAL[ 'temperature' ] \
                 * np.cosh( -2.0 * np.pi * VAL[ 'energy' ] / ( 2.0 * VAL[ 'temperature' ] ) ) \
-                * np.cosh( -2.0 * np.pi * VAL[ 'energy' ] / ( 2.0 * VAL[ 'temperature' ] ) ) )
+                * np.cosh( -2.0 * np.pi * VAL[ 'energy' ] / ( 2.0 * VAL[ 'temperature' ] ) ) ) \
+                * VAL[ 'Z_now' ] * VAL[ 'temp_increment' ] 
 
     def g_RET( self ):
         
