@@ -16,6 +16,9 @@ class Environment:
         self.store[ 'SIGMA_A_B' ] = self.SIGMA_A_B
         self.store[ 'SIGMA_K_F' ] = self.SIGMA_K_F
         self.store[ 'SIGMA_K_B' ] = self.SIGMA_K_B
+        self.store[ 'HAM_R' ] = self.HAM_R
+        self.store[ 'HAM_A' ] = self.HAM_A
+        self.store[ 'HAM_K' ] = self.HAM_K
 
     def __getitem__( self, key ):
 
@@ -101,17 +104,7 @@ class Environment:
 
         return HAMA
 
-    def HAM_A( self ):
-
-        HAMA = np.zeros( shape=(2,2), dtype=np.complex128 )
-        HAMA[ 0, 0 ] = self.SIGMA_A_F()
-        HAMA[ 1, 1 ] = self.SIGMA_A_B()
-        HAMA[ 0, 1 ] = self.DELTA_A_F()
-        HAMA[ 1, 0 ] = self.DELTA_A_B()
-
-        return HAMA
-
-    def HAMK( self ):
+    def HAM_K( self ):
 
         HAMK = np.zeros( shape=(2,2), dtype=np.complex128 )
         HAMK[ 0, 0 ] = self.SIGMA_K_F()

@@ -8,7 +8,7 @@ class Limits:
 
         self.store[ 'nenergy' ] =           10
         self.store[ 'nk_polar' ] =          2
-        self.store[ 'nk_azimuthal' ] =      2
+        self.store[ 'nk_azimuthal' ] =      4
         self.store[ 'ntemp' ] =             10
         self.store[ 'nAlpha' ] =            2
 
@@ -35,6 +35,8 @@ class Limits:
         self.store[ 'a3' ] = 1.0
         self.store[ 'a4' ] = 1.0
 
+        self.store[ 'B_z' ] = 1.0
+
         self.store[ 'gamma' ] = self.store[ 'a1' ] - self.store[ 'a4' ]
         self.store[ 'gamma_b' ] = self.store[ 'a2' ] + self.store[ 'a3' ]
 
@@ -53,7 +55,7 @@ class Limits:
 
     def getConstants( self ):
         
-        keys = [ 'T_c', 'nAlpha', 'dAlpha', 'temp_increment', 'gamma', 'gamma_b', 'temp_increment' ]
+        keys = [ 'T_c', 'nAlpha', 'dAlpha', 'temp_increment', 'gamma', 'gamma_b', 'temp_increment', 'B_z' ]
 
         return dict( ( key, self.store[ key ] ) for key in keys ) 
 

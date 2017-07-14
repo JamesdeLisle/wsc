@@ -1,4 +1,4 @@
-import environment as env
+import gen.env as env 
 import numpy as np
 
 class Uniform:
