@@ -3,6 +3,7 @@ import numpy as np
 from jsci.Coding import NumericEncoder, NumericDecoder
 import json
 import os
+import copy
 
 class RunContainer:
 
@@ -24,7 +25,7 @@ class RunContainer:
    
     def getSet( self ):
         
-        keys = [ 'temperature', 'energy', 'k_polar', 'k_azimuthal', 'constants', 'Alpha' ]
+        keys = [ 'temperature', 'energy', 'k_polar', 'k_azimuthal', 'constants', 'Alpha', 'data' ]
 
         return dict( dict( ( key, self.store[ key ] ) for key in keys ), **self.getTransSpace() )
 
@@ -69,6 +70,7 @@ class ParamSpace:
                                  enumerate( self.k_azimuthal ) )
         
         path = self.data_folder + self.run_time + '-G0-T%03dE%03d' % self.label
+        
         with open( path, 'r' ) as f:
             content = json.loads( f.read(), cls=NumericDecoder )
         g0_data = content[ 'data' ][ 'g_RET' ]
@@ -84,11 +86,12 @@ class ParamSpace:
                 iTheta_F = 0
             if iTheta - 1 < 0:
                 iTheta_B = self.limits[ 'nk_azimuthal' ] - 1
-
-            dg0 = ( g0_data[ 0, iXi, iTheta_F, :, : ] - g0_data[ 0, iXi, iTheta_B, :, : ] ) / 2.0 * self.limits[ 'dk_azimuthal' ]
+            
+            dg0 = copy.deepcopy( ( g0_data[ 0, iXi, iTheta_F, :, : ] - g0_data[ 0, iXi, iTheta_B, :, : ] ) / 2.0 * self.limits[ 'dk_azimuthal' ] )
             run.append( RunContainer( index, self.temp[ self.label[0] ], self.energy[ self.label[1] ], Alpha, Xi, Theta, self.constants, dg0  ) )
-        
+
         return run 
+
     
     def updateData( self, array, func_str ):
         
