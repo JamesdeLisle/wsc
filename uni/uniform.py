@@ -1,14 +1,15 @@
-import unispace
+import uniparam
 import unifunc
 from multiprocessing import Pool
 import itertools
 
 
-def worker(run_in):
+def worker(runValue):
 
-    U = unifunc.Uniform(run_in.getSet())
+    U = unifunc.Uniform(runValue)
 
-    return {'index': run_in['index'], 'value': U[run_in['func_str']]}
+    return {'index': runValue.index,
+            'value': U[runValue.string]}
 
 
 class UniformMain:
@@ -21,7 +22,7 @@ class UniformMain:
 
     def run(self):
 
-        P = unispace.ParamSpace(self.limits)
+        P = uniparam.ParamSpace(self.limits)
 
         for (iT, T), (iE, E) in itertools.product(enumerate(P.temp),
                                                   enumerate(P.energy)):

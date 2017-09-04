@@ -1,120 +1,87 @@
 import numpy as np
 
 
-class Environment:
+class Environment(object):
 
-    def __init__(self, value_set):
+    def __init__(self, runVal):
 
-        self.value_set = value_set
-        self.store = dict()
-        self.store['DELTA_R_F'] = self.DELTA_R_F
-        self.store['DELTA_R_B'] = self.DELTA_R_B
-        self.store['DELTA_A_F'] = self.DELTA_A_F
-        self.store['DELTA_A_B'] = self.DELTA_A_B
-        self.store['SIGMA_R_F'] = self.SIGMA_R_F
-        self.store['SIGMA_R_B'] = self.SIGMA_R_B
-        self.store['SIGMA_A_F'] = self.SIGMA_A_F
-        self.store['SIGMA_A_B'] = self.SIGMA_A_B
-        self.store['SIGMA_K_F'] = self.SIGMA_K_F
-        self.store['SIGMA_K_B'] = self.SIGMA_K_B
-        self.store['HAM_R'] = self.HAM_R
-        self.store['HAM_A'] = self.HAM_A
-        self.store['HAM_K'] = self.HAM_K
+        self.runVal = runVal
+        self.runVal.compSpace()
 
-    def __getitem__(self, key):
+    @property
+    def thermD(self):
 
-        return self.store[key]()
+        V = self.runVal
+        L = self.runVal.lim
 
-    def DELTA_R_F(self):
+        rv = -V.ener * V.Z * L.tempInc
+        rv /= (2
+               * V.temp
+               * V.temp
+               * np.cosh(V.ener / (2 * V.temp))
+               * np.cosh(V.ener / (2 * V.temp)))
 
-        VAL = self.value_set
-        CON = VAL['constants']
+        return rv
 
-        a = 1.764 / (2 * np.pi)
-        b = np.tanh(np.sqrt(CON['T_c'] / VAL['temperature'] - 1.0))
-        c = np.sin(VAL['k_polar']) * (CON['gamma1']
-                                      * np.cos(VAL['k_azimuthal'])
-                                      + 1j * CON['gamma2']
-                                      * np.cos(VAL['k_azimuthal']))
+    @property
+    def deltaR(self):
 
-        if np.abs(a * b * c) > 1.0:
-            raise RuntimeWarning('The magnitude of the gap is greater than 1')
+        V = self.runVal
+        L = self.runVal.lim
 
-        return a * b * c
+        rv = 1.0
+        rv *= 1.764 / (2 * np.pi)
+        rv *= np.tanh(np.sqrt(L.T_c / V.temp - 1.0))
+        rv *= np.sin(V.Xi)
+        rv *= (L.gamma1 * np.cos(V.Theta) + 1j * L.gamma2 * np.cos(V.Theta))
 
-    def DELTA_R_B(self):
+        return rv
 
-        return -np.conj(self.DELTA_R_F())
+    @property
+    def deltaA(self):
 
-    def DELTA_A_F(self):
+        return self.deltaR
 
-        VAL = self.value_set
-        CON = VAL['constants']
-
-        a = 1.764 / (2 * np.pi)
-        b = np.tanh(np.sqrt(CON['T_c'] / VAL['temperature'] - 1.0))
-        c = np.sin(VAL['k_polar']) * (CON['gamma1']
-                                      * np.cos(VAL['k_azimuthal'])
-                                      + 1j * CON['gamma2']
-                                      * np.cos(VAL['k_azimuthal']))
-
-        if np.abs(a * b * c) > 1.0:
-            raise RuntimeWarning('The magnitude of the gap is greater than 1')
-
-        return a * b * c
-
-    def DELTA_A_B(self):
-
-        return -np.conj(self.DELTA_A_F())
-
-    def SIGMA_R_F(self):
+    @property
+    def sigmaR(self):
 
         return -1j * 0.01
 
-    def SIGMA_R_B(self):
+    @property
+    def sigmaA(self):
 
         return 1j * 0.01
 
-    def SIGMA_A_F(self):
+    @property
+    def sigmaK(self):
 
         return 1j * 0.01
 
-    def SIGMA_A_B(self):
+    @property
+    def hamR(self):
 
-        return -1j * 0.01
+        rv = np.zeros(shape=(2, 2), dtype=np.complex128)
+        rv[0, 0] = self.sigmaR
+        rv[1, 1] = np.conj(self.sigmaR)
+        rv[0, 1] = self.deltaR
+        rv[1, 0] = -np.conj(self.deltaR)
 
-    def SIGMA_K_F(self):
+        return rv
 
-        return 1j * 0.01
+    @property
+    def hamA(self):
 
-    def SIGMA_K_B(self):
+        rv = np.zeros(shape=(2, 2), dtype=np.complex128)
+        rv[0, 0] = self.sigmaA
+        rv[1, 1] = np.conj(self.sigmaA)
+        rv[0, 1] = self.deltaA
+        rv[1, 0] = -np.conj(self.deltaA)
 
-        return -1j * 0.01
+        return rv
 
-    def HAM_R(self):
+    @property
+    def hamK(self):
 
-        HAMR = np.zeros(shape=(2, 2), dtype=np.complex128)
-        HAMR[0, 0] = self.SIGMA_R_F()
-        HAMR[1, 1] = self.SIGMA_R_B()
-        HAMR[0, 1] = self.DELTA_R_F()
-        HAMR[1, 0] = self.DELTA_R_B()
+        rv = (self.hamR - self.hamA) * self.thermD
 
-        return HAMR
-
-    def HAM_A(self):
-
-        HAMA = np.zeros(shape=(2, 2), dtype=np.complex128)
-        HAMA[0, 0] = self.SIGMA_A_F()
-        HAMA[1, 1] = self.SIGMA_A_B()
-        HAMA[0, 1] = self.DELTA_A_F()
-        HAMA[1, 0] = self.DELTA_A_B()
-
-        return HAMA
-
-    def HAM_K(self):
-
-        HAMK = np.zeros(shape=(2, 2), dtype=np.complex128)
-        HAMK[0, 0] = self.SIGMA_K_F()
-        HAMK[1, 1] = self.SIGMA_K_B()
-
-        return HAMK
+        return rv
