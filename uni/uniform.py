@@ -7,6 +7,7 @@ import os
 
 def worker(runValue):
 
+    runValue.compSpace()
     U = unifunc.Uniform(runValue)
 
     return {'index': runValue.index,
@@ -52,7 +53,7 @@ class UniformMain:
 
             del DATA
 
-            P.writeData(os.join(self.data_folder, self.start_time))
+            P.writeData(os.path.join(self.data_folder, self.start_time))
             print '#######--%d-%d--#######' % (iT, iE)
 
         print 'Done!'

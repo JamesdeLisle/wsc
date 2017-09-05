@@ -4,29 +4,26 @@ import numpy as np
 
 class Retarded:
 
-    def __init__(self, value_set, dG0):
+    def __init__(self, runVal):
 
-        self.value_set = value_set
-        self.environment = env.Environment(value_set)
-        self.dG0 = dG0
-        self.store = dict()
+        self.runVal = runVal
+        self.envi = env.Environment(runVal)
 
-    def g_RET_FUNC(self, G_IN):
+    @property
+    def gR1(self):
 
-        VAL = self.value_set
-        ENV = self.environment
+        V = self.runVal
+        E = self.envi
 
-        epsilon = np.zeros(shape=(2, 2))
-        epsilon[0, 0] = VAL['energy']
-        epsilon[1, 1] = -VAL['energy']
+        delsq = np.abs(E.deltaR) * np.abs(E.deltaR)
+        epsil = 1j * (V.ener - E.sigmaR)
 
-        # print epsilon
-        # print ENV[ 'HAM_R' ]
-        # print G_IN
-        # print self.commute( epsilon - ENV[ 'HAM_R' ], G_IN )
+        rv = np.zeros(shape=(2, 2), dtype=np.complex128)
+        rv[0, 1] = -E.deltaR - (1j * V.dg0[0, 0]) / (2 * np.conj(E.deltaR))
+        rv[1, 0] = np.conj(E.deltaR) + (1j * V.dg0[0, 0]) / (2 * E.deltaR)
+        rv[0, 0] = (1.0 / delsq) * (epsil * (2 * delsq + 1j * V.dg0[1, 1])
+                                    + np.conj(E.deltaR) * 1j * V.dg0[0, 1])
+        rv[1, 1] = (1.0 / delsq) * (-epsil * (2 * delsq + 1j * V.dg0[1, 1])
+                                    - np.conj(E.deltaR) * 1j * V.dg0[1, 0])
 
-        return self.dG0 + self.commute(epsilon - ENV['HAM_R'], G_IN)
-
-    def commute(self, A, B):
-
-        return np.dot(A, B) - np.dot(B, A)
+        return rv

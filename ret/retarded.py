@@ -1,59 +1,65 @@
-import retspace
 import retfunc
-import retmc
+import retparam
 from multiprocessing import Pool
 import itertools
+import os
 
 
-def worker(run_in):
+def worker(runValue):
 
-    F = retfunc.Retarded(run_in.getSet(), run_in['data'])
-    M = retmc.MonteCarlo(F)
-    out = M.do()
+    U = retfunc.Retarded(runValue)
 
-    return {'index': run_in['index'], 'value': out}
+    return {'index': runValue.index,
+            'value': getattr(U, runValue.string)}
 
 
 class RetardedMain:
 
-    def __init__(self, limits, run_time, data_folder):
+    def __init__(self, limits, start_time, data_folder):
 
-        self.run_time = run_time
-        self.data_folder = data_folder
         self.limits = limits
-        self.P = retspace.ParamSpace(self.limits, self.data_folder,
-                                     self.run_time)
+        self.start_time = start_time
+        self.data_folder = data_folder
+        self.order = '1'
+        self.strings = ['gR1']
 
     def run(self):
 
-        for (iT, T), (iE, E) in itertools.product(enumerate(self.P.temp),
-                                                  enumerate(self.P.energy)):
+        P = retparam.ParamSpace(self.limits, self.order, self.strings)
 
-            self.P.initialiseData((iT, iE))
+        for (iT, T), (iE, E) in itertools.product(enumerate(P.temp),
+                                                  enumerate(P.ener)):
+
+            P.initData((iT, iE))
+            f = os.path.join(self.data_folder,
+                             self.start_time +
+                             '-0-T%03dE%03d' % (iT, iE))
+            P.loadData(f)
+            
+             
             DATA = dict()
-            run = self.P.getRun()
+            
 
-            i = 0
-            print 'Computing G_RET'
-            while True:
-                #######################################
-                # for r in run:
-                worker(run[145])
-                print i
-                i += 1
-                ######################################
+            #####################################
+            runs = P.getRun(iT, iE, self.strings[0])
+            for run in runs:
+                
+                X = worker(run)
+            #####################################
 
-            p = Pool()
-            DATA[string] = p.map(worker, run)
-            p.close()
+            for string in self.strings:
+                print 'computing %s...' % (string)
+                run = P.getRun(iT, iE, string)
+                p = Pool()
+                DATA[string] = p.map(worker, run)
+                p.close()
 
-            self.P.updateData(DATA[string], string)
+            for string in self.strings:
+                P.updateData(DATA[string], string)
 
             del DATA
 
-            self.P.writeData('%s%s' % (self.data_folder, self.start_time))
+            P.writeData(os.path.join(self.data_folder, self.start_time))
             print '#######--%d-%d--#######' % (iT, iE)
 
-
-if __name__ == '__main__':
-    pass
+        print 'Done!'

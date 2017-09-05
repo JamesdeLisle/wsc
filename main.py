@@ -1,16 +1,33 @@
 import uni.uniform as unif
-import ret.retarded as reta
 import gen.lim as lim
+import ret.retarded as reta
 import time
 import numpy as np
+import os
+
+data_folder = 'data/'
+
+
+def clearup(data_folder):
+    existingFiles = [f for f in os.listdir(data_folder)
+                     if os.path.isfile(os.path.join(data_folder, f))]
+    if existingFiles:
+        os.mkdir(os.path.join(data_folder, existingFiles[0][0:12]))
+        for f in existingFiles:
+            print os.path.join(data_folder, existingFiles[0][0:12], f)
+            os.rename(os.path.join(data_folder, f),
+                      os.path.join(data_folder, existingFiles[0][0:12], f))
+
+
+clearup(data_folder)
 
 L = lim.Limits()
 L.spinDir = 'up'
-L.nEnergy = 100
-L.nKPolar = 100
-L.nKAzimu = 100
-L.nTemp = 100
-L.nAlpha = 100
+L.nEnergy = 2
+L.nKPolar = 5
+L.nKAzimu = 5
+L.nTemp = 2
+L.nAlpha = 10
 L.energyMin = -6.0
 L.energyMax = 6.0
 L.kPolarMin = 0.0
@@ -30,17 +47,9 @@ L.a4 = 0.34
 L.B_z = 1.0
 L.finalise()
 
-if True:
-    run_time = time.strftime('%Y%m%d%H%M')
-    data_folder = 'data/'
-    U = unif.UniformMain(L, run_time, data_folder)
-    U.run()
-    #R = reta.RetardedMain(L, run_time, data_folder)
-    #R.run()
 
-if False:
-    run_time = '201707141153'
-    data_folder = 'data/'
-    L = lim.Limits()
-    R = reta.RetardedMain(L, run_time, data_folder)
-    R.run()
+run_time = time.strftime('%Y%m%d%H%M%S')
+U = unif.UniformMain(L, run_time, data_folder)
+U.run()
+R = reta.RetardedMain(L, run_time, data_folder)
+R.run()

@@ -6,7 +6,6 @@ class Environment(object):
     def __init__(self, runVal):
 
         self.runVal = runVal
-        self.runVal.compSpace()
 
     @property
     def thermD(self):

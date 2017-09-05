@@ -1,0 +1,33 @@
+import itertools
+from gen.par import ParamSpaceBase, RunValue
+
+
+class ParamSpace(ParamSpaceBase):
+
+    span = None
+
+    def __init__(self, limits, order, strings):
+
+        super(ParamSpace, self).__init__(limits, order, strings)
+
+        self.span = (self.lim.nKPolar,
+                     self.lim.nKAzimu,
+                     2,
+                     2)
+
+    def getRun(self, iT, iE, string):
+        DOF = itertools.product(enumerate(self.kPol),
+                                enumerate(self.kAzi))
+        rv = list()
+        for (iXi, Xi), (iTheta, Theta) in DOF:
+            index = (iT, iE, iXi, iTheta)
+            values = {'string': string,
+                      'index': index,
+                      'temp': self.temp[iT],
+                      'ener': self.ener[iE],
+                      'Xi': Xi,
+                      'Theta': Theta,
+                      'lim': self.lim}
+            rv.append(RunValue(**values))
+
+        return rv
