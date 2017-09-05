@@ -36,6 +36,6 @@ class ParamSpace(ParamSpaceBase):
                       'Theta': Theta,
                       'Alpha': Alpha,
                       'lim': self.lim}
-            rv.append(RunValue(values))
-        
+            rv.append(RunValue(**values))
+
         return rv

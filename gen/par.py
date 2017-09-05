@@ -14,16 +14,12 @@ class RunValue:
 
     def compSpace(self):
 
-        try:
-            x = self.alpha * np.sin(self.Xi) * np.cos(self.Theta)
-            y = self.alpha * np.sin(self.Xi) * np.sin(self.Theta)
+        x = self.Alpha * np.sin(self.Xi) * np.cos(self.Theta)
+        y = self.Alpha * np.sin(self.Xi) * np.sin(self.Theta)
 
-            self.R = np.sqrt(x * x + y * y)
-            self.Phi = np.arctan2(y, x)
-            self.Z = self.alpha * np.cos(self.Xi)
-        except AttributeError:
-            print('Alpha has not been added to the RunValue')
-            sys.exit()
+        self.R = np.sqrt(x * x + y * y)
+        self.Phi = np.arctan2(y, x)
+        self.Z = self.Alpha * np.cos(self.Xi)
 
 
 class ParamSpaceBase(object):

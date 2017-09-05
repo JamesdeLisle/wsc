@@ -4,7 +4,7 @@ import numpy as np
 
 class Uniform:
 
-    def __init__(self, runVal, alpha):
+    def __init__(self, runVal):
 
         self.runVal = runVal
         self.envi = env.Environment(runVal)
@@ -19,7 +19,7 @@ class Uniform:
         rv[0, 0] = 1j * V.ener
         rv[1, 1] = -1j * V.ener
         rv -= E.hamR
-        rv *= -np.pi / (np.linalg.det(rv))
+        rv *= -np.pi / np.sqrt(np.linalg.det(rv))
 
         return rv
 
@@ -28,7 +28,7 @@ class Uniform:
 
         t3 = np.array([[1, 0], [0, -1]])
 
-        return t3 * self.gR.H * t3
+        return t3 * np.conj(self.gR).T * t3
 
     @property
     def gK(self):

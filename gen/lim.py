@@ -553,9 +553,9 @@ class Limits(object):
            (self._a3 or self._a3 == 0.0) and \
            self._spinDir:
             if self._spinDir == 'up':
-                self._gamma1 = self._a2 + self._a3
+                self._gamma2 = self._a2 + self._a3
             else:
-                self._gamma1 = -self._a2 + self._a3
+                self._gamma2 = -self._a2 + self._a3
         else:
             raise RuntimeError('One of the limits has not been defined')
 
