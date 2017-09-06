@@ -1,55 +1,45 @@
-import container as con
-import boundary as bound
-import rkfunctions as rkf
-import numpy as np 
+import kelfunc as kelf
+import numpy as np
 
 
 class RK:
 
     def __init__(self, runVal):
-        
+
         self.runVal = runVal
-        self.Alpha = runVal.lim.alphaMin
+        self.alphaSpa = np.linspace(self.valSet.lim.alphaMin,
+                                    self.valSet.lim.alphaMax,
+                                    self.valSet.lim.nAlpha)
+        self.funcVal = self.valSet.gK0[0]
+        self.runVal.alpha = 0
+        self.dAlpha = self.runVal.lim.dAlpha
+        self.kInc = [np.zeros(shape=(2, 2)) for x in range(4)]
 
-        self.bound = bound.Boundary(self.run_container.getSet(self.Alpha))
-        self.func_value = self.boundary.get()
-        self.Alpha_increment = dict()
-        self.kRK = dict()
-        self.func = dict()
+    @property
+    def gK1(self):
 
-    def doRK(self):
+        for iAlpha, alpha in enumerate(self.alphaSpa):
 
-        for iAlpha in range(self.run_container['constants']['nAlpha']):
-            self.getIncrement()
-             
-            self.func['step1'] = rkf.RKFunctions(self.run_container.getSet(self.Alpha_increment['start']), self.func_value)
-            self.kRK['step1'] = self.func['step1'].get() 
+            self.runVal.iAlpha = iAlpha
+            func = kelf.Keldysh(self.runVal, self.funcVal)
+            self.kInc[0] = func.fK1
 
-            self.func['step2'] = rkf.RKFunctions(self.run_container.getSet(self.Alpha_increment['middle']),
-                                                    self.func_value + self.const['dAlpha'] * self.kRK['step1'] / 2.0)
+            self.runVal.iAlpha = iAlpha + self.dAlpha
+            func = kelf.Keldysh(self.runVal,
+                                self.funcVal + self.dAlpha * self.kInc[0] / 2)
+            self.kInc[1] = func.fK1
 
-            self.kRK['step2'] = self.func['step2'].get()
-            
-            self.func['step3'] = rkf.RKFunctions(self.run_container.getSet(self.Alpha_increment['middle']),
-                                                    self.func_value + self.const['dAlpha'] * self.kRK['step2'] / 2.0)
-            self.kRK['step3'] = self.func['step3'].get()
-            
-            self.func['step4'] = rkf.RKFunctions(self.run_container.getSet(self.Alpha_increment['end']),
-                                                    self.func_value + self.const['dAlpha'] * self.kRK['step3'])
-            self.kRK['step4'] = self.func['step4'].get()
-            
-             
-            self.kRK['final'] = (self.const['dAlpha'] / 6.0) * (self.kRK['step1'] + 2 * (self.kRK['step2'] + self.kRK['step3']) + self.kRK['step4'])
-            self.func_value += self.kRK['final']
-            self.Alpha += self.const['dAlpha']
+            func = kelf.Keldysh(self.runVal,
+                                self.funcVal + self.dAlpha * self.kInc[1] / 2)
+            self.kInc[2] = func.fK1
 
-    def getIncrement(self):
+            self.runVal.iAlpha = iAlpha + 1
+            func = kelf.Keldysh(self.runVal,
+                                self.funcVal + self.dAlpha * self.kInc[2])
+            self.kInc[3] = func.fK1
 
-        self.Alpha_increment['start'] = self.Alpha
-        self.Alpha_increment['middle'] = self.Alpha + self.const['dAlpha'] / 2.0
-        self.Alpha_increment['end'] = self.Alpha + self.const['dAlpha']
-    
-    def getValue(self):
+            self.funcVal += self.dAlpha * (self.kInc[0]
+                                           + 2 * (self.kInc[1] + self.kInc[2])
+                                           + self.kInc[3]) / 6
 
-        return self.func_value
-
+        return self.funcVal
