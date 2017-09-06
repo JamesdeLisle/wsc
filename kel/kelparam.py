@@ -34,6 +34,7 @@ class ParamSpace(ParamSpaceBase):
                       'Xi': Xi,
                       'Theta': Theta,
                       'lim': self.lim,
+                      'gK0': self.compData['gK0'][iXi, iTheta, 0],
                       'dgK0': self.dgK0,
                       'gR': gR}
             rv.append(RunValue(**values))
@@ -49,7 +50,7 @@ class ParamSpace(ParamSpaceBase):
         self.compData['gK0'] = content['data']['gK']
         with open(path_gR, 'r') as f:
             content = json.loads(f.read(), cls=NumericDecoder)
-        self.compData['gR'] = content['data']['gR1']
+        self.compData['gR1'] = content['data']['gR1']
 
     def dTheta(self, iXi, iTheta):
 

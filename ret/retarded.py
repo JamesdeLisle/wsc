@@ -27,28 +27,26 @@ class RetardedMain:
 
         P = retparam.ParamSpace(self.limits, self.order, self.strings)
 
+        print 'Calculating first order Retarded...'
         for (iT, T), (iE, E) in itertools.product(enumerate(P.temp),
                                                   enumerate(P.ener)):
 
+            P.getProgress(iT, iE)
             P.initData((iT, iE))
             f = os.path.join(self.data_folder,
                              self.start_time +
                              '-0-T%03dE%03d' % (iT, iE))
             P.loadData(f)
-            
-             
             DATA = dict()
-            
 
-            #####################################
-            runs = P.getRun(iT, iE, self.strings[0])
-            for run in runs:
-                
-                X = worker(run)
+            ######################################
+            if False:
+                runs = P.getRun(iT, iE, self.strings[0])
+                for run in runs:
+                    worker(run)
             #####################################
 
             for string in self.strings:
-                print 'computing %s...' % (string)
                 run = P.getRun(iT, iE, string)
                 p = Pool()
                 DATA[string] = p.map(worker, run)
@@ -60,6 +58,5 @@ class RetardedMain:
             del DATA
 
             P.writeData(os.path.join(self.data_folder, self.start_time))
-            print '#######--%d-%d--#######' % (iT, iE)
 
-        print 'Done!'
+        print '\nDone!'

@@ -34,7 +34,7 @@ class ParamSpace(ParamSpaceBase):
                       'ener': self.ener[iE],
                       'Xi': Xi,
                       'Theta': Theta,
-                      'Alpha': Alpha,
+                      'alpha': Alpha,
                       'lim': self.lim}
             rv.append(RunValue(**values))
 

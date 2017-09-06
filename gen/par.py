@@ -14,12 +14,12 @@ class RunValue:
 
     def compSpace(self):
 
-        x = self.Alpha * np.sin(self.Xi) * np.cos(self.Theta)
-        y = self.Alpha * np.sin(self.Xi) * np.sin(self.Theta)
+        x = self.alpha * np.sin(self.Xi) * np.cos(self.Theta)
+        y = self.alpha * np.sin(self.Xi) * np.sin(self.Theta)
 
         self.R = np.sqrt(x * x + y * y)
         self.Phi = np.arctan2(y, x)
-        self.Z = self.Alpha * np.cos(self.Xi)
+        self.Z = self.alpha * np.cos(self.Xi)
 
 
 class ParamSpaceBase(object):
@@ -34,9 +34,11 @@ class ParamSpaceBase(object):
         self.temp = np.linspace(self.lim.tempMin,
                                 self.lim.tempMax,
                                 self.lim.nTemp)
-        self.ener = np.linspace(self.lim.energyMin,
-                                self.lim.energyMax,
-                                self.lim.nEnergy)
+        self.ener = [(2 * n + 1) * np.pi * self.temp[0]
+                     for n in range(self.lim.nEnergy)]
+        #self.ener = np.linspace(self.lim.energyMin,
+        #                        self.lim.energyMax,
+        #                        self.lim.nEnergy)
         self.kPol = np.linspace(self.lim.kPolarMin,
                                 self.lim.kPolarMax,
                                 self.lim.nKPolar)
@@ -88,3 +90,13 @@ class ParamSpaceBase(object):
             content = json.loads(f.read(), cls=NumericDecoder)
         self.data = content['data']
         self.label = (int(path[-5:-3]), int(path[-2:]))
+
+    def getProgress(self, iT, iE):
+
+        perc = 100 * (float(iT * self.lim.nEnergy) + iE) / \
+               (self.lim.nTemp * self.lim.nEnergy)
+        if iT == self.lim.nTemp - 1 and iE == self.lim.nEnergy - 1:
+            sys.stdout.write('\r100%    ')
+        else:
+            sys.stdout.write('\r%.2f%%' % perc)
+        sys.stdout.flush()

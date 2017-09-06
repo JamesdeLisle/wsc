@@ -27,9 +27,11 @@ class KeldyshMain:
 
         P = kelparam.ParamSpace(self.limits, self.order, self.strings)
 
+        print 'Calculating first order Keldysh...'
         for (iT, T), (iE, E) in itertools.product(enumerate(P.temp),
                                                   enumerate(P.ener)):
 
+            P.getProgress(iT, iE)
             P.initData((iT, iE))
             f_g0 = os.path.join(self.data_folder,
                                 self.start_time +
@@ -40,14 +42,14 @@ class KeldyshMain:
             P.loadData(f_g0, f_gR)
             DATA = dict()
 
-            #####################################
-            runs = P.getRun(iT, iE, self.strings[0])
-            for run in runs:
-                X = worker(run)
+            ######################################
+            if False:
+                runs = P.getRun(iT, iE, self.strings[0])
+                for run in runs:
+                    worker(run)
             #####################################
 
             for string in self.strings:
-                print 'computing %s...' % (string)
                 run = P.getRun(iT, iE, string)
                 p = Pool()
                 DATA[string] = p.map(worker, run)
@@ -59,6 +61,5 @@ class KeldyshMain:
             del DATA
 
             P.writeData(os.path.join(self.data_folder, self.start_time))
-            print '#######--%d-%d--#######' % (iT, iE)
 
-        print 'Done!'
+        print '\nDone!'
