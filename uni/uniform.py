@@ -28,7 +28,7 @@ class UniformMain:
 
         P = uniparam.ParamSpace(self.limits, self.order, self.strings)
 
-        print 'Calculating zeroth order...'
+        print('Calculating zeroth order...')
         for (iT, T), (iE, E) in itertools.product(enumerate(P.temp),
                                                   enumerate(P.ener)):
 
@@ -56,4 +56,4 @@ class UniformMain:
 
             P.writeData(os.path.join(self.data_folder, self.start_time))
 
-        print '\nDone!'
+        print('\nDone!')

@@ -27,7 +27,7 @@ class KeldyshMain:
 
         P = kelparam.ParamSpace(self.limits, self.order, self.strings)
 
-        print 'Calculating first order Keldysh...'
+        print('Calculating first order Keldysh...')
         for (iT, T), (iE, E) in itertools.product(enumerate(P.temp),
                                                   enumerate(P.ener)):
 
@@ -62,4 +62,4 @@ class KeldyshMain:
 
             P.writeData(os.path.join(self.data_folder, self.start_time))
 
-        print '\nDone!'
+        print('\nDone!')
