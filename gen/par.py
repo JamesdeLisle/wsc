@@ -1,4 +1,4 @@
-import numpy as np
+mport numpy as np
 import json
 from jsci.Coding import NumericEncoder, NumericDecoder
 from abc import ABCMeta, abstractproperty, abstractmethod
