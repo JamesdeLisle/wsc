@@ -2,7 +2,7 @@ import itertools
 from gen.par import ParamSpaceBase, RunValue
 from jsci.Coding import NumericDecoder
 import json
-import numpy as np
+import os
 
 
 class ParamSpace(ParamSpaceBase):
@@ -28,6 +28,7 @@ class ParamSpace(ParamSpaceBase):
             gR = self.compData['gR0'][iXi, iTheta, self.lim.nAlpha / 2] \
                 + self.compData['gR1'][iXi, iTheta]
             values = {'string': string,
+                      'order': self.order,
                       'index': index,
                       'temp': self.temp[iT],
                       'ener': self.ener[iE],
@@ -41,14 +42,20 @@ class ParamSpace(ParamSpaceBase):
 
         return rv
 
-    def loadData(self, path_g0, path_gR):
+    def loadData(self, data_folder, start_time, iE, iT):
 
+        f_g0 = os.path.join(data_folder,
+                            start_time +
+                            '-0-T%03dE%03d' % (iT, iE))
+        f_gR = os.path.join(data_folder,
+                            start_time +
+                            '-1-T%03dE%03d' % (iT, iE))
         self.compData = dict()
-        with open(path_g0, 'r') as f:
+        with open(f_g0, 'r') as f:
             content = json.loads(f.read(), cls=NumericDecoder)
         self.compData['gR0'] = content['data']['gR']
         self.compData['gK0'] = content['data']['gK']
-        with open(path_gR, 'r') as f:
+        with open(f_gR, 'r') as f:
             content = json.loads(f.read(), cls=NumericDecoder)
         self.compData['gR1'] = content['data']['gR1']
 

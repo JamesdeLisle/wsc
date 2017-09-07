@@ -2,7 +2,7 @@ import kelfunc as kelf
 import numpy as np
 
 
-class RK:
+class Function:
 
     def __init__(self, runVal):
 

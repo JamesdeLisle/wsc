@@ -2,11 +2,12 @@ import gen.env as env
 import numpy as np
 
 
-class Uniform:
+class Function:
 
     def __init__(self, runVal):
 
         self.runVal = runVal
+        self.runVal.compSpace()
         self.envi = env.Environment(runVal)
 
     @property

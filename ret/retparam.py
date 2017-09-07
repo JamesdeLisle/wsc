@@ -2,6 +2,7 @@ import itertools
 from gen.par import ParamSpaceBase, RunValue
 from jsci.Coding import NumericDecoder
 import json
+import os
 
 
 class ParamSpace(ParamSpaceBase):
@@ -25,6 +26,7 @@ class ParamSpace(ParamSpaceBase):
             index = (iT, iE, iXi, iTheta)
             self.dTheta(iXi, iTheta)
             values = {'string': string,
+                      'order': self.order,
                       'index': index,
                       'temp': self.temp[iT],
                       'ener': self.ener[iE],
@@ -36,7 +38,10 @@ class ParamSpace(ParamSpaceBase):
 
         return rv
 
-    def loadData(self, path):
+    def loadData(self, data_folder, start_time, iE, iT):
+
+        path = os.path.join(data_folder, start_time +
+                            '-0-T%03dE%03d' % (iT, iE))
 
         with open(path, 'r') as f:
             content = json.loads(f.read(), cls=NumericDecoder)

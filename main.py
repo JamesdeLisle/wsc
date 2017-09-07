@@ -1,7 +1,5 @@
 import gen.lim as lim
-import uni.uniform as unif
-import ret.retarded as reta
-import kel.keldysh as keld
+import gen.main as main
 import time
 import numpy as np
 import os
@@ -16,6 +14,7 @@ def clearup(data_folder):
             print os.path.join(data_folder, existingFiles[0][0:12], f)
             os.rename(os.path.join(data_folder, f),
                       os.path.join(data_folder, existingFiles[0][0:12], f))
+
 
 if __name__ == '__main__':
 
@@ -50,9 +49,8 @@ if __name__ == '__main__':
     L.B_z = 1.0
     L.finalise()
 
-    U = unif.UniformMain(L, run_time, data_folder)
-    U.run()
-    R = reta.RetardedMain(L, run_time, data_folder)
-    R.run()
-    K = keld.KeldyshMain(L, run_time, data_folder)
-    K.run()
+    orders = ['0', '1', '2']
+    for order in orders:
+        print 'hi'
+        M = main.Main(L, run_time, data_folder, order)
+        M.run()

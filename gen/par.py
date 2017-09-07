@@ -1,4 +1,4 @@
-mport numpy as np
+import numpy as np
 import json
 from jsci.Coding import NumericEncoder, NumericDecoder
 from abc import ABCMeta, abstractproperty, abstractmethod
@@ -36,9 +36,6 @@ class ParamSpaceBase(object):
                                 self.lim.nTemp)
         self.ener = [(2 * n + 1) * np.pi * self.temp[0]
                      for n in range(self.lim.nEnergy)]
-        #self.ener = np.linspace(self.lim.energyMin,
-        #                        self.lim.energyMax,
-        #                        self.lim.nEnergy)
         self.kPol = np.linspace(self.lim.kPolarMin,
                                 self.lim.kPolarMax,
                                 self.lim.nKPolar)

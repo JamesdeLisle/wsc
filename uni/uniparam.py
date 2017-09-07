@@ -29,6 +29,7 @@ class ParamSpace(ParamSpaceBase):
         for (iXi, Xi), (iTheta, Theta), (iAlpha, Alpha) in DOF:
             index = (iT, iE, iXi, iTheta, iAlpha)
             values = {'string': string,
+                      'order': self.order,
                       'index': index,
                       'temp': self.temp[iT],
                       'ener': self.ener[iE],
@@ -39,3 +40,7 @@ class ParamSpace(ParamSpaceBase):
             rv.append(RunValue(**values))
 
         return rv
+
+    def loadData(self, data_folder, start_time, iT, iE):
+
+        pass

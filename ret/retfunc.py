@@ -2,7 +2,7 @@ import gen.env as env
 import numpy as np
 
 
-class Retarded:
+class Function:
 
     def __init__(self, runVal):
 
