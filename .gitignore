@@ -2,4 +2,3 @@ data/
 *.pyc
 .ipynb_checkpoints/
 *~
-.ropeproject/
