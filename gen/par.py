@@ -35,7 +35,7 @@ class ParamSpaceBase(object):
                                 self.lim.tempMax,
                                 self.lim.nTemp)
         self.ener = [(2 * n + 1) * np.pi * self.temp[0]
-                     for n in range(self.lim.nEnergy)]
+                     for n in range(-self.lim.nEnergy - 1, self.lim.nEnergy)]
         self.kPol = np.linspace(self.lim.kPolarMin,
                                 self.lim.kPolarMax,
                                 self.lim.nKPolar)
