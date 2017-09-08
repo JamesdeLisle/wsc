@@ -51,6 +51,5 @@ if __name__ == '__main__':
 
     orders = ['0', '1', '2']
     for order in orders:
-        print 'hi'
         M = main.Main(L, run_time, data_folder, order)
         M.run()

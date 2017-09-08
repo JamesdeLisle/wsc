@@ -50,13 +50,18 @@ class ParamSpace(ParamSpaceBase):
         f_gR = os.path.join(data_folder,
                             start_time +
                             '-1-T%03dE%03d' % (iT, iE))
+
         self.compData = dict()
+
         with open(f_g0, 'r') as f:
             content = json.loads(f.read(), cls=NumericDecoder)
+
         self.compData['gR0'] = content['data']['gR']
         self.compData['gK0'] = content['data']['gK']
+
         with open(f_gR, 'r') as f:
             content = json.loads(f.read(), cls=NumericDecoder)
+
         self.compData['gR1'] = content['data']['gR1']
 
     def dTheta(self, iXi, iTheta):

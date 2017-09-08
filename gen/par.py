@@ -34,8 +34,8 @@ class ParamSpaceBase(object):
         self.temp = np.linspace(self.lim.tempMin,
                                 self.lim.tempMax,
                                 self.lim.nTemp)
-        self.ener = [(2 * n + 1) * np.pi * self.temp[0]
-                     for n in range(-self.lim.nEnergy - 1, self.lim.nEnergy)]
+        self.ener = [(2 * n + 1) * np.pi * self.temp[0] for n in
+                     range(-self.lim.nEnergy - 1, self.lim.nEnergy)]
         self.kPol = np.linspace(self.lim.kPolarMin,
                                 self.lim.kPolarMax,
                                 self.lim.nKPolar)
@@ -49,6 +49,10 @@ class ParamSpaceBase(object):
 
     @abstractmethod
     def getRun(self, iT, iE, string):
+        pass
+
+    @abstractmethod
+    def loadData(self, data_folder, start_time, iT, iE):
         pass
 
     def initData(self, label):
@@ -87,12 +91,14 @@ class ParamSpaceBase(object):
             content = json.loads(f.read(), cls=NumericDecoder)
         self.data = content['data']
         self.label = (int(path[-5:-3]), int(path[-2:]))
+        self.lim.load(content['param'])
+        self.lim.finalise()
 
     def getProgress(self, iT, iE):
 
-        perc = 100 * (float(iT * self.lim.nEnergy) + iE) / \
-               (self.lim.nTemp * self.lim.nEnergy)
-        if iT == self.lim.nTemp - 1 and iE == self.lim.nEnergy - 1:
+        perc = 100 * (float(iT * 2 * self.lim.nEnergy) + iE) / \
+               (self.lim.nTemp * 2 * self.lim.nEnergy)
+        if iT == self.lim.nTemp - 1 and iE == 2 * self.lim.nEnergy - 1:
             sys.stdout.write('\r100%    ')
         else:
             sys.stdout.write('\r%.2f%%' % perc)
