@@ -51,7 +51,7 @@ class Main:
 
         for (iT, T), (iE, E) in self.DOF:
             self.P.getProgress(iT, iE)
-            self.P.initData((iE, iT))
+            self.P.initData((iT, iE))
             self.P.loadData(self.data_folder,
                             self.start_time,
                             iT,

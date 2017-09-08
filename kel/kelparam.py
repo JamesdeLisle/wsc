@@ -42,7 +42,7 @@ class ParamSpace(ParamSpaceBase):
 
         return rv
 
-    def loadData(self, data_folder, start_time, iE, iT):
+    def loadData(self, data_folder, start_time, iT, iE):
 
         f_g0 = os.path.join(data_folder,
                             start_time +

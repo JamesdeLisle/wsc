@@ -38,7 +38,7 @@ class ParamSpace(ParamSpaceBase):
 
         return rv
 
-    def loadData(self, data_folder, start_time, iE, iT):
+    def loadData(self, data_folder, start_time, iT, iE):
 
         path = os.path.join(data_folder, start_time +
                             '-0-T%03dE%03d' % (iT, iE))
