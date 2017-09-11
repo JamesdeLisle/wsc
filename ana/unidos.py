@@ -22,7 +22,7 @@ class LDOS:
             for iTheta, Theta in enumerate(self.P.kAzi):
                 dosTheta = 0.0
                 indexIn = (iXi, iTheta, self.lim.nAlpha / 2)
-                dosTheta += 1j * 1.0 / (4.0 * np.pi)
+                dosTheta += 1.0 / (4.0 * np.pi)
                 print self.P.data[self.P.strings[0]][indexIn][0, 0]
                 dosTheta *= np.trace(tau3 * self.P.data[self.P.strings[0]][indexIn])
                 dosTheta *= self.P.lim.dKAzimu / 3.0
