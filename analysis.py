@@ -24,8 +24,8 @@ for f in files:
     print data[count], count
     count += 1
 
-path = os.path.join(data_folder, files[0][0:13])
-path_complete = path + '-0-dos'
+path = files[0][0:-8]
+path_complete = path + 'udos'
 with open(path_complete, 'w') as f:
     f.write(json.dumps({'param': L.lim.save(),
                         'data': data},
