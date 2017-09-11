@@ -93,7 +93,6 @@ class Limits(object):
 
         with open(path, 'r') as f:
             content = json.loads(f.read(), cls=NumericDecoder)
-        self.label = (int(path[-5:-3]), int(path[-2:]))
         self.load(content['param'])
         self.lim.finalise()
 
