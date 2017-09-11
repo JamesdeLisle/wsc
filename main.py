@@ -42,10 +42,10 @@ if __name__ == '__main__':
     L.tempInc = 1.0 / 200.0
     L.alphaMin = -6.0
     L.alphaMax = 6.0
-    L.a1 = 0.3
-    L.a2 = -0.13
-    L.a3 = 0.15
-    L.a4 = 0.34
+    L.a1 = 0.5
+    L.a2 = -0.5
+    L.a3 = 0.5
+    L.a4 = 0.5
     L.B_z = 1.0
     L.finalise()
 
