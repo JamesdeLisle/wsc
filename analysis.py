@@ -21,6 +21,7 @@ for f in files:
 
     L = LDOS(f)
     data[count] = L.compute()
+    print data[count], count
     count += 1
 
 path = os.path.join(data_folder, files[0][0:13])
