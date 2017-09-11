@@ -23,7 +23,6 @@ class LDOS:
                 dosTheta = 0.0
                 indexIn = (iXi, iTheta, self.lim.nAlpha / 2)
                 dosTheta += 1j * 1.0 / (4.0 * np.pi)
-                print self.P.data[self.P.strings[0]][indexIn]
                 dosTheta *= np.trace(tau3 * self.P.data[self.P.strings[0]][indexIn])
                 dosTheta *= self.P.lim.dKAzimu / 3.0
                 if iTheta == 0 or iTheta == self.P.lim.nKAzimu:
@@ -33,6 +32,7 @@ class LDOS:
                 else:
                     dosTheta *= 2.0
                 dosXi += np.imag(dosTheta)
+            print dosXi
             dosXi *= np.sin(Xi) * self.P.lim.dKPolar / 3.0
             if iXi == 0 or iXi == self.P.lim.nKPolar:
                 pass
