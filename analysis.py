@@ -16,11 +16,12 @@ def getFiles():
 files = sorted(getFiles())
 data = np.zeros(len(files))
 
+
 count = 0
 for f in files:
 
     L = LDOS(f)
-    data[count] = L.compute()
+    data[count] = np.abs(L.compute())
     print data[count], count, L.P.ener[L.P.label[1]]
     count += 1
 

@@ -37,8 +37,8 @@ if __name__ == '__main__':
     L.kAzimuMin = 0.000001
     L.kAzimuMax = 2 * np.pi
     L.T_c = 0.1
-    L.tempMin = 0.08
-    L.tempMax = 0.08
+    L.tempMin = 0.0001
+    L.tempMax = 0.0001
     L.tempInc = 1.0 / 200.0
     L.alphaMin = -6.0
     L.alphaMax = 6.0
