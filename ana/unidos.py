@@ -9,6 +9,7 @@ class LDOS:
 
         self.path = path
         self.lim = Limits()
+        self.lim.readData(self.path)
         self.P = ParamSpace(self.lim, '0', ['gR'])
         self.P.readData(self.path)
 

@@ -1,4 +1,6 @@
 import numpy as np
+import json
+from jsci import NumericDecoder
 
 
 class Limits(object):
@@ -86,6 +88,14 @@ class Limits(object):
 
         for key, value in values.iteritems():
             setattr(self, key, value)
+
+    def readData(self, path):
+
+        with open(path, 'r') as f:
+            content = json.loads(f.read(), cls=NumericDecoder)
+        self.label = (int(path[-5:-3]), int(path[-2:]))
+        self.load(content['param'])
+        self.lim.finalise()
 
     @property
     def spinDir(self):
