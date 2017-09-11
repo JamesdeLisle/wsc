@@ -21,7 +21,7 @@ for f in files:
 
     L = LDOS(f)
     data[count] = L.compute()
-    print data[count], count, L.P.ener(L.P.label[1])
+    print data[count], count, L.P.ener[L.P.label[1]]
     count += 1
 
 path = files[0][0:-8]
