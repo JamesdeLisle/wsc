@@ -21,7 +21,7 @@ class Function:
         rv[1, 1] = -1j * V.ener
         rv -= E.hamR
         rv *= -1.0 / np.sqrt(np.linalg.det(rv))
-        print rv
+        print rv * rv
         return rv
 
     @property
