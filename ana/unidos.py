@@ -25,6 +25,7 @@ class LDOS:
                 dosTheta += 1.0 / (4.0 * np.pi)
                 dosTheta *= np.trace(tau3 * self.P.data[self.P.strings[0]][indexIn])
                 dosTheta *= self.P.lim.dKAzimu / 3.0
+                print self.P.data[self.P.strings[0]][indexIn]
                 if iTheta == 0 or iTheta == self.P.lim.nKAzimu:
                     pass
                 elif iTheta % 2 == 0:
