@@ -30,8 +30,8 @@ if __name__ == '__main__':
     L.nKAzimu = 50
     L.nTemp = 1
     L.nAlpha = 100
-    L.energyMin = -6.0
-    L.energyMax = 6.0
+    L.energyMin = -1.0
+    L.energyMax = 1.0
     L.kPolarMin = 0.000001
     L.kPolarMax = np.pi
     L.kAzimuMin = 0.000001

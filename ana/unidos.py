@@ -46,5 +46,4 @@ class LDOS:
             else:
                 dosXi *= 2.0
             rv += dosXi
-        print self.P.ener[self.P.label[1]]
         return rv
