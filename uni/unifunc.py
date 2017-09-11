@@ -20,7 +20,6 @@ class Function:
         rv[0, 0] = 1j * V.ener
         rv[1, 1] = -1j * V.ener
         rv -= E.hamR
-        print rv, V.ener
         rv *= -np.pi / np.sqrt(np.linalg.det(rv))
 
         return rv
