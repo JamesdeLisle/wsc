@@ -1,6 +1,6 @@
 import numpy as np
 import json
-from jsci import NumericDecoder
+from jsci.Coding import NumericDecoder
 
 
 class Limits(object):
