@@ -20,9 +20,11 @@ class Function:
         rv[0, 0] = 1j * V.ener
         rv[1, 1] = -1j * V.ener
         rv -= E.hamR
-        rv *= -1.0 / np.sqrt(np.linalg.det(rv))
-        print np.sqrt(np.linalg.det(rv))
-        print rv * rv
+        rv *= -1.0 / np.sqrt((1j * V.ener - E.sigmaR) *
+                             (1j * V.ener - E.sigmaR) -
+                             np.abs(E.deltaR) *
+                             np.abs(E.deltaR))
+        print rv
         return rv
 
     @property
