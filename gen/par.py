@@ -90,8 +90,7 @@ class ParamSpaceBase(object):
         with open(path, 'r') as f:
             content = json.loads(f.read(), cls=NumericDecoder)
         self.data = content['data']
-        print(path[-6:-4], path[-3:])
-        self.label = (int(path[-5:-3]), int(path[-2:]))
+        self.label = (int(path[-7:-4]), int(path[-3:]))
 
     def getProgress(self, iT, iE):
 
