@@ -22,7 +22,7 @@ class LDOS:
                 dosTheta = 0.0
                 indexIn = (iXi, iTheta, self.lim.nAlpha / 2)
                 dosTheta += 1j * 1.0 / (4.0 * np.pi)
-                dosTheta *= np.trace(self.data[self.P.strings[0]][indexIn])
+                dosTheta *= np.trace(self.P.data[self.P.strings[0]][indexIn])
                 dosTheta *= self.P.lim.dKAzimu / 3.0
                 if iTheta == 0 or iTheta == self.P.lim.nKAzimu:
                     pass
