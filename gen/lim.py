@@ -94,7 +94,7 @@ class Limits(object):
         with open(path, 'r') as f:
             content = json.loads(f.read(), cls=NumericDecoder)
         self.load(content['param'])
-        self.lim.finalise()
+        self.finalise()
 
     @property
     def spinDir(self):
