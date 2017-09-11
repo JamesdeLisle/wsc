@@ -17,11 +17,11 @@ class Function:
         E = self.envi
 
         rv = np.zeros(shape=(2, 2), dtype=np.complex128)
-        rv[0, 0] = 1j * V.ener
-        rv[1, 1] = -1j * V.ener
+        rv[0, 0] = V.ener
+        rv[1, 1] = -V.ener
         rv -= E.hamR
-        rv *= -1.0 / np.sqrt((1j * V.ener - E.sigmaR) *
-                             (1j * V.ener - E.sigmaR) -
+        rv *= -1.0 / np.sqrt((V.ener - E.sigmaR) *
+                             (V.ener - E.sigmaR) -
                              np.abs(E.deltaR) *
                              np.abs(E.deltaR))
         return rv
