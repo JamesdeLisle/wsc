@@ -17,19 +17,34 @@ files = sorted(getFiles())
 data = np.zeros(len(files))
 
 
-count = 0
-for f in files:
+# count = 0
+# for f in files:
+# 
+#     L = LDOS(f)
+#     data[count] = np.abs(L.compute())
+#     print data[count], count, L.P.ener[L.P.label[1]]
+#     count += 1
+# 
+# path = files[0][0:-8]
+# path_complete = path + 'udos'
+# with open(path_complete, 'w') as f:
+#     f.write(json.dumps({'param': L.lim.save(),
+#                         'data': data},
+#                        cls=NumericEncoder,
+#                        indent=4,
+#                        sort_keys=True))
 
-    L = LDOS(f)
-    data[count] = np.abs(L.compute())
-    print data[count], count, L.P.ener[L.P.label[1]]
-    count += 1
-
-path = files[0][0:-8]
-path_complete = path + 'udos'
-with open(path_complete, 'w') as f:
-    f.write(json.dumps({'param': L.lim.save(),
-                        'data': data},
-                       cls=NumericEncoder,
-                       indent=4,
-                       sort_keys=True))
+data = np.zeros(100)
+for i in range(100):
+    data = np.zeros(100)
+    for j in range(100):
+        k = j + i * 100
+        L = LDOS(files[k])
+        data[j] = np.abs(L.compute())
+    path = files[k][0:-4] + '-udos'
+    with open(path, 'w') as f:
+        f.write(json.dumps({'param': L.lim.save(),
+                            'data': data},
+                           cls=NumericEncoder,
+                           indent=4,
+                           sort_keys=True))
