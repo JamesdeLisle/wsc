@@ -36,6 +36,7 @@ data = np.zeros(len(files))
 
 data = np.zeros(100)
 for i in range(100):
+    print i
     data = np.zeros(100)
     for j in range(100):
         k = j + i * 100
