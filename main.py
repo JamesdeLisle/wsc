@@ -30,8 +30,8 @@ if __name__ == '__main__':
     L.nKAzimu = 100
     L.nTemp = 1
     L.nAlpha = 1
-    L.energyMin = -4.0
-    L.energyMax = 4.0
+    L.energyMin = -0.5
+    L.energyMax = 0.5
     L.kPolarMin = 0.000001
     L.kPolarMax = np.pi
     L.kAzimuMin = 0.000001
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     L.B_z = 1.0
     L.finalise()
 
-    orders = ['0', '1', '2']
+    orders = ['0']
     for order in orders:
         M = main.Main(L, run_time, data_folder, order)
         M.run()
