@@ -21,7 +21,7 @@ class LDOS:
             dosXi = 0.0
             for iTheta, Theta in enumerate(self.P.kAzi):
                 dosTheta = 0.0
-                indexIn = (iXi, iTheta, self.lim.nAlpha / 2)
+                indexIn = (iXi, iTheta)
                 g = self.P.data[self.P.strings[0]][indexIn]
 
                 dosTheta += 1.0 * 1j / (4.0 * np.pi)
