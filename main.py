@@ -49,7 +49,7 @@ if __name__ == '__main__':
     L.B_z = 1.0
     L.finalise()
 
-    orders = ['0']
+    orders = ['0', '1']
     for order in orders:
         M = main.Main(L, run_time, data_folder, order)
         M.run()

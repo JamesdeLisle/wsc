@@ -33,7 +33,7 @@ class Main:
 
         if self.order == '0':
             import uni.uniparam as param
-            #self.strings = ['gR', 'gK']
+            # self.strings = ['gR', 'gK']
             self.strings = ['gR']
         elif self.order == '1':
             import ret.retparam as param
