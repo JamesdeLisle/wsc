@@ -25,11 +25,11 @@ if __name__ == '__main__':
 
     L = lim.Limits()
     L.spinDir = 'up'
-    L.nEnergy = 20
+    L.nEnergy = 100
     L.nKPolar = 50
     L.nKAzimu = 100
     L.nTemp = 1
-    L.nAlpha = 50
+    L.nAlpha = 1
     L.energyMin = -1.0
     L.energyMax = 1.0
     L.kPolarMin = 0.000001
