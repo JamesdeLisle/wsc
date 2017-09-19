@@ -20,8 +20,8 @@ class Function:
         rv[0, 0] = V.ener
         rv[1, 1] = -V.ener
         rv -= E.hamR
-        rv *= -1.0 / np.sqrt((V.ener - 1j * E.sigmaR) *
-                             (V.ener - 1j * E.sigmaR) -
+        rv *= -1.0 / np.sqrt((V.ener - E.sigmaR) *
+                             (V.ener + E.sigmaR) -
                              np.abs(E.deltaR) *
                              np.abs(E.deltaR))
         return rv
