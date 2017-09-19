@@ -33,7 +33,7 @@ if __name__ == '__main__':
     L.energyMin = -0.1
     L.energyMax = 0.1
     L.kPolarMin = 0.0
-    L.kPolarMax = np.pi
+    L.kPolarMax = np.pi/2
     L.kAzimuMin = 0.0    
     L.kAzimuMax = 2 * np.pi
     L.T_c = 0.1
