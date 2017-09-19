@@ -44,17 +44,20 @@ class Environment(object):
     @property
     def sigmaR(self):
 
-        return -1j * 0.0
+        #return -1j * 0.0
+        return 0
 
     @property
     def sigmaA(self):
 
-        return 1j * 0.001
+        #return 1j * 0.0
+        return 0
 
     @property
     def sigmaK(self):
 
-        return 1j * 0.001
+        #return 1j * 0.001
+        return 0
 
     @property
     def hamR(self):
