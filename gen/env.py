@@ -44,7 +44,7 @@ class Environment(object):
     @property
     def sigmaR(self):
 
-        return -1j * 0.001
+        return -1j * 0.00000001
 
     @property
     def sigmaA(self):
