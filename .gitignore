@@ -4,5 +4,5 @@ datacal/
 .ipynb_checkpoints/
 *~
 .ropeproject/
-*.pynb
+*.ipynb
 *.pdf
