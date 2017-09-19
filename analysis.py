@@ -10,7 +10,7 @@ data_folder = "data/"
 def getFiles():
 
     return [os.path.join(data_folder, f) for f in os.listdir(data_folder)
-            if os.path.isfile(os.path.join(data_folder, f)) and '-0-' in f]
+            if os.path.isfile(os.path.join(data_folder, f)) and '-1-' in f]
 
 
 files = sorted(getFiles())
@@ -34,10 +34,10 @@ data = np.zeros(len(files))
 #                        indent=4,
 #                        sort_keys=True))
 
-data = np.zeros(100)
-for i in range(100):
+data = np.zeros(1)
+for i in range(1):
     print i
-    data = np.zeros(100)
+    data = np.zeros(20)
     for j in range(100):
         k = j + i * 100
         L = LDOS(files[k])
