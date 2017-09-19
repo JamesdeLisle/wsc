@@ -21,7 +21,7 @@ class Function:
         rv[1, 1] = -V.ener
         rv -= E.hamR
         rv *= -1.0 / np.sqrt((V.ener - E.sigmaR) *
-                             (V.ener + E.sigmaR) -
+                             (V.ener - E.sigmaR) -
                              np.abs(E.deltaR) *
                              np.abs(E.deltaR))
         return rv
