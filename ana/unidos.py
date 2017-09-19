@@ -10,7 +10,7 @@ class LDOS:
         self.path = path
         self.lim = Limits()
         self.lim.readData(self.path)
-        self.P = ParamSpace(self.lim, '0', ['gR'])
+        self.P = ParamSpace(self.lim, '1', ['gR1'])
         self.P.readData(self.path)
 
     def compute(self):
@@ -21,7 +21,7 @@ class LDOS:
             dosXi = 0.0
             for iTheta, Theta in enumerate(self.P.kAzi):
                 dosTheta = 0.0
-                indexIn = (iXi, iTheta, 0)
+                indexIn = (iXi, iTheta)
                 g = self.P.data[self.P.strings[0]][indexIn]
 
                 dosTheta += 1.0 * 1j / (4.0 * np.pi)
