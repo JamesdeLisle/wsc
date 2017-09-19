@@ -37,9 +37,9 @@ print len(files)
 data = np.zeros(1)
 for i in range(1):
     print i
-    data = np.zeros(20)
-    for j in range(20):
-        k = j + i * 20
+    data = np.zeros(100)
+    for j in range(100):
+        k = j + i * 100
         print k
         L = LDOS(files[k])
         data[j] = np.abs(L.compute())
