@@ -63,7 +63,8 @@ def doscolor():
                      vmax=z.max(),
                      origin='lower',
                      aspect='equal',
-                     extent=[x.min(), x.max(), y.min(), y.max()])
+                     extent=[x.min(), x.max(), y.min(), y.max()],
+                     cmap='summer')
 
     divider1 = make_axes_locatable(ax1)
     cax1 = divider1.append_axes('right', size='5%', pad=0.15)
