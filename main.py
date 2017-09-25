@@ -47,7 +47,7 @@ if __name__ == '__main__':
     L.a3 = 0.12
     L.a4 = 0.05
     L.B_z = 1.0
-    L.tau = 0
+    L.tau = 0.01
     L.finalise()
 
     orders = ['0']
