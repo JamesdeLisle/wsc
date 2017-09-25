@@ -444,7 +444,7 @@ class Limits(object):
         else:
             raise RuntimeError('tau has not been defined')
 
-    @B_z.setter
+    @tau.setter
     def tau(self, value):
         if type(value) == float or type(value) == int:
             self._tau = value
