@@ -5,12 +5,14 @@ from gen.lim import Limits
 
 class LDOS:
 
-    def __init__(self, path):
+    def __init__(self, path, order, func):
 
         self.path = path
+        self.order = order
+        self.func = func
         self.lim = Limits()
         self.lim.readData(self.path)
-        self.P = ParamSpace(self.lim, '0', ['gR'])
+        self.P = ParamSpace(self.lim, order, [func])
         self.P.readData(self.path)
 
     def compute(self):
@@ -21,9 +23,11 @@ class LDOS:
             dosXi = 0.0
             for iTheta, Theta in enumerate(self.P.kAzi):
                 dosTheta = 0.0
-                indexIn = (iXi, iTheta, 0)
+                if self.order == '0':
+                    indexIn = (iXi, iTheta, 0)
+                elif self.order == '1':
+                    indexIn = (iXi, iTheta)
                 g = self.P.data[self.P.strings[0]][indexIn]
-
                 dosTheta += 1.0 * 1j / (4.0 * np.pi)
                 dosTheta *= np.trace(tau3 * g)
                 dosTheta *= self.P.lim.dKAzimu / 3.0

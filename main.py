@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     L = lim.Limits()
     L.spinDir = 'up'
-    L.nEnergy = 200
+    L.nEnergy = 100
     L.nKPolar = 50
     L.nKAzimu = 100
     L.nTemp = 1
@@ -50,7 +50,7 @@ if __name__ == '__main__':
     L.tau = 0.005
     L.finalise()
 
-    orders = ['0']
+    orders = ['0', '1']
     for order in orders:
         M = main.Main(L, run_time, data_folder, order)
         M.run()

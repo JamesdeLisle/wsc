@@ -82,13 +82,14 @@ class Limits(object):
         rv['a3'] = self.a3
         rv['a4'] = self.a4
         rv['B_z'] = self.B_z
+        rv['tau'] = self.B_z
 
         return rv
 
     def load(self, values):
 
         for key, value in values.iteritems():
-            setattr(self, key, value)
+            setattr(self, '_' + key, value)
 
     def readData(self, path):
 

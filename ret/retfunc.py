@@ -16,7 +16,7 @@ class Function:
         E = self.envi
 
         delsq = np.abs(E.deltaR) * np.abs(E.deltaR)
-        epsil = V.ener - E.sigmaR
+        epsil = V.ener + 1j * 1e-6 - E.sigmaR
 
         rv = np.zeros(shape=(2, 2), dtype=np.complex128)
         rv[0, 1] = -E.deltaR - (1j * V.dg0[0, 0]) / (2 * np.conj(E.deltaR))
