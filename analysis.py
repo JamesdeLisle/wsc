@@ -21,7 +21,7 @@ lims.readData(files[0])
 for i in range(lims.nTemp):
     data = np.zeros(lims.nEnergy)
     for j in range(lims.nEnergy):
-        k = j + i * (lims.nEnergy - 1)
+        k = j + i * (lims.nEnergy)
         print k
         L = LDOS(files[k])
         data[j] = np.abs(L.compute())
