@@ -9,7 +9,6 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 import scipy.interpolate
 from matplotlib import ticker
 from matplotlib import rc
-import matplotlib
 
 
 def getFiles(data_folder):
@@ -80,6 +79,5 @@ def doscolor():
     ax1.set_aspect('auto')
     ax1.set_xlabel(r"$\T$")
     ax1.set_ylabel(r"$\epsilon$", rotation='horizontal')
-    ax1.yaxis.set_label_coords(-0.07, 0.7)
 
     plt.show()
