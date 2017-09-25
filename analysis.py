@@ -33,13 +33,12 @@ data = np.zeros(len(files))
 #                        cls=NumericEncoder,
 #                        indent=4,
 #                        sort_keys=True))
+length = 200
 for i in range(1):
-    data = np.zeros(len(files[0]))
-    for j in range(len(files[0])):
-        k = j + i * len(files[0])
-        print k
+    data = np.zeros(length)
+    for j in range(length):
+        k = j + i * length
         L = LDOS(files[k])
-        print np.abs(L.compute())
         data[j] = np.abs(L.compute())
     path = files[k][0:-4] + '-udos'
     with open(path, 'w') as f:
