@@ -1,4 +1,5 @@
 from ana.unidos import LDOS
+from gen.lim import Limits
 import os
 import numpy as np
 from jsci.Coding import NumericEncoder
@@ -14,31 +15,14 @@ def getFiles():
 
 
 files = sorted(getFiles())
-data = np.zeros(len(files))
+lims = Limits()
+lims.readData(files[0])
 
-
-# count = 0
-# for f in files:
-# 
-#     L = LDOS(f)
-#     data[count] = np.abs(L.compute())
-#     print data[count], count, L.P.ener[L.P.label[1]]
-#     count += 1
-# 
-# path = files[0][0:-8]
-# path_complete = path + 'udos'
-# with open(path_complete, 'w') as f:
-#     f.write(json.dumps({'param': L.lim.save(),
-#                         'data': data},
-#                        cls=NumericEncoder,
-#                        indent=4,
-#                        sort_keys=True))
-length = 200
-for i in range(1):
-    data = np.zeros(length)
-    for j in range(length):
-        k = j + i * length
-        L = LDOS(files[k])
+for i in range(lims.nTemp):
+    data = np.zeros(lims.nTemp)
+    for j in range(lims.nEnergy):
+        k = j + i * lims.nTemp
+        L = LDOS(files[k], '0', 'gR')
         data[j] = np.abs(L.compute())
     path = files[k][0:-4] + '-udos'
     with open(path, 'w') as f:
