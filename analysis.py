@@ -11,7 +11,7 @@ data_folder = "data/"
 def getFiles():
 
     return [os.path.join(data_folder, f) for f in os.listdir(data_folder)
-            if os.path.isfile(os.path.join(data_folder, f)) and '-0-' in f]
+            if os.path.isfile(os.path.join(data_folder, f)) and '-1-' in f]
 
 
 files = sorted(getFiles())
@@ -23,7 +23,7 @@ for i in range(lims.nTemp):
     for j in range(lims.nEnergy):
         k = j + i * (lims.nEnergy)
         print k
-        L = LDOS(files[k], '0', 'gR')
+        L = LDOS(files[k], '1', 'gR1')
         data[j] = np.abs(L.compute())
         print data[j]
     path = files[k][0:-4] + '-udos'
