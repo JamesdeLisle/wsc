@@ -10,7 +10,6 @@ def dosline(path):
     font = {'family': 'normal',
             'weight': 'bold',
             'size': 9}
-    print 'hi'
     matplotlib.rc('font', **font)
     lims = lim.Limits()
     lims.readData(path)
