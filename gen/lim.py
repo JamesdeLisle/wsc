@@ -446,10 +446,10 @@ class Limits(object):
 
     @B_z.setter
     def tau(self, value):
-        if type(value) == float:
+        if type(value) == float or type(value) == int:
             self._tau = value
         else:
-            raise ValueError('tau must be a float')
+            raise ValueError('tau must be a float or an integer')
 
     @property
     def dEnergy(self):
