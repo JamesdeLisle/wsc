@@ -18,7 +18,7 @@ class Function:
 
         rv = np.zeros(shape=(2, 2), dtype=np.complex128)
         rv[0, 0] = V.ener + 1e-6 * 1j
-        rv[1, 1] = -V.ener + 1e-6 * 1j
+        rv[1, 1] = -V.ener - 1e-6 * 1j
         rv -= E.hamR
         rv *= -1.0 / np.sqrt((V.ener + 1e-6 * 1j - E.sigmaR) *
                              (V.ener + 1e-6 * 1j - E.sigmaR) -
