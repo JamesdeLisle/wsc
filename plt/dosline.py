@@ -3,9 +3,15 @@ import gen.lim as lim
 import numpy as np
 from jsci.Coding import NumericDecoder
 import json
+import matplotlib
 
 
 def dosline(path):
+    font = {'family': 'normal',
+            'weight': 'bold',
+            'size': 9}
+    print 'hi'
+    matplotlib.rc('font', **font)
     lims = lim.Limits()
     lims.readData(path)
     with open(path, 'r') as f:
