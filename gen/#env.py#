@@ -30,9 +30,9 @@ class Environment(object):
 
         rv = 1.0
         rv *= 1.764 / (2 * np.pi)
-        rv *= np.tanh(np.sqrt(L.T_c / V.temp - 1.0))
+        rv *= np.tanh(np.sqrt((L.T_c / V.temp) - 1.0))
         rv *= np.sin(V.Xi)
-        rv *= (L.gamma1 * np.cos(V.Theta) + 1j * L.gamma2 * np.sin(V.Theta))
+        rv *= (L.gamma1 * np.cos(V.Theta) + 1j * L.gamma2 * np.cos(V.Theta))
 
         return rv
 
