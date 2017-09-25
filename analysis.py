@@ -25,6 +25,7 @@ for i in range(lims.nTemp):
         print k
         L = LDOS(files[k])
         data[j] = np.abs(L.compute())
+        print data[j]
     path = files[k][0:-4] + '-udos'
     with open(path, 'w') as f:
         f.write(json.dumps({'param': L.lim.save(),
