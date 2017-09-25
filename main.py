@@ -34,7 +34,7 @@ if __name__ == '__main__':
     L.energyMax = 1.0
     L.kPolarMin = 0.0
     L.kPolarMax = np.pi/2
-    L.kAzimuMin = 0.0    
+    L.kAzimuMin = 0.0
     L.kAzimuMax = 2 * np.pi
     L.T_c = 0.1
     L.tempMin = 0.02
@@ -47,7 +47,7 @@ if __name__ == '__main__':
     L.a3 = 0.12
     L.a4 = 0.05
     L.B_z = 1.0
-    L.tau = 0.0
+    L.tau = 0
     L.finalise()
 
     orders = ['0']
