@@ -31,6 +31,7 @@ class Limits(object):
         self._a3 = None
         self._a4 = None
         self._B_z = None
+        self._tau = None
 
         """automatically computed limits"""
         self._dEnergy = None
@@ -435,6 +436,20 @@ class Limits(object):
             self._B_z = value
         else:
             raise ValueError('The B_z must be a float')
+
+    @property
+    def tau(self):
+        if self._tau or self._tau == 0.0:
+            return self._tau
+        else:
+            raise RuntimeError('tau has not been defined')
+
+    @B_z.setter
+    def tau(self, value):
+        if type(value) == float:
+            self._tau = value
+        else:
+            raise ValueError('tau must be a float')
 
     @property
     def dEnergy(self):
