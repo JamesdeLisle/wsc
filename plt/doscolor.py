@@ -39,9 +39,10 @@ def doscolor():
     y = np.array(y)
     z = np.array(z)
 
-    rc('font', **{'family': 'sans-serif', 'sans-serif': ['Helvetica']})
+    rc('font', **{'family': 'sans-serif',
+                  'sans-serif': ['Helvetica'],
+                  'size': 9})
     rc('text', usetex=True)
-    matplotlib.rcParams.update({'font.size': 52})
 
     fig = plt.figure(num=None, figsize=(8, 7), dpi=80)
     gs = gridspec.GridSpec(1, 1)
