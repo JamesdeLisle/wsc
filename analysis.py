@@ -33,12 +33,10 @@ data = np.zeros(len(files))
 #                        cls=NumericEncoder,
 #                        indent=4,
 #                        sort_keys=True))
-print len(files)
 for i in range(1):
-    print i
-    data = np.zeros(100)
-    for j in range(100):
-        k = j + i * 100
+    data = np.zeros(len(files[0]))
+    for j in range(len(files[0])):
+        k = j + i * len(files[0])
         print k
         L = LDOS(files[k])
         print np.abs(L.compute())
