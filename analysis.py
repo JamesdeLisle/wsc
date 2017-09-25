@@ -19,7 +19,7 @@ lims = Limits()
 lims.readData(files[0])
 
 for i in range(lims.nTemp):
-    data = np.zeros(lims.nTemp)
+    data = np.zeros(lims.nEnergy)
     for j in range(lims.nEnergy):
         k = j + i * (lims.nEnergy - 1)
         L = LDOS(files[k], '0', 'gR')
