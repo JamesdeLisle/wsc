@@ -23,16 +23,13 @@ class LDOS:
             dosXi = 0.0
             for iTheta, Theta in enumerate(self.P.kAzi):
                 dosTheta = 0.0
-                print np.imag(dosTheta)
                 if self.order == '0':
                     indexIn = (iXi, iTheta, 0)
                 elif self.order == '1':
                     indexIn = (iXi, iTheta)
                 g = self.P.data[self.P.strings[0]][indexIn]
                 dosTheta += 1.0 * 1j / (4.0 * np.pi)
-                print np.imag(dosTheta)
                 dosTheta *= np.trace(tau3 * g)
-                print np.imag(dosTheta)
                 dosTheta *= self.P.lim.dKAzimu / 3.0
 
                 if iTheta == 0 or iTheta == self.P.lim.nKAzimu:
@@ -41,9 +38,6 @@ class LDOS:
                     dosTheta *= 4.0
                 else:
                     dosTheta *= 2.0
-                print np.imag(dosTheta)
-                print Theta
-                print g
                 dosXi += np.imag(dosTheta)
 
             dosXi *= np.sin(Xi) * self.P.lim.dKPolar / 3.0
