@@ -48,4 +48,5 @@ class LDOS:
             else:
                 dosXi *= 2.0
             rv += dosXi
+            print rv
         return rv
