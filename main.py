@@ -24,8 +24,8 @@ if __name__ == '__main__':
     clearup(data_folder)
 
     L = lim.Limits()
-    L.spinDir = 'up'
-    L.nEnergy = 200
+    L.spinDir = 'down'
+    L.nEnergy = 100
     L.nKPolar = 50
     L.nKAzimu = 100
     L.nTemp = 1
