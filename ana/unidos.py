@@ -43,6 +43,7 @@ class LDOS:
                     dosTheta *= 2.0
                 print np.imag(dosTheta)
                 print Theta
+                print g
                 dosXi += np.imag(dosTheta)
 
             dosXi *= np.sin(Xi) * self.P.lim.dKPolar / 3.0
