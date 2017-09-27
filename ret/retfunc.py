@@ -23,7 +23,7 @@ class Function:
         rv[1, 0] = np.conj(E.deltaR) * (1 + V.dg0[0, 0] / (2 * E.deltaR))
         rv[0, 0] = 1j * (2 * epsil * rv[0, 1] - V.lim.B_z * V.dg0[0, 1]) / \
             (2 * E.deltaR)
-        rv[1, 1] = -1j * (2 * epsil * rv[1, 0] + V.lim.B_z * V.dg0[1, 0]) / \
+        rv[1, 1] = -1j * (2 * epsil * rv[1, 0] - V.lim.B_z * V.dg0[1, 0]) / \
             (2 * np.abs(E.deltaR))
 
         return rv
