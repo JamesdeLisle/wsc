@@ -63,7 +63,7 @@ class Main:
             if True:
                 runs = self.P.getRun(iT, iE, self.strings[0])
                 for run in runs:
-                    worker(run)
+                    print worker(run)
             ######################################
 
             for string in self.strings:
