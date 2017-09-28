@@ -60,10 +60,10 @@ class Main:
             self.DATA = {}
 
             ######################################
-            if True:
+            if False:
                 runs = self.P.getRun(iT, iE, self.strings[0])
                 for run in runs:
-                    print worker(run)
+                    worker(run)
             ######################################
 
             for string in self.strings:
