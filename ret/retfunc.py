@@ -28,6 +28,4 @@ class Function:
             * (-2 * epsil * f + 1j * V.lim.B_z * V.dg0[0, 1])
         rv[1, 1] = -rv[0, 0]
 
-        print rv
-
         return rv
