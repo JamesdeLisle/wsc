@@ -29,4 +29,6 @@ class Function:
         rv[1, 1] = (1.0 / np.conj(E.deltaR)) \
             * (2 * epsil * f + 1j * V.lim.B_z * V.dg0[0, 1])
 
+        print rv
+
         return rv
