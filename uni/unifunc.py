@@ -24,6 +24,7 @@ class Function:
                              (V.ener + 1e-6 * 1j - E.sigmaR) -
                              np.abs(E.deltaR) *
                              np.abs(E.deltaR))
+        print rv
         return rv
 
     @property
