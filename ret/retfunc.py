@@ -26,8 +26,7 @@ class Function:
         rv[1, 0] = f_bar
         rv[0, 0] = (1.0 / (2 * E.deltaR)) \
             * (-2 * epsil * f + 1j * V.lim.B_z * V.dg0[0, 1])
-        rv[1, 1] = (1.0 / (2 * np.conj(E.deltaR))) \
-            * (2 * epsil * f + 1j * V.lim.B_z * V.dg0[0, 1])
+        rv[1, 1] = -rv[0, 0]
 
         print rv
 
