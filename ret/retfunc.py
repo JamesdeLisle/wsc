@@ -20,10 +20,10 @@ class Function:
         if V.Theta < 0.0:
             bsign = 1.0
         else:
-            bsign = -1.0
+            bsign = 1.0
 
-        f = E.deltaR * (1 - 1j * V.lim.B_z * V.dg0[0, 0] / (2 * delsq))
-        f_bar = -np.conj(E.deltaR) * (1 - 1j * V.lim.B_z * V.dg0[1, 1] /
+        f = E.deltaR * (1 - 1j * V.lim.B_z * bsign * V.dg0[0, 0] / (2 * delsq))
+        f_bar = -np.conj(E.deltaR) * (1 - 1j * V.lim.B_z * bsign * V.dg0[1, 1] /
                                       (2 * delsq))
         if V.Theta < 0.0:
             bsign = -1.0
