@@ -18,7 +18,7 @@ class Function:
         delsq = E.deltaR * np.conj(E.deltaR)
         epsil = V.ener + 1j * 1e-6 - E.sigmaR
         if V.Theta < 0.0:
-            bsign = 1.0
+            bsign = -1.0
         else:
             bsign = 1.0
 
