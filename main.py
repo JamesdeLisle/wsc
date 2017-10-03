@@ -25,7 +25,7 @@ if __name__ == '__main__':
 
     L = lim.Limits()
     L.spinDir = 'up'
-    L.nEnergy = 200
+    L.nEnergy = 100
     L.nKPolar = 50
     L.nKAzimu = 100
     L.nTemp = 1
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     L.a2 = -0.06
     L.a3 = 0.12
     L.a4 = 0.05
-    L.B_z = 1.0
+    L.B_z = 0.1
     L.tau = 0.005
     L.finalise()
 
