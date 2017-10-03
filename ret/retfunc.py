@@ -18,17 +18,13 @@ class Function:
         delsq = E.deltaR * np.conj(E.deltaR)
         epsil = V.ener + 1j * 1e-6 - E.sigmaR
         if V.Theta < 0.0:
-            bsign = 1.0
+            bsign = -1.0
         else:
             bsign = 1.0
 
         f = E.deltaR * (1 - 1j * V.lim.B_z * bsign * V.dg0[0, 0] / (2 * delsq))
         f_bar = -np.conj(E.deltaR) * (1 - 1j * V.lim.B_z * bsign * V.dg0[1, 1] /
                                       (2 * delsq))
-        if V.Theta < 0.0:
-            bsign = -1.0
-        else:
-            bsign = 1.0
 
         rv = np.zeros(shape=(2, 2), dtype=np.complex128)
         rv[0, 1] = f
