@@ -42,7 +42,7 @@ class ParamSpaceBase(object):
                                 self.lim.nKPolar)
         self.kAzi = np.linspace(self.lim.kAzimuMin,
                                 self.lim.kAzimuMax,
-                                self.lim.nAzimu)
+                                self.lim.nKAzimu)
 
     @abstractproperty
     def span(self):
