@@ -23,6 +23,7 @@ for i in range(lims.nTemp):
     for j in range(lims.nEnergy):
         k = j + i * (lims.nEnergy)
         print k
+        print files[k]
         L = LDOS(files[k], '0', 'gR')
         data[j] = np.abs(L.compute())
         print data[j]
