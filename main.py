@@ -34,8 +34,8 @@ if __name__ == '__main__':
     L.energyMax = 0.1
     L.kPolarMin = 1e-6
     L.kPolarMax = np.pi/2
-    L.kAzimuMin = -np.pi
-    L.kAzimuMax = np.pi
+    L.kAzimuMin = 1e-6
+    L.kAzimuMax = 2 * np.pi
     L.T_c = 0.1
     L.tempMin = 0.02
     L.tempMax = 0.02
