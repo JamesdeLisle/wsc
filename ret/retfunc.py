@@ -1,5 +1,6 @@
 import gen.env as env
 import numpy as np
+import uni.unifunc as unif
 
 
 class Function:
@@ -22,8 +23,8 @@ class Function:
         else:
             bsign = 1.0
 
-        f = -E.deltaR * (1 - 1j * V.lim.B_z * bsign * V.dg0[0, 0] / (2 * delsq))
-        f_bar = np.conj(E.deltaR) * (1 - 1j * V.lim.B_z * bsign * V.dg0[1, 1] /
+        f = E.deltaR * (1 - 1j * V.lim.B_z * bsign * V.dg0[0, 0] / (2 * delsq))
+        f_bar = -np.conj(E.deltaR) * (1 - 1j * V.lim.B_z * bsign * V.dg0[1, 1] /
                                       (2 * delsq))
 
         print V.dg0
@@ -34,5 +35,10 @@ class Function:
                                              + 1j * V.lim.B_z
                                              * bsign * V.dg0[0, 1])
         rv[1, 1] = -rv[0, 0]
+
+        A = unif.Function(self.runVal)
+        print A.gR
+        print rv
+        print '################'
 
         return rv
