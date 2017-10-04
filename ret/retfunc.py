@@ -36,6 +36,7 @@ class Function:
                                              * bsign * V.dg0[0, 1])
         rv[1, 1] = -rv[0, 0]
 
+        self.runVal.alpha = 1.0
         A = unif.Function(self.runVal)
         print A.gR
         print rv
