@@ -61,7 +61,7 @@ class Main:
             self.DATA = {}
 
             ######################################
-            if self.order == True:
+            if True:
                 runs = self.P.getRun(iT, iE, self.strings[0])
                 for run in runs:
                     worker(run)

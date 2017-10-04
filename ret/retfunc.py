@@ -38,6 +38,7 @@ class Function:
 
         self.runVal.alpha = 1.0
         A = unif.Function(self.runVal)
+        print '################'
         print A.gR
         print rv
         print '################'
