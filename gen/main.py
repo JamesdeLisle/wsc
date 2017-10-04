@@ -25,6 +25,7 @@ class Main:
         self.limits = limits
         self.start_time = start_time
         self.data_folder = data_folder
+        self.order = order
 
         if order in ['0', '1', '2', '3']:
             self.order = order
@@ -60,7 +61,7 @@ class Main:
             self.DATA = {}
 
             ######################################
-            if False:
+            if self.order == '1':
                 runs = self.P.getRun(iT, iE, self.strings[0])
                 for run in runs:
                     worker(run)
