@@ -23,7 +23,7 @@ class Function:
         else:
             bsign = 1.0
 
-        f = E.deltaR * (1 - 1j * V.lim.B_z * bsign * V.dg0[0, 0] / (2 * delsq)y)
+        f = E.deltaR * (1 - 1j * V.lim.B_z * bsign * V.dg0[0, 0] / (2 * delsq))
         f_bar = -np.conj(E.deltaR) * (1 - 1j * V.lim.B_z * bsign * V.dg0[1, 1] /
                                       (2 * delsq))
 
