@@ -20,10 +20,10 @@ class Function:
         tau3[1, 1] = -1.0
         lam = V.ener * tau3 - E.hamR
         rv = 0.5 * np.linalg.inv(lam) * 1j * V.lim.B_z * V.dg0
-        print '###############'
-        print np.linalg.inv(lam)
-        print V.dg0
-        print np.linalg.inv(lam) * V.dg0
-        print '###############'
+        #print '###############'
+        #print np.linalg.inv(lam)
+        #print V.dg0
+        #print np.linalg.inv(lam) * V.dg0
+        #print '###############'
         
         return rv
