@@ -19,6 +19,6 @@ class Function:
         tau3 = np.eye(2)
         tau3[1, 1] = -1.0
         lam = V.ener * tau3 - E.hamR
-        rv = np.linalg.inv(lam) * V.lim.B_z * V.dg0
+        rv = 0.5 * np.linalg.inv(lam) * 1j * V.lim.B_z * V.dg0
 
         return rv
