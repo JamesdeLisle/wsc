@@ -28,7 +28,7 @@ if __name__ == '__main__':
     L.nEnergy = 250
     L.nKPolar = 100
     L.nKAzimu = 200
-    L.nTemp = 2
+    L.nTemp = 1
     L.nAlpha = 1
     L.energyMin = -0.02
     L.energyMax = -1e-6
