@@ -98,7 +98,7 @@ class ParamSpaceBase(object):
         perc = 100 * (float(iT * self.lim.nEnergy) + iE) / \
                (self.lim.nTemp * self.lim.nEnergy)
         if iT == self.lim.nTemp - 1 and iE == self.lim.nEnergy - 1:
-            sys.stdout.write('\rDone!    ')
+            sys.stdout.write('\rDone!    \n')
         else:
             sys.stdout.write('\r%.2f%%' % perc)
         sys.stdout.flush()
