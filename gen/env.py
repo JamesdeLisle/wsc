@@ -61,8 +61,8 @@ class Environment(object):
 
         rv = np.zeros(shape=(2, 2), dtype=np.complex128)
         rv[0, 0] = self.sigmaR
-        rv[1, 1] = np.conj(self.sigmaR)
-        rv[0, 1] = self.deltaR
+        rv[1, 1] = self.sigmaR
+        rv[0, 1] = -self.deltaR
         rv[1, 0] = -np.conj(self.deltaR)
 
         return rv

@@ -24,7 +24,7 @@ for i in range(lims.nTemp):
         k = j + i * (lims.nEnergy)
         print k
         print files[k]
-        L = LDOS(files[k], '1', 'gR1')
+        L = LDOS(files[k], '0', 'gR')
         data[j] = np.abs(L.compute())
         print data[j]
     path = files[k][0:-4] + '-udos'
