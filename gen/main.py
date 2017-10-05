@@ -79,5 +79,3 @@ class Main:
             del self.DATA
 
             self.P.writeData(os.path.join(self.data_folder, self.start_time))
-
-        print('\nDone!')
