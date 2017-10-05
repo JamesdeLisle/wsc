@@ -29,7 +29,7 @@ class LDOS:
                     indexIn = (iXi, iTheta)
                 g = self.P.data[self.P.strings[0]][indexIn]
                 dosTheta += 1.0 * 1j / (4.0 * np.pi)
-                dosTheta *= 0.5 * np.trace(g)
+                dosTheta *= np.trace(tau3 * g)
                 dosTheta *= self.P.lim.dKAzimu / 3.0
 
                 if iTheta == 0 or iTheta == self.P.lim.nKAzimu:
