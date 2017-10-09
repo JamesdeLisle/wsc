@@ -73,7 +73,7 @@ class ParamSpaceBase(object):
 
     def writeData(self, path):
         try:
-            path_complete = path + '-%s-T%03dE%03d' % (self.order,
+            path_complete = path + '-%s-T%04dE%04d' % (self.order,
                                                        self.label[0],
                                                        self.label[1])
             with open(path_complete, 'w') as f:
@@ -91,7 +91,7 @@ class ParamSpaceBase(object):
         with open(path, 'r') as f:
             content = json.loads(f.read(), cls=NumericDecoder)
         self.data = content['data']
-        self.label = (int(path[-7:-4]), int(path[-3:]))
+        self.label = (int(path[-7:-5]), int(path[-4:]))
 
     def getProgress(self, iT, iE):
 

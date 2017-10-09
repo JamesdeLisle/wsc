@@ -1,6 +1,6 @@
 import gen.env as env
 import numpy as np
-import uni.unifunc as unif
+import gen.forms as fm
 
 
 class Function:
@@ -16,14 +16,7 @@ class Function:
         V = self.runVal
         E = self.envi
 
-        tau3 = np.eye(2)
-        tau3[1, 1] = -1.0
-        lam = V.ener * tau3 - E.hamR
+        lam = (V.ener + 1e-6 * 1j) * fm.p3() - E.hamR
         rv = 0.5 * np.linalg.inv(lam) * 1j * V.lim.B_z * V.dg0
-        #print '###############'
-        #print np.linalg.inv(lam)
-        #print V.dg0
-        #print np.linalg.inv(lam) * V.dg0
-        #print '###############'
-        
+
         return rv

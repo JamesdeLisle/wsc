@@ -1,5 +1,6 @@
 import gen.env as env
 import numpy as np
+import gen.forms as fm
 
 
 class Function:
@@ -29,9 +30,7 @@ class Function:
     @property
     def gA(self):
 
-        t3 = np.array([[1, 0], [0, -1]])
-
-        return t3 * np.conj(self.gR).T * t3
+        return fm.p3() * np.conj(self.gR).T * fm.p3()
 
     @property
     def gK(self):

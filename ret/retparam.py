@@ -24,7 +24,6 @@ class ParamSpace(ParamSpaceBase):
         rv = list()
         for (iXi, Xi), (iTheta, Theta) in DOF:
             index = (iT, iE, iXi, iTheta)
-            self.dTheta(iXi, iTheta)
             values = {'string': string,
                       'order': self.order,
                       'index': index,
@@ -33,7 +32,7 @@ class ParamSpace(ParamSpaceBase):
                       'Xi': Xi,
                       'Theta': Theta,
                       'lim': self.lim,
-                      'dg0': self.dg0}
+                      'dg0': self.dTheta(iXi, iTheta)}
             rv.append(RunValue(**values))
 
         return rv
@@ -41,7 +40,7 @@ class ParamSpace(ParamSpaceBase):
     def loadData(self, data_folder, start_time, iT, iE):
 
         path = os.path.join(data_folder, start_time +
-                            '-0-T%03dE%03d' % (iT, iE))
+                            '-0-T%04dE%04d' % (iT, iE))
 
         with open(path, 'r') as f:
             content = json.loads(f.read(), cls=NumericDecoder)
@@ -55,6 +54,6 @@ class ParamSpace(ParamSpaceBase):
         else:
             finish = iTheta + 1
 
-        self.dg0 = (self.compData[iXi, start, self.lim.nAlpha / 2] -
-                    self.compData[iXi, finish, self.lim.nAlpha / 2]) \
+        return (self.compData[iXi, start, self.lim.nAlpha / 2] -
+                self.compData[iXi, finish, self.lim.nAlpha / 2]) \
             / self.lim.dKAzimu
