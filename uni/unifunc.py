@@ -21,10 +21,7 @@ class Function:
         rv[0, 0] = V.ener + 1e-6 * 1j
         rv[1, 1] = -V.ener - 1e-6 * 1j
         rv -= E.hamR
-        rv *= -1.0 / np.sqrt((V.ener + 1e-6 * 1j + E.sigmaR) *
-                             (V.ener + 1e-6 * 1j + E.sigmaR) +
-                             np.abs(E.deltaR) *
-                             np.abs(E.deltaR))
+        rv *= -1.0 / np.sqrt(np.dot(rv, rv)[0, 0])
         print rv * rv
         return rv
 
