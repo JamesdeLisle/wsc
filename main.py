@@ -25,12 +25,12 @@ if __name__ == '__main__':
 
     L = lim.Limits()
     L.spinDir = 'up'
-    L.nEnergy = 1000
-    L.nKPolar = 50
-    L.nKAzimu = 100
+    L.nEnergy = 10000
+    L.nKPolar = 200
+    L.nKAzimu = 400
     L.nTemp = 1
     L.nAlpha = 1
-    L.energyMin = -0.1
+    L.energyMin = -0.02
     L.energyMax = -1e-6
     L.kPolarMin = 1e-6
     L.kPolarMax = np.pi
@@ -42,15 +42,15 @@ if __name__ == '__main__':
     L.tempInc = 1.0 / 200.0
     L.alphaMin = -6.0
     L.alphaMax = 6.0
-    L.a1 = 0.5
-    L.a2 = 0.5
-    L.a3 = 0.5
-    L.a4 = -0.5
+    L.a1 = 0.1
+    L.a2 = -0.06
+    L.a3 = 0.12
+    L.a4 = 0.05
     L.B_z = 0.1
-    L.tau = 0.0001
+    L.tau = 0.0000001
     L.finalise()
 
-    orders = ['0']
+    orders = ['0', '1']
     for order in orders:
         M = main.Main(L, run_time, data_folder, order)
         M.run()
