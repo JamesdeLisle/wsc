@@ -1,6 +1,7 @@
 import gen.env as env
 import numpy as np
 import gen.forms as fm
+import cmath
 
 
 class Function:
@@ -21,8 +22,7 @@ class Function:
         rv[0, 0] = V.ener + 1e-6 * 1j
         rv[1, 1] = -V.ener - 1e-6 * 1j
         rv -= E.hamR
-        rv *= -1.0 / np.sqrt(np.dot(rv, rv)[0, 0])
-        print rv * rv
+        rv *= -1.0 / cmath.sqrt(np.dot(rv, rv)[0, 0])
         return rv
 
     @property
