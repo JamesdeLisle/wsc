@@ -1,6 +1,7 @@
 import numpy as np
 from uni.uniparam import ParamSpace
 from gen.lim import Limits
+import gen.forms as fm
 
 
 class LDOS:
@@ -17,7 +18,6 @@ class LDOS:
 
     def compute(self):
 
-        tau3 = np.array([[1, 0], [0, -1]])
         rv = 0.0
         for iXi, Xi in enumerate(self.P.kPol):
             dosXi = 0.0
@@ -29,7 +29,7 @@ class LDOS:
                     indexIn = (iXi, iTheta)
                 g = self.P.data[self.P.strings[0]][indexIn]
                 dosTheta += 1.0 * 1j / (4.0 * np.pi)
-                dosTheta *= 0.5 * np.trace(g)
+                dosTheta *= 0.5 * np.trace(np.dot(fm.p3(), g))
                 dosTheta *= self.P.lim.dKAzimu / 3.0
 
                 if iTheta == 0 or iTheta == self.P.lim.nKAzimu:

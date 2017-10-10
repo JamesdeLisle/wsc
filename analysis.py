@@ -24,11 +24,11 @@ for i in range(lims.nTemp):
     for j in range(lims.nEnergy):
         k = j + i * (lims.nEnergy)
         print k
-        print files['1'][k]
-        L = LDOS(files['1'][k], '1', 'gR1')
+        print files['0'][k]
+        L = LDOS(files['0'][k], '0', 'gR')
         data[j] = np.abs(L.compute())
         print data[j]
-    path = files['1'][k][0:-5] + '-udos'
+    path = files['0'][k][0:-5] + '-udos'
     with open(path, 'w') as f:
         f.write(json.dumps({'param': L.lim.save(),
                             'data': data},
