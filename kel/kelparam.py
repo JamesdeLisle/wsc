@@ -3,6 +3,7 @@ from gen.par import ParamSpaceBase, RunValue
 from jsci.Coding import NumericDecoder
 import json
 import os
+from gen.parser import fileName
 
 
 class ParamSpace(ParamSpaceBase):
@@ -25,8 +26,8 @@ class ParamSpace(ParamSpaceBase):
         for (iXi, Xi), (iTheta, Theta) in DOF:
             index = (iT, iE, iXi, iTheta)
             self.dTheta(iXi, iTheta)
-            gR = self.compData['gR0'][iXi, iTheta, self.lim.nAlpha / 2] \
-                + self.compData['gR1'][iXi, iTheta]
+            gR = self.compData['0'][iXi, iTheta] \
+                + self.compData['2'][iXi, iTheta]
             values = {'string': string,
                       'order': self.order,
                       'index': index,
@@ -35,7 +36,7 @@ class ParamSpace(ParamSpaceBase):
                       'Xi': Xi,
                       'Theta': Theta,
                       'lim': self.lim,
-                      'gK0': self.compData['gK0'][iXi, iTheta, 0],
+                      'gK0': self.compData['1'][iXi, iTheta, :],
                       'dgK0': self.dgK0,
                       'gR': gR}
             rv.append(RunValue(**values))
@@ -44,25 +45,16 @@ class ParamSpace(ParamSpaceBase):
 
     def loadData(self, data_folder, start_time, iT, iE):
 
-        f_g0 = os.path.join(data_folder,
-                            start_time +
-                            '-0-T%03dE%03d' % (iT, iE))
-        f_gR = os.path.join(data_folder,
-                            start_time +
-                            '-1-T%03dE%03d' % (iT, iE))
+        orders = {'0': 'gR', '1': 'gK', '2': 'gR'}
+        files = {order: os.path.join(data_folder, start_time +
+                                     fileName(order, self.lim.spinDir, iT, iE))
+                 for order in orders}
 
         self.compData = dict()
-
-        with open(f_g0, 'r') as f:
-            content = json.loads(f.read(), cls=NumericDecoder)
-
-        self.compData['gR0'] = content['data']['gR']
-        self.compData['gK0'] = content['data']['gK']
-
-        with open(f_gR, 'r') as f:
-            content = json.loads(f.read(), cls=NumericDecoder)
-
-        self.compData['gR1'] = content['data']['gR1']
+        for order in orders:
+            with open(files[order], 'r') as f:
+                content = json.loads(f.read(), cls=NumericDecoder)
+                self.compData[order] = content['data'][orders[order]]
 
     def dTheta(self, iXi, iTheta):
 
@@ -72,7 +64,7 @@ class ParamSpace(ParamSpaceBase):
         else:
             finish = iTheta + 1
 
-        self.dgK0 = list()
+        self.dgK0 = []
         for alpha in range(self.lim.nAlpha):
 
             self.dgK0.append((self.compData['gK0'][iXi, start, alpha] -

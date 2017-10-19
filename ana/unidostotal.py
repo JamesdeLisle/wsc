@@ -1,5 +1,5 @@
 import numpy as np
-from uni.uniparam import ParamSpace
+from uni.uniparamret import ParamSpace
 from gen.lim import Limits
 
 
@@ -9,9 +9,9 @@ class LDOS:
 
         self.lim = Limits()
         self.lim.readData(path0)
-        self.P0 = ParamSpace(self.lim, '0', ['gR'])
+        self.P0 = ParamSpace(self.lim, '0', 'gR')
         self.P0.readData(path0)
-        self.P1 = ParamSpace(self.lim, '1', ['gR'])
+        self.P1 = ParamSpace(self.lim, '2', 'gR')
         self.P1.readData(path1)
 
     def compute(self):
@@ -22,10 +22,9 @@ class LDOS:
             dosXi = 0.0
             for iTheta, Theta in enumerate(self.P0.kAzi):
                 dosTheta = 0.0
-                indexIn0 = (iXi, iTheta, 0)
-                indexIn1 = (iXi, iTheta)
-                g = self.P0.data[self.P0.strings[0]][indexIn0] \
-                    -  1j *self.P1.data[self.P1.strings[0]][indexIn1]
+                index = (iXi, iTheta)
+                g = self.P0.data[self.P0.string][index] \
+                    + self.P1.data[self.P1.string][index]
                 dosTheta += 1.0 * 1j / (4.0 * np.pi * np.pi)
                 dosTheta *= 0.5 * np.trace(np.dot(tau3, g))
                 dosTheta *= self.P0.lim.dKAzimu / 3.0

@@ -6,7 +6,7 @@ from gen.parser import getFiles
 def plotSingle():
     data_folder = os.path.join(os.getcwd(), 'data/')
 
-    orders = ['0', '1', 'total']
+    orders = ['0', '2', 'total']
     files = getFiles(orders, data_folder, 'dos')
 
     for order in orders:

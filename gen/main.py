@@ -6,10 +6,12 @@ import os
 def worker(runValue):
 
     if runValue.order == '0':
-        import uni.unifunc as func
+        import uni.unifuncret as func
     elif runValue.order == '1':
-        import ret.retfunc as func
+        import uni.unifunckel as func
     elif runValue.order == '2':
+        import ret.retfunc as func
+    elif runValue.order == '3':
         import kel.RK as func
 
     F = func.Function(runValue)
@@ -33,17 +35,19 @@ class Main:
             raise ValueError("The given order is not valid")
 
         if self.order == '0':
-            import uni.uniparam as param
-            # self.strings = ['gR', 'gK']
-            self.strings = ['gR']
+            import uni.uniparamret as param
+            self.string = 'gR'
         elif self.order == '1':
-            import ret.retparam as param
-            self.strings = ['gR']
+            import uni.uniparamkel as param
+            self.string = 'gK'
         elif self.order == '2':
+            import ret.retparam as param
+            self.string = 'gR'
+        elif self.order == '3':
             import kel.kelparam as param
-            self.strings = ['gK']
+            self.string = 'gK'
 
-        self.P = param.ParamSpace(self.limits, self.order, self.strings)
+        self.P = param.ParamSpace(self.limits, self.order, self.string)
         self.DOF = itertools.product(enumerate(self.P.temp),
                                      enumerate(self.P.ener))
 
@@ -62,19 +66,17 @@ class Main:
 
             ######################################
             if False:
-                runs = self.P.getRun(iT, iE, self.strings[0])
+                runs = self.P.getRun(iT, iE, self.string)
                 for run in runs:
                     worker(run)
             ######################################
 
-            for string in self.strings:
-                run = self.P.getRun(iT, iE, string)
-                p = Pool()
-                self.DATA[string] = p.map(worker, run)
-                p.close()
+            run = self.P.getRun(iT, iE, self.string)
+            p = Pool()
+            self.DATA[self.string] = p.map(worker, run)
+            p.close()
 
-            for string in self.strings:
-                self.P.updateData(self.DATA[string], string)
+            self.P.updateData(self.DATA[self.string], self.string)
 
             del self.DATA
 

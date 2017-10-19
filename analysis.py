@@ -50,7 +50,7 @@ def compTotalDOS(files, lims):
             perc = 100 * float(index) / (lims.nEnergy * lims.nTemp)
             sys.stdout.write('\r%.2f%%' % perc)
             sys.stdout.flush()
-            L = LDOST.LDOS(files['0'][index], files['1'][index])
+            L = LDOST.LDOS(files['0'][index], files['2'][index])
             data[iE] = np.abs(L.compute())
         path = join(data_folder,
                     nameParser(files['0'][index], 'run')
@@ -68,7 +68,7 @@ def compTotalDOS(files, lims):
 
 
 def Main():
-    orders = ['0', '1']
+    orders = ['0', '2']
     files = getFiles(orders, data_folder, 'raw')
     lims = Limits()
     lims.loadFromFile(data_folder)
@@ -77,7 +77,7 @@ def Main():
 
 
 if __name__ == '__main__':
-    orders = ['0', '1']
+    orders = ['0', '2']
     files = getFiles(orders, data_folder, 'raw')
     lims = Limits()
     lims.loadFromFile(data_folder)

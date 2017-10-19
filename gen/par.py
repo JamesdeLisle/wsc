@@ -3,6 +3,7 @@ import json
 from jsci.Coding import NumericEncoder, NumericDecoder
 from abc import ABCMeta, abstractproperty, abstractmethod
 import sys
+from parser import fileName
 
 
 class RunValue:
@@ -26,11 +27,11 @@ class ParamSpaceBase(object):
 
     __metaclass__ = ABCMeta
 
-    def __init__(self, limits, order, strings):
+    def __init__(self, limits, order, string):
 
         self.lim = limits
         self.order = order
-        self.strings = strings
+        self.string = string
         self.temp = np.linspace(self.lim.tempMin,
                                 self.lim.tempMax,
                                 self.lim.nTemp)
@@ -59,8 +60,8 @@ class ParamSpaceBase(object):
     def initData(self, label):
 
         self.label = label
-        self.data = {string: np.zeros(shape=self.span, dtype=np.complex128)
-                     for string in self.strings}
+        self.data = {self.string: np.zeros(shape=self.span,
+                                           dtype=np.complex128)}
 
     def updateData(self, data, string):
         try:
@@ -73,9 +74,10 @@ class ParamSpaceBase(object):
 
     def writeData(self, path):
         try:
-            path_complete = path + '-%s-T%04dE%04d' % (self.order,
-                                                       self.label[0],
-                                                       self.label[1])
+            path_complete = path + fileName(self.order,
+                                            self.lim.spinDir,
+                                            self.label[0],
+                                            self.label[1])
             with open(path_complete, 'w') as f:
                 f.write(json.dumps({'param': self.lim.save(),
                                     'data': self.data},

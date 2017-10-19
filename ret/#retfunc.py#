@@ -1,6 +1,7 @@
 import gen.env as env
 import numpy as np
 import gen.forms as fm
+import uni.unifunc as unif
 
 
 class Function:

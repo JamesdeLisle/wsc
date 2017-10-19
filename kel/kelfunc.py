@@ -20,8 +20,8 @@ class Keldysh:
 
         tau3 = np.array([[1, 0], [0, -1]])
         epsil = np.zeros(shape=(2, 2), dtype=np.complex128)
-        epsil[0, 0] = 1j * V.ener
-        epsil[1, 1] = -1j * V.ener
+        epsil[0, 0] = V.ener
+        epsil[1, 1] = -V.ener
         gA = tau3 * np.conj(V.gR).T * tau3
 
         if type(self.runVal.iAlpha) == int:

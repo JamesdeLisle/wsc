@@ -3,15 +3,16 @@ from gen.par import ParamSpaceBase, RunValue
 from jsci.Coding import NumericDecoder
 import json
 import os
+from gen.parser import fileName
 
 
 class ParamSpace(ParamSpaceBase):
 
     span = None
 
-    def __init__(self, limits, order, strings):
+    def __init__(self, limits, order, string):
 
-        super(ParamSpace, self).__init__(limits, order, strings)
+        super(ParamSpace, self).__init__(limits, order, string)
 
         self.span = (self.lim.nKPolar,
                      self.lim.nKAzimu,
@@ -39,8 +40,9 @@ class ParamSpace(ParamSpaceBase):
 
     def loadData(self, data_folder, start_time, iT, iE):
 
-        path = os.path.join(data_folder, start_time +
-                            '-0-T%04dE%04d' % (iT, iE))
+        path = os.path.join(data_folder,
+                            start_time +
+                            fileName('0', self.lim.spinDir, iT, iE))
 
         with open(path, 'r') as f:
             content = json.loads(f.read(), cls=NumericDecoder)
@@ -54,6 +56,5 @@ class ParamSpace(ParamSpaceBase):
         else:
             finish = iTheta + 1
 
-        return (self.compData[iXi, start, self.lim.nAlpha / 2] -
-                self.compData[iXi, finish, self.lim.nAlpha / 2]) \
+        return (self.compData[iXi, start] - self.compData[iXi, finish]) \
             / self.lim.dKAzimu

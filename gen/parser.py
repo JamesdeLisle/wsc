@@ -4,6 +4,10 @@ from jsci.Coding import NumericDecoder
 import json
 
 
+def fileName(order, spinDir, iT, iE):
+    return '-%s-%s-T%04dE%04d' % (order, spinDir, iT, iE)
+
+
 def nameParser(filename, part):
     if part == 'run':
         return filename[-27:-13]

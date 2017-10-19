@@ -355,33 +355,31 @@ class Limits(object):
 
     @property
     def alphaMin(self):
-        if self._alphaMin:
+        if (self._alphaMin or self._alphaMin == 0.0):
             return self._alphaMin
         else:
             raise RuntimeError('alphaMin has not been defined')
 
     @alphaMin.setter
     def alphaMin(self, value):
-        if type(value) == float and \
-           value < 0.0:
+        if type(value) == float:
             self._alphaMin = value
         else:
-            raise ValueError('The minimum alpha must be a negative float.')
+            raise ValueError('The minimum alpha must be a float.')
 
     @property
     def alphaMax(self):
-        if self._alphaMax:
+        if (self._alphaMax or self._alphaMax == 0.0):
             return self._alphaMax
         else:
             raise RuntimeError('alphaMax has not been defined')
 
     @alphaMax.setter
     def alphaMax(self, value):
-        if type(value) == float and \
-           value > 0.0:
+        if type(value) == float:
             self._alphaMax = value
         else:
-            raise ValueError('The minimum alpha must be a positive float.')
+            raise ValueError('The minimum alpha must be a float.')
 
     @property
     def a1(self):
@@ -550,7 +548,9 @@ class Limits(object):
         print 'dAlpha is calculated from other given values'
 
     def compute_dAlpha(self):
-        if self._nAlpha and self._alphaMax and self._alphaMin:
+        if self._nAlpha \
+           and (self._alphaMax or self._alphaMax == 0.0) \
+           and (self._alphaMin or self._alphaMin == 0.0):
             self._dAlpha = (self._alphaMax - self._alphaMin) / self._nAlpha
         else:
             raise RuntimeError('One of the limits has not been defined')

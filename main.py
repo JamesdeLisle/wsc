@@ -28,9 +28,9 @@ def Main(string):
     L.nKPolar = 50
     L.nKAzimu = 100
     L.nTemp = 1
-    L.nAlpha = 1
-    L.energyMin = -0.3
-    L.energyMax = 0.3
+    L.nAlpha = 10
+    L.energyMin = -3.0
+    L.energyMax = 3.0
     L.kPolarMin = 0.0
     L.kPolarMax = np.pi
     L.kAzimuMin = 0.0
@@ -40,7 +40,7 @@ def Main(string):
     L.tempMax = 0.02
     L.tempInc = 1.0 / 200.0
     L.alphaMin = -6.0
-    L.alphaMax = 6.0
+    L.alphaMax = 0.0
     L.a1 = 0.135
     L.a2 = 0.22
     L.a3 = 0.48
@@ -50,7 +50,7 @@ def Main(string):
     L.finalise()
     L.saveToFile(run_time)
 
-    orders = ['0', '1']
+    orders = ['1']
     for order in orders:
         M = main.Main(L, run_time, data_folder, order)
         M.run()
