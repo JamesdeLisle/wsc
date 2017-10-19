@@ -10,7 +10,7 @@ class Function:
         self.alphaSpa = np.linspace(self.runVal.lim.alphaMin,
                                     self.runVal.lim.alphaMax,
                                     self.runVal.lim.nAlpha)
-        self.funcVal = self.runVal.gK0
+        self.funcVal = self.runVal.gK0[0, :, :]
         self.runVal.alpha = 0
         self.dAlpha = self.runVal.lim.dAlpha
         self.kInc = [np.zeros(shape=(2, 2)) for x in range(4)]

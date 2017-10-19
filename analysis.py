@@ -28,7 +28,7 @@ def compIndiDOS(orders, files, lims):
                 data[order][iE] = np.abs(L[order].compute())
         path = {order: join(data_folder,
                             nameParser(files[order][index],
-                                       'run+order+temp'))
+                                       'run+order+spin+temp'))
                 + '-dos' for order in orders}
         for order in orders:
             with open(path[order], 'w') as f:
@@ -54,8 +54,8 @@ def compTotalDOS(files, lims):
             data[iE] = np.abs(L.compute())
         path = join(data_folder,
                     nameParser(files['0'][index], 'run')
-                    + '-total-'
-                    + nameParser(files['0'][index], 'temp')
+                    + '-total'
+                    + nameParser(files['0'][index], 'spin+temp')
                     + '-dos')
         with open(path, 'w') as f:
             f.write(json.dumps({'param': lims.save(),

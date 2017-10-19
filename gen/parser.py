@@ -10,13 +10,17 @@ def fileName(order, spinDir, iT, iE):
 
 def nameParser(filename, part):
     if part == 'run':
-        return filename[-27:-13]
+        return filename[-30:-16]
     elif part == 'run+order':
-        return filename[-27:-10]
-    elif part == 'run+order+temp':
-        return filename[-27:-5]
+        return filename[-30:-13]
+    elif part == 'run+order+spin':
+        return filename[-30:-10]
+    elif part == 'run+order+spin+temp':
+        return filename[-30:-5]
     elif part == 'temp':
-        return filename[-9:-5]
+        return filename[-10:-5]
+    elif part == 'spin+temp':
+        return filename[-14:-5]
 
 
 def filter(order, folder, kind):

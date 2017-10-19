@@ -28,7 +28,7 @@ def Main(string):
     L.nKPolar = 50
     L.nKAzimu = 100
     L.nTemp = 1
-    L.nAlpha = 10
+    L.nAlpha = 100
     L.energyMin = -3.0
     L.energyMax = 3.0
     L.kPolarMin = 0.0
