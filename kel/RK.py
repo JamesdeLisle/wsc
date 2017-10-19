@@ -16,7 +16,7 @@ class Function:
         self.kInc = [np.zeros(shape=(2, 2)) for x in range(4)]
 
     @property
-    def gK1(self):
+    def gK(self):
 
         for iAlpha, alpha in enumerate(self.alphaSpa[0:-1]):
 

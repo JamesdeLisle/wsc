@@ -1,6 +1,7 @@
 import gen.env as envi
 import numpy as np
 from math import ceil
+import gen.forms as fm
 
 
 class Keldysh:
@@ -18,11 +19,10 @@ class Keldysh:
         V = self.runVal
         E = self.envi
 
-        tau3 = np.array([[1, 0], [0, -1]])
         epsil = np.zeros(shape=(2, 2), dtype=np.complex128)
         epsil[0, 0] = V.ener
         epsil[1, 1] = -V.ener
-        gA = tau3 * np.conj(V.gR).T * tau3
+        gA = np.dot(np.dot(fm.p3(), np.conj(V.gR).T), fm.p3())
 
         if type(self.runVal.iAlpha) == int:
             dgK0 = V.dgK0[self.runVal.iAlpha]
@@ -36,4 +36,4 @@ class Keldysh:
             - E.hamK * gA \
             + 1j * V.lim.B_z * dgK0
 
-        return rv
+        return -rv

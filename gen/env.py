@@ -67,6 +67,17 @@ class Environment(object):
         return rv
 
     @property
+    def hamA(self):
+
+        rv = np.zeros(shape=(2, 2), dtype=np.complex128)
+        rv[0, 0] = self.sigmaA
+        rv[1, 1] = -self.sigmaA
+        rv[0, 1] = -self.deltaA
+        rv[1, 0] = np.conj(self.deltaA)
+
+        return rv
+
+    @property
     def hamK(self):
 
         rv = (self.hamR - self.hamA) * self.thermD

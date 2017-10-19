@@ -24,13 +24,12 @@ class ParamSpace(ParamSpaceBase):
                                 enumerate(self.kAzi))
         rv = list()
         for (iXi, Xi), (iTheta, Theta) in DOF:
-            index = (iT, iE, iXi, iTheta)
             self.dTheta(iXi, iTheta)
             gR = self.compData['0'][iXi, iTheta] \
                 + self.compData['2'][iXi, iTheta]
             values = {'string': string,
                       'order': self.order,
-                      'index': index,
+                      'index': (iT, iE, iXi, iTheta),
                       'temp': self.temp[iT],
                       'ener': self.ener[iE],
                       'Xi': Xi,
