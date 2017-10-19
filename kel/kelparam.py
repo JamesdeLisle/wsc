@@ -66,6 +66,6 @@ class ParamSpace(ParamSpaceBase):
         self.dgK0 = []
         for alpha in range(self.lim.nAlpha):
 
-            self.dgK0.append((self.compData['gK0'][iXi, start, alpha] -
-                              self.compData['gK0'][iXi, finish, alpha])
+            self.dgK0.append((self.compData['1'][iXi, start, alpha] -
+                              self.compData['1'][iXi, finish, alpha])
                              / self.lim.dKAzimu)
