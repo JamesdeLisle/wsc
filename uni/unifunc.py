@@ -18,11 +18,10 @@ class Function:
         E = self.envi
 
         rv = np.zeros(shape=(2, 2), dtype=np.complex128)
-        rv[0, 0] = V.ener + 1e-6 * 1j
-        rv[1, 1] = -V.ener - 1e-6 * 1j
+        rv = V.ener * fm.p3()
         rv -= E.hamR
-        rv *= -1.0 / np.sqrt((V.ener + 1e-6 * 1j - E.sigmaR) *
-                             (V.ener + 1e-6 * 1j - E.sigmaR) -
+        rv *= -1.0 / np.sqrt((V.ener - E.sigmaR) *
+                             (V.ener - E.sigmaR) -
                              np.abs(E.deltaR) *
                              np.abs(E.deltaR))
         return rv
@@ -30,7 +29,7 @@ class Function:
     @property
     def gA(self):
 
-        return fm.p3() * np.conj(self.gR).T * fm.p3()
+        return np.dot(np.dot(fm.p3(), np.conj(self.gR).T), fm.p3())
 
     @property
     def gK(self):

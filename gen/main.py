@@ -38,10 +38,10 @@ class Main:
             self.strings = ['gR']
         elif self.order == '1':
             import ret.retparam as param
-            self.strings = ['gR1']
+            self.strings = ['gR']
         elif self.order == '2':
             import kel.kelparam as param
-            self.strings = ['gK1']
+            self.strings = ['gK']
 
         self.P = param.ParamSpace(self.limits, self.order, self.strings)
         self.DOF = itertools.product(enumerate(self.P.temp),

@@ -17,5 +17,4 @@ def dosline(path):
         content = json.loads(f.read(), cls=NumericDecoder)
         data = content['data']
     plt.plot(np.linspace(lims.energyMin, lims.energyMax, lims.nEnergy), data)
-    plt.show()
-    #plt.savefig('1000e.pdf')
+    plt.savefig('dos-total.pdf')

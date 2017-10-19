@@ -9,14 +9,13 @@ def clearup(data_folder):
     existingFiles = [f for f in os.listdir(data_folder)
                      if os.path.isfile(os.path.join(data_folder, f))]
     if existingFiles:
-        os.mkdir(os.path.join(data_folder, existingFiles[0][0:12]))
+        os.mkdir(os.path.join(data_folder, existingFiles[0][0:14]))
         for f in existingFiles:
-            print os.path.join(data_folder, existingFiles[0][0:12], f)
             os.rename(os.path.join(data_folder, f),
-                      os.path.join(data_folder, existingFiles[0][0:12], f))
+                      os.path.join(data_folder, existingFiles[0][0:14], f))
 
 
-if __name__ == '__main__':
+def Main(string):
 
     data_folder = 'data/'
     run_time = time.strftime('%Y%m%d%H%M%S')
@@ -24,17 +23,17 @@ if __name__ == '__main__':
     clearup(data_folder)
 
     L = lim.Limits()
-    L.spinDir = 'up'
-    L.nEnergy = 10000
-    L.nKPolar = 200
-    L.nKAzimu = 400
+    L.spinDir = string
+    L.nEnergy = 100
+    L.nKPolar = 50
+    L.nKAzimu = 100
     L.nTemp = 1
     L.nAlpha = 1
-    L.energyMin = -0.02
-    L.energyMax = -1e-6
-    L.kPolarMin = 1e-6
+    L.energyMin = -0.3
+    L.energyMax = 0.3
+    L.kPolarMin = 0.0
     L.kPolarMax = np.pi
-    L.kAzimuMin = 1e-6
+    L.kAzimuMin = 0.0
     L.kAzimuMax = 2 * np.pi
     L.T_c = 0.1
     L.tempMin = 0.02
@@ -42,15 +41,23 @@ if __name__ == '__main__':
     L.tempInc = 1.0 / 200.0
     L.alphaMin = -6.0
     L.alphaMax = 6.0
-    L.a1 = 0.1
-    L.a2 = -0.06
-    L.a3 = 0.12
-    L.a4 = 0.05
+    L.a1 = 0.135
+    L.a2 = 0.22
+    L.a3 = 0.48
+    L.a4 = -0.242
     L.B_z = 0.1
-    L.tau = 0.0000001
+    L.tau = 0.01
     L.finalise()
+    L.saveToFile(run_time)
 
     orders = ['0', '1']
     for order in orders:
         M = main.Main(L, run_time, data_folder, order)
         M.run()
+
+
+if __name__ == '__main__':
+
+    strings = ['up']
+    for string in strings:
+        Main(string)

@@ -1,4 +1,5 @@
 data/
+pdf/
 datacal/
 *.pyc
 .ipynb_checkpoints/

@@ -11,12 +11,15 @@ class Function:
         self.envi = env.Environment(runVal)
 
     @property
-    def gR1(self):
+    def gR(self):
 
         V = self.runVal
         E = self.envi
 
-        lam = (V.ener + 1e-6 * 1j) * fm.p3() - E.hamR
-        rv = 0.5 * np.linalg.inv(lam) * 1j * V.lim.B_z * V.dg0
-
+        lam = V.ener * fm.p3() - E.hamR
+        if self.runVal.Theta < np.pi:
+            sgn = 1.0
+        else:
+            sgn = -1.0
+        rv = np.dot(0.5 * np.linalg.inv(lam), sgn * 1j * V.lim.B_z * V.dg0)
         return rv

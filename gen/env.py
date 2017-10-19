@@ -28,8 +28,7 @@ class Environment(object):
         V = self.runVal
         L = self.runVal.lim
 
-        rv = 1.0
-        rv *= 1.764 / (2 * np.pi)
+        rv = 1.764 / (2 * np.pi)
         rv *= np.tanh(np.sqrt(L.T_c / V.temp - 1.0))
         rv *= np.sin(V.Xi)
         rv *= (L.gamma1 * np.cos(V.Theta) + 1j * L.gamma2 * np.sin(V.Theta))
@@ -62,8 +61,8 @@ class Environment(object):
         rv = np.zeros(shape=(2, 2), dtype=np.complex128)
         rv[0, 0] = self.sigmaR
         rv[1, 1] = -self.sigmaR
-        rv[0, 1] = self.deltaR
-        rv[1, 0] = -np.conj(self.deltaR)
+        rv[0, 1] = -self.deltaR
+        rv[1, 0] = np.conj(self.deltaR)
 
         return rv
 

@@ -3,4 +3,6 @@
 cd data/
 rm -R *
 cd ..
-python -B main.py
+python main.py
+python analysis.py
+python plot.py

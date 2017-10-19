@@ -28,10 +28,9 @@ class LDOS:
                 elif self.order == '1':
                     indexIn = (iXi, iTheta)
                 g = self.P.data[self.P.strings[0]][indexIn]
-                dosTheta += 1.0 * 1j / (4.0 * np.pi)
+                dosTheta += 1.0 * 1j / (4.0 * np.pi * np. pi)
                 dosTheta *= 0.5 * np.trace(np.dot(fm.p3(), g))
                 dosTheta *= self.P.lim.dKAzimu / 3.0
-
                 if iTheta == 0 or iTheta == self.P.lim.nKAzimu:
                     pass
                 elif iTheta % 2 == 0:

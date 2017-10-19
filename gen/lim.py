@@ -1,6 +1,8 @@
 import numpy as np
 import json
 from jsci.Coding import NumericDecoder
+from os import listdir
+from os.path import join, isfile
 
 
 class Limits(object):
@@ -82,9 +84,22 @@ class Limits(object):
         rv['a3'] = self.a3
         rv['a4'] = self.a4
         rv['B_z'] = self.B_z
-        rv['tau'] = self.B_z
+        rv['tau'] = self.tau
 
         return rv
+
+    def saveToFile(self, start_time):
+
+        with open("data/%s-lims" % start_time, 'w') as f:
+            f.write(json.dumps(self.save(), indent=4, sort_keys=True))
+
+    def loadFromFile(self, data_folder):
+
+        file = [join(data_folder, f) for f in listdir(data_folder)
+                if isfile(join(data_folder, f)) and 'lims' in f][0]
+
+        with open(file, 'r') as f:
+            self.load(json.loads(f.read()))
 
     def load(self, values):
 
