@@ -14,6 +14,7 @@ class Environment(object):
         L = self.runVal.lim
 
         rv = -V.ener * V.Z * L.tempInc
+        print 'Z = %f' % V.Z
         rv /= (2
                * V.temp
                * V.temp
