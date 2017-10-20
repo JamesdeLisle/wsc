@@ -21,7 +21,7 @@ def Main(string, partial=False):
     data_folder = 'data/'
     if partial:
         files = getFiles(['0'], data_folder, 'raw')
-        run_time = nameParser(files[0], 'run')
+        run_time = nameParser(files['0'][0], 'run')
     else:
         run_time = time.strftime('%Y%m%d%H%M%S')
 
