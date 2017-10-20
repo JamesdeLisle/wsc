@@ -3,6 +3,7 @@ import gen.main as main
 import time
 import numpy as np
 import os
+from gen.parser import nameParser, getFiles
 
 
 def clearup(data_folder):
@@ -15,10 +16,14 @@ def clearup(data_folder):
                       os.path.join(data_folder, existingFiles[0][0:14], f))
 
 
-def Main(string):
+def Main(string, partial=False):
 
     data_folder = 'data/'
-    run_time = time.strftime('%Y%m%d%H%M%S')
+    if partial:
+        files = getFiles(['0'], data_folder, 'raw')
+        run_time = nameParser(files[0], 'run')
+    else:
+        run_time = time.strftime('%Y%m%d%H%M%S')
 
     clearup(data_folder)
 
@@ -50,7 +55,7 @@ def Main(string):
     L.finalise()
     L.saveToFile(run_time)
 
-    orders = ['0', '1', '2', '3']
+    orders = ['3']
     for order in orders:
         M = main.Main(L, run_time, data_folder, order)
         M.run()
@@ -60,4 +65,4 @@ if __name__ == '__main__':
 
     strings = ['up']
     for string in strings:
-        Main(string)
+        Main(string, partial=True)

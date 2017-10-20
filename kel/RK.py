@@ -44,5 +44,6 @@ class Function:
             self.funcVal += self.dAlpha * (self.kInc[0]
                                            + 2 * (self.kInc[1] + self.kInc[2])
                                            + self.kInc[3]) / 6
+            print self.kInc
 
         return self.funcVal
