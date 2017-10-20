@@ -14,7 +14,7 @@ class Environment(object):
         L = self.runVal.lim
 
         rv = -V.ener * V.Z * L.tempInc
-        print 'Z = %f' % V.Z
+        print 'Z = %f' % np.cosh(V.ener / (2 * V.temp))
         rv /= (2
                * V.temp
                * V.temp
