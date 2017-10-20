@@ -36,4 +36,7 @@ class Keldysh:
             - E.hamK * gA \
             + 1j * V.lim.B_z * dgK0
 
+        print (epsil - E.hamR) * self.funcVal - self.funcVal * (epsil - E.hamA)
+        print V.gR * E.hamK - E.hamK * gA
+        print 1j * V.lim.B_z * dgK0
         return -rv

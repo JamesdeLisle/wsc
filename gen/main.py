@@ -65,7 +65,7 @@ class Main:
             self.DATA = {}
 
             ######################################
-            if False:
+            if True:
                 runs = self.P.getRun(iT, iE, self.string)
                 for run in runs:
                     worker(run)
