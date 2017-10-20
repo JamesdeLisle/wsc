@@ -46,4 +46,5 @@ class Keldysh:
         print V.gR
         print dgK0
         print self.funcVal
+        print '####'
         return -rv
