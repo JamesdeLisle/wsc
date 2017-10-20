@@ -23,9 +23,9 @@ def Main(string, partial=False):
         files = getFiles(['0'], data_folder, 'raw')
         run_time = nameParser(files['0'][0], 'run')
     else:
+        clearup(data_folder)
         run_time = time.strftime('%Y%m%d%H%M%S')
 
-    clearup(data_folder)
 
     L = lim.Limits()
     L.spinDir = string
