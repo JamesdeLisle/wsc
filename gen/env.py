@@ -81,5 +81,5 @@ class Environment(object):
     def hamK(self):
 
         rv = (self.hamR - self.hamA) * self.thermD
-
+        print 'TD = %f' % self.thermD
         return rv
