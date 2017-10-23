@@ -8,6 +8,7 @@ class Function:
     def __init__(self, runVal):
 
         self.runVal = runVal
+        self.runVal.compSpace()
         self.envi = env.Environment(runVal)
 
     @property
@@ -35,6 +36,6 @@ class Function:
 
         E = self.envi
 
-        rv = (self.gR - self.gA) * E.thermD
+        rv = (self.gR - self.gA) * E.thermDG
 
         return rv

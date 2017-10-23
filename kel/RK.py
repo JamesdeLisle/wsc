@@ -1,5 +1,6 @@
 import kelfunc as kelf
 import numpy as np
+import bound
 
 
 class Function:
@@ -10,7 +11,9 @@ class Function:
         self.alphaSpa = np.linspace(self.runVal.lim.alphaMin,
                                     self.runVal.lim.alphaMax,
                                     self.runVal.lim.nAlpha)
-        self.funcVal = self.runVal.gK0[0, :, :]
+        self.runVal.alpha = self.alphaSpa[0]
+        BC = bound.Function(self.runVal)
+        self.funcVal = BC.gK
         self.runVal.alpha = 0
         self.dAlpha = self.runVal.lim.dAlpha
         self.kInc = [np.zeros(shape=(2, 2)) for x in range(4)]
@@ -44,6 +47,5 @@ class Function:
             self.funcVal += self.dAlpha * (self.kInc[0]
                                            + 2 * (self.kInc[1] + self.kInc[2])
                                            + self.kInc[3]) / 6
-            print self.kInc
 
         return self.funcVal

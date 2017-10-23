@@ -35,7 +35,7 @@ class ParamSpace(ParamSpaceBase):
                       'Xi': Xi,
                       'Theta': Theta,
                       'lim': self.lim,
-                      'gK0': self.compData['1'][iXi, iTheta, :],
+                      'gK0': self.compData['1'][iXi, iTheta],
                       'dgK0': self.dgK0,
                       'gR': gR}
             rv.append(RunValue(**values))
@@ -63,9 +63,5 @@ class ParamSpace(ParamSpaceBase):
         else:
             finish = iTheta + 1
 
-        self.dgK0 = []
-        for alpha in range(self.lim.nAlpha):
-
-            self.dgK0.append((self.compData['1'][iXi, start, alpha] -
-                              self.compData['1'][iXi, finish, alpha])
-                             / self.lim.dKAzimu)
+        self.dgK0 = (self.compData['1'][iXi, start] -
+                     self.compData['1'][iXi, finish]) / self.lim.dKAzimu

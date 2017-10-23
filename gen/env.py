@@ -8,13 +8,12 @@ class Environment(object):
         self.runVal = runVal
 
     @property
-    def thermD(self):
+    def thermDG(self):
 
         V = self.runVal
         L = self.runVal.lim
 
         rv = -V.ener * V.Z * L.tempInc
-        print 'Z = %f' % np.cosh(V.ener / (2 * V.temp))
         rv /= (2
                * V.temp
                * V.temp
@@ -22,6 +21,12 @@ class Environment(object):
                * np.cosh(V.ener / (2 * V.temp)))
 
         return rv
+
+    @property
+    def thermD(self):
+
+        V = self.runVal
+        return np.tanh(V.ener / (2 * V.temp))
 
     @property
     def deltaR(self):
@@ -82,5 +87,4 @@ class Environment(object):
     def hamK(self):
 
         rv = (self.hamR - self.hamA) * self.thermD
-        print 'TD = %f' % self.thermD
         return rv
