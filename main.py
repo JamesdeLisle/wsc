@@ -55,7 +55,7 @@ def Main(string, partial=False):
     L.finalise()
     L.saveToFile(run_time)
 
-    orders = ['3']
+    orders = ['0', '1', '2', '3']
     for order in orders:
         M = main.Main(L, run_time, data_folder, order)
         M.run()
