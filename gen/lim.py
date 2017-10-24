@@ -340,7 +340,7 @@ class Limits(object):
 
     @property
     def tempInc(self):
-        if self._tempInc:
+        if self._tempInc or self._tempInc == 0.0:
             return self._tempInc
         else:
             raise RuntimeError('tempInc has not been defined')
