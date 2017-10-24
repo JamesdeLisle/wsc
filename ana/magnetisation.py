@@ -9,10 +9,11 @@ import sys
 
 class MAG:
 
-    def __init__(self, path):
+    def __init__(self, path, zero=False):
 
         self.path = path
         self.lim = Limits()
+        self.zero = zero
         self.spin = ['up', 'dn']
         self.lim.readData(self.path)
         self.P = {}
@@ -23,7 +24,7 @@ class MAG:
 
     def compute(self):
 
-        print 'Calculating magnetisation current...'
+        print 'Calculating magnetisation...'
         rv = 0.0
         for iE, E in enumerate(self.P['1']['up'].ener):
             hE = 0.0
@@ -37,10 +38,14 @@ class MAG:
                 hXi = 0.0
                 for iTheta, Theta in enumerate(self.P['1']['up'].kAzi):
                     hTheta = 0.0
-                    g = self.P['1']['up'].data['gK'][iXi, iTheta] \
-                        + self.P['3']['up'].data['gK'][iXi, iTheta] \
-                        - self.P['1']['dn'].data['gK'][iXi, iTheta] \
-                        - self.P['3']['dn'].data['gK'][iXi, iTheta]
+                    if self.zero:
+                        g = self.P['1']['up'].data['gK'][iXi, iTheta] \
+                            - self.P['1']['dn'].data['gK'][iXi, iTheta]
+                    else:
+                        g = self.P['1']['up'].data['gK'][iXi, iTheta] \
+                            + self.P['3']['up'].data['gK'][iXi, iTheta] \
+                            - self.P['1']['dn'].data['gK'][iXi, iTheta] \
+                            - self.P['3']['dn'].data['gK'][iXi, iTheta]
                     hTheta += np.trace(np.dot(fm.p3(), g))
                     hTheta /= 8 * np.pi * np.pi
                     hTheta *= self.lim.dKAzimu
@@ -67,5 +72,5 @@ class MAG:
             else:
                 hE *= 2.0
             rv += hE
-        print 'Done!'
+        print '\nDone!'
         return rv
