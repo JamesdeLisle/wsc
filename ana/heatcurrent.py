@@ -61,6 +61,6 @@ class HCOND:
                 hE *= 4.0
             else:
                 hE *= 2.0
-            rv += hE
-        return np.imag(rv)
+            rv += hE 
         print 'Done!'
+        return np.imag(rv)
