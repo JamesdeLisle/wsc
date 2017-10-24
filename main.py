@@ -65,4 +65,4 @@ if __name__ == '__main__':
 
     strings = ['up']
     for string in strings:
-        Main(string, partial=True)
+        Main(string)
