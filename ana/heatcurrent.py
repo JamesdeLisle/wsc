@@ -25,8 +25,7 @@ class HCOND:
             hE = 0.0
             for order in self.P:
                 f = ps.getFile(self.path, order, self.spin, iE)
-                print f
-                self.P[order].readData(f)
+                self.P[order].readData(f[iE])
             for iXi, Xi in enumerate(self.P['1'].kPol):
                 hXi = 0.0
                 for iTheta, Theta in enumerate(self.P['1'].kTheta):
