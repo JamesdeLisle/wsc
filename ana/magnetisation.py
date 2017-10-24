@@ -12,7 +12,6 @@ class MAG:
     def __init__(self, path):
 
         self.path = path
-        self.spin = spin
         self.lim = Limits()
         self.lim.readData(self.path)
         self.P = {}
