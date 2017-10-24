@@ -13,7 +13,7 @@ class HCOND:
         self.path = path
         self.spin = spin
         self.lim = Limits()
-        self.lim.readData(self.path)
+        self.lim.readData(ps.getLims(self.path))
         self.P = {}
         self.P['1'] = uPar.ParamSpace(self.lim, '1', 'gK')
         self.P['3'] = kPar.ParamSpace(self.lim, '3', 'gK')

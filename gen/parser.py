@@ -34,10 +34,18 @@ def filter(order, spin, folder, kind):
                 if isfile(join(folder, f))
                 and '-%s-' % (order) in f
                 and 'dos' in f]
+    if kind == 'lims':
+        return [join(folder, f) for f in listdir(folder)
+                if isfile(join(folder, f))
+                and 'lims' in f]
 
 
 def getFile(folder, order, spin, iE):
     return sorted(filter(order, spin, folder, 'raw'))
+
+
+def getLims(path):
+    return filter('0', 'up', path, 'lims')[0]
 
 
 def getFiles(orders, spin, folder, kind):
