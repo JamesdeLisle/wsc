@@ -28,7 +28,7 @@ class HCOND:
                 self.P[order].readData(f[iE])
             for iXi, Xi in enumerate(self.P['1'].kPol):
                 hXi = 0.0
-                for iTheta, Theta in enumerate(self.P['1'].kTheta):
+                for iTheta, Theta in enumerate(self.P['1'].kAzi):
                     hTheta = 0.0
                     g = self.P['1'].data['gK'][iXi, iTheta] \
                         + self.P['3'].data['gK'][iXi, iTheta]
