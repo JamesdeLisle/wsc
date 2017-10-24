@@ -32,7 +32,7 @@ class HCOND:
                     hTheta = 0.0
                     g = self.P['1'].data['gK'][iXi, iTheta] \
                         + self.P['3'].data['gK'][iXi, iTheta]
-                    hTheta += np.linalg.trace(np.dot(fm.p3(), g))
+                    hTheta += np.trace(np.dot(fm.p3(), g))
                     hTheta /= 8 * np.pi * np.pi
                     hTheta *= self.lim.dTheta
                     if iTheta in [0, self.lim.nKAzimu - 1]:
