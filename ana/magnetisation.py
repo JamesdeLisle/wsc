@@ -13,6 +13,7 @@ class MAG:
 
         self.path = path
         self.lim = Limits()
+        self.spin = ['up', 'dn']
         self.lim.readData(self.path)
         self.P = {}
         self.P['1'] = {'up': uPar.ParamSpace(self.lim, '1', 'gK'),
@@ -29,8 +30,9 @@ class MAG:
             sys.stdout.write('\r%.2f%%' % (100 * iE / (self.lim.nEnergy - 1)))
             sys.stdout.flush()
             for order in self.P:
-                f = ps.getFile(self.path, order, self.spin, iE)
-                self.P[order].readData(f[iE])
+                for spin in self.spin:
+                    f = ps.getFile(self.path, order, spin, iE)
+                    self.P[order].readData(f[iE])
             for iXi, Xi in enumerate(self.P['1'].kPol):
                 hXi = 0.0
                 for iTheta, Theta in enumerate(self.P['1']['up'].kAzi):
