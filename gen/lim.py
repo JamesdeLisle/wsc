@@ -347,12 +347,11 @@ class Limits(object):
 
     @tempInc.setter
     def tempInc(self, value):
-        if type(value) == float and \
-           value > 0.0:
+        if type(value) == float:
             self._tempInc = value
         else:
             raise ValueError('The temperature increment must ' +
-                             'be a positive float.')
+                             'be a float.')
 
     @property
     def alphaMin(self):
