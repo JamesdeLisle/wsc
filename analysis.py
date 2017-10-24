@@ -78,11 +78,11 @@ def Main():
 
 
 if __name__ == '__main__':
-    #orders = ['0', '2']
-    #files = getFiles(orders, data_folder, 'raw')
-    #lims = Limits()
-    #lims.loadFromFile(data_folder)
-    #compIndiDOS(orders, files, lims)
-    #compTotalDOS(files, lims)
+    # orders = ['0', '2']
+    # files = getFiles(orders, data_folder, 'raw')
+    # lims = Limits()
+    # lims.loadFromFile(data_folder)
+    # compIndiDOS(orders, files, lims)
+    # compTotalDOS(files, lims)
     H = HCOND('data/', 'up')
     print H.compute()

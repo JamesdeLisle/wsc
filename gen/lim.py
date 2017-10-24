@@ -3,6 +3,7 @@ import json
 from jsci.Coding import NumericDecoder
 from os import listdir
 from os.path import join, isfile
+from parser import getLims
 
 
 class Limits(object):
@@ -108,9 +109,9 @@ class Limits(object):
 
     def readData(self, path):
 
-        with open(path, 'r') as f:
-            content = json.loads(f.read(), cls=NumericDecoder)
-        self.load(content['param'])
+        p = getLims(path)
+        with open(p, 'r') as f:
+            self.load(json.loads(f.read(), cls=NumericDecoder))
         self.finalise()
 
     @property
