@@ -9,7 +9,7 @@ import sys
 
 class MAG:
 
-    def __init__(self, path, spin):
+    def __init__(self, path):
 
         self.path = path
         self.spin = spin
@@ -23,7 +23,7 @@ class MAG:
 
     def compute(self):
 
-        print 'Calculating heat current...'
+        print 'Calculating magnetisation current...'
         rv = 0.0
         for iE, E in enumerate(self.P['1']['up'].ener):
             hE = 0.0

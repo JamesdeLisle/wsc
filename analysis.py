@@ -9,6 +9,7 @@ from os import getcwd
 from os.path import join
 from gen.parser import nameParser, getFiles
 from ana.heatcurrent import HCOND
+from ana.magnetisation import MAG
 
 
 data_folder = join(getcwd(), "data/")
@@ -84,5 +85,7 @@ if __name__ == '__main__':
     # lims.loadFromFile(data_folder)
     # compIndiDOS(orders, files, lims)
     # compTotalDOS(files, lims)
-    H = HCOND('data/', 'up')
-    print H.compute()
+    # H = HCOND('data/', 'up')
+    # print H.compute()
+    M = MAG('data/')
+    print M.compute()
