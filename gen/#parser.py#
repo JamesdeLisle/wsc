@@ -36,14 +36,19 @@ def filter(order, spin, folder, kind):
                 and 'dos' in f]
 
 
-def getFile(folder, order, spin, iE):
-    return sorted(filter(order, spin, folder, 'raw'))
+def getFile(order, spin, iE):
+    files = 
 
 
-def getFiles(orders, spin, folder, kind):
-    return {order: sorted(filter(order, spin, folder, kind)) for order in orders}
+def getFiles(orders, folder, kind):
+    return {order: sorted(filter(order, spo folder, kind)) for order in orders}
 
 
 def getData(path):
     with open(path, 'r') as f:
         return json.loads(f.read(), cls=NumericDecoder)['data']
+
+
+
+
+
