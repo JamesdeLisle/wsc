@@ -54,7 +54,6 @@ class HCOND:
                 else:
                     hXi *= 2.0
                 hE += hXi
-            print hE
             hE *= E * self.lim.dEnergy * 3.0 / 8.0
             if iE in [0, self.lim.nEnergy - 1]:
                 pass
@@ -63,4 +62,5 @@ class HCOND:
             else:
                 hE *= 2.0
             rv += hE
+        return rv
         print 'Done!'
