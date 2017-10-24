@@ -25,7 +25,7 @@ class HCOND:
         rv = 0.0
         for iE, E in enumerate(self.P['1'].ener):
             hE = 0.0
-            sys.stdout.write('\r%.2f%%' % (100 * iE / self.lim.nEnergy - 1))
+            sys.stdout.write('\r%.2f%%' % (100 * iE / (self.lim.nEnergy - 1)))
             sys.stdout.flush()
             for order in self.P:
                 f = ps.getFile(self.path, order, self.spin, iE)
