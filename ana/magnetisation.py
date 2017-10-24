@@ -38,7 +38,7 @@ class MAG:
                 for iTheta, Theta in enumerate(self.P['1']['up'].kAzi):
                     hTheta = 0.0
                     g = self.P['1']['up'].data['gK'][iXi, iTheta] \
-                        - self.P['1']['dn'].data['gK'][iXi, iTheta] \
+                        - self.P['1']['dn'].data['gK'][iXi, iTheta]
                         #+ self.P['3']['up'].data['gK'][iXi, iTheta] \
                         #- self.P['3']['dn'].data['gK'][iXi, iTheta]
                     hTheta += np.trace(np.dot(fm.p3(), g))
