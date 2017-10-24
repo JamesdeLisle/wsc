@@ -20,8 +20,11 @@ def Main(string, partial=False):
 
     data_folder = 'data/'
     if partial:
-        files = getFiles(['0'], data_folder, 'raw')
-        run_time = nameParser(files['0'][0], 'run')
+        files = getFiles(['0'], 'up', data_folder, 'raw')
+        if files['0']:
+            run_time = nameParser(files['0'][0], 'run')
+        else:
+            run_time = time.strftime('%Y%m%d%H%M%S')
     else:
         clearup(data_folder)
         run_time = time.strftime('%Y%m%d%H%M%S')
@@ -29,11 +32,11 @@ def Main(string, partial=False):
 
     L = lim.Limits()
     L.spinDir = string
-    L.nEnergy = 100
-    L.nKPolar = 50
-    L.nKAzimu = 100
+    L.nEnergy = 10
+    L.nKPolar = 10
+    L.nKAzimu = 10
     L.nTemp = 1
-    L.nAlpha = 100
+    L.nAlpha = 2
     L.energyMin = -3.0
     L.energyMax = 3.0
     L.kPolarMin = 0.0
@@ -63,6 +66,6 @@ def Main(string, partial=False):
 
 if __name__ == '__main__':
 
-    strings = ['up']
+    strings = ['up', 'dn']
     for string in strings:
-        Main(string)
+        Main(string, partial=True)

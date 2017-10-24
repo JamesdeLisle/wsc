@@ -123,7 +123,7 @@ class Limits(object):
 
     @spinDir.setter
     def spinDir(self, value):
-        if value in ['up', 'down']:
+        if value in ['up', 'dn']:
             self._spinDir = value
         else:
             raise ValueError("The spin direction must be 'up' or 'down'")
