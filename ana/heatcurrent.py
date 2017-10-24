@@ -4,6 +4,7 @@ from gen.lim import Limits
 import kel.kelparam as kPar
 import uni.uniparamkel as uPar
 import gen.forms as fm
+import sys
 
 
 class HCOND:
@@ -20,9 +21,12 @@ class HCOND:
 
     def compute(self):
 
+        print 'Calculating heat current...'
         rv = 0.0
         for iE, E in enumerate(self.P['1'].ener):
             hE = 0.0
+            sys.stdout.write('\r%.2f%%' % (100 * iE / self.lims.nEnergy - 1))
+            sys.stdout.flush()
             for order in self.P:
                 f = ps.getFile(self.path, order, self.spin, iE)
                 self.P[order].readData(f[iE])
@@ -42,6 +46,7 @@ class HCOND:
                     else:
                         hTheta *= 2.0
                     hXi += hTheta
+                    print hTheta
                 hXi *= np.sin(Xi) * np.cos(Xi) * self.lim.dKPolar * 3.0 / 8.0
                 if iXi in [0, self.lim.nKPolar - 1]:
                     pass
@@ -58,3 +63,4 @@ class HCOND:
             else:
                 hE *= 2.0
             rv += hE
+        print 'Done!'
