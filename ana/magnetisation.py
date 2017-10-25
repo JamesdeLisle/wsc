@@ -46,10 +46,10 @@ class MAG:
                             + self.P['3']['up'].data['gK'][iXi, iTheta] \
                             - self.P['1']['dn'].data['gK'][iXi, iTheta] \
                             - self.P['3']['dn'].data['gK'][iXi, iTheta]
+                    print g
                     hTheta += np.trace(np.dot(fm.p3(), g))
                     hTheta /= 8 * np.pi * np.pi
                     hTheta *= self.lim.dKAzimu
-                    print hTheta
                     if iTheta in [0, self.lim.nKAzimu - 1]:
                         pass
                     elif iTheta % 2 == 0:
