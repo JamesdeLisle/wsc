@@ -65,6 +65,7 @@ class MAG:
                     hXi *= 2.0
                 hE += hXi
             hE *= self.lim.dEnergy * 3.0 / 8.0
+            print hE
             if iE in [0, self.lim.nEnergy - 1]:
                 pass
             elif iE % 2 == 0:
