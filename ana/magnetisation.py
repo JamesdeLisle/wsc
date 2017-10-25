@@ -49,6 +49,7 @@ class MAG:
                     hTheta += np.trace(np.dot(fm.p3(), g))
                     hTheta /= 8 * np.pi * np.pi
                     hTheta *= self.lim.dKAzimu
+                    print hTheta
                     if iTheta in [0, self.lim.nKAzimu - 1]:
                         pass
                     elif iTheta % 2 == 0:
@@ -65,7 +66,6 @@ class MAG:
                     hXi *= 2.0
                 hE += hXi
             hE *= self.lim.dEnergy * 3.0 / 8.0
-            print hE
             if iE in [0, self.lim.nEnergy - 1]:
                 pass
             elif iE % 2 == 0:
