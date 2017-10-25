@@ -73,4 +73,4 @@ class MAG:
                 hE *= 2.0
             rv += hE
         print '\nDone!'
-        return rv
+        return np.imag(rv)

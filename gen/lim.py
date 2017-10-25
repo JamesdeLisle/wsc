@@ -35,6 +35,8 @@ class Limits(object):
         self._a4 = None
         self._B_z = None
         self._tau = None
+        self._vU = None
+        self._vD = None
 
         """automatically computed limits"""
         self._dEnergy = None
@@ -44,6 +46,7 @@ class Limits(object):
         self._dAlpha = None
         self._gamma1 = None
         self._gamma2 = None
+        self._v = None
 
         self.goFlag = False
 
@@ -56,6 +59,7 @@ class Limits(object):
         self.compute_dAlpha()
         self.compute_gamma1()
         self.compute_gamma2()
+        self.compute_v()
 
         self.goFlag = True
 
@@ -596,6 +600,26 @@ class Limits(object):
                 self._gamma2 = self._a2 + self._a3
             else:
                 self._gamma2 = -self._a2 + self._a3
+        else:
+            raise RuntimeError('One of the limits has not been defined')
+
+    @property
+    def v(self):
+        if self._v:
+            return self._v
+        else:
+            raise RuntimeError('The Fermi v has not been calculated')
+
+    @v.setter
+    def v(self, value):
+        print 'v is calculated from other given values'
+
+    def compute_v(self):
+        if self._vU and self._vD:
+            if self._spinDir == 'up':
+                self._v = self._vU
+            else:
+                self._v = self._vD
         else:
             raise RuntimeError('One of the limits has not been defined')
 

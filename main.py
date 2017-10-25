@@ -55,6 +55,8 @@ def Main(string, partial=False):
     L.a4 = -0.242
     L.B_z = 0.1
     L.tau = 0.01
+    L.vU = 1.0
+    L.vD = 0.75
     L.finalise()
     L.saveToFile(run_time)
 
