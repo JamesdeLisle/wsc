@@ -88,7 +88,6 @@ if __name__ == '__main__':
     H = HCOND('data/', 'up')
     print 'up - heat current = %f' % H.compute()
     H = HCOND('data/', 'dn')
-    print H.compute()
     print 'dn - heat current = %f' % H.compute()
     M = MAG('data/', zero=True)
     print 'B_z = 0 - Magnetization = %f' % M.compute()
