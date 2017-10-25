@@ -46,12 +46,12 @@ class MAG:
                             + self.P['3']['up'].data['gK'][iXi, iTheta] \
                             - self.P['1']['dn'].data['gK'][iXi, iTheta] \
                             - self.P['3']['dn'].data['gK'][iXi, iTheta]
-                    print g
-                    print self.P['1']['up'].data['gK'][iXi, iTheta] \
-                        + self.P['3']['up'].data['gK'][iXi, iTheta] \
-                        - self.P['1']['dn'].data['gK'][iXi, iTheta] \
-                        - self.P['3']['dn'].data['gK'][iXi, iTheta]
-                    print '#####'
+                    #print g
+                    #print self.P['1']['up'].data['gK'][iXi, iTheta] \
+                    #    + self.P['3']['up'].data['gK'][iXi, iTheta] \
+                    #    - self.P['1']['dn'].data['gK'][iXi, iTheta] \
+                    #    - self.P['3']['dn'].data['gK'][iXi, iTheta]
+                    #print '#####'
                     hTheta += np.trace(np.dot(fm.p3(), g))
                     hTheta /= 8 * np.pi * np.pi
                     hTheta *= self.lim.dKAzimu
