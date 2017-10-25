@@ -48,6 +48,7 @@ class MAG:
                             - self.P['3']['dn'].data['gK'][iXi, iTheta]
                     print self.P['1']['up'].data['gK'][iXi, iTheta]
                     print self.P['3']['up'].data['gK'][iXi, iTheta]
+                    print g
                     print '#####'
                     hTheta += np.trace(np.dot(fm.p3(), g))
                     hTheta /= 8 * np.pi * np.pi
