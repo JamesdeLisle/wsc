@@ -87,5 +87,5 @@ if __name__ == '__main__':
     # compTotalDOS(files, lims)
     # H = HCOND('data/', 'up')
     # print H.compute()
-    M = MAG('data/', zero=True)
+    M = MAG('data/', zero=False)
     print M.compute()
