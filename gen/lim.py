@@ -470,6 +470,34 @@ class Limits(object):
             raise ValueError('tau must be a float or an integer')
 
     @property
+    def vD(self):
+        if self._vD:
+            return self._vD
+        else:
+            raise RuntimeError('vD has not been defined')
+
+    @vD.setter
+    def vD(self, value):
+        if type(value) == float:
+            self._vD = value
+        else:
+            raise ValueError('vD must be a float or an integer')
+
+    @property
+    def vU(self):
+        if self._vU:
+            return self._vU
+        else:
+            raise RuntimeError('vU has not been defined')
+
+    @vU.setter
+    def vU(self, value):
+        if type(value) == float:
+            self._vU = value
+        else:
+            raise ValueError('vU must be a float or an integer')
+
+    @property
     def dEnergy(self):
         if self._dEnergy:
             return self._dEnergy
