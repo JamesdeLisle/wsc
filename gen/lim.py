@@ -90,6 +90,8 @@ class Limits(object):
         rv['a4'] = self.a4
         rv['B_z'] = self.B_z
         rv['tau'] = self.tau
+        rv['vU'] = self.vU
+        rv['vD'] = self.vD
 
         return rv
 
