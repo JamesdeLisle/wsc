@@ -33,7 +33,7 @@ class MAG:
             for order in self.P:
                 for spin in self.spin:
                     f = ps.getFile(self.path, order, spin, iE)
-                    print f
+                    print f[0]
                     self.P[order][spin].readData(f[iE])
             for iXi, Xi in enumerate(self.P['1']['up'].kPol):
                 hXi = 0.0
