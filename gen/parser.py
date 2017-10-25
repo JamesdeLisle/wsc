@@ -27,11 +27,13 @@ def filter(order, spin, folder, kind):
     if kind == 'raw':
         return [join(folder, f) for f in listdir(folder)
                 if isfile(join(folder, f))
+                and '-%s-' % (spin) in f
                 and '-%s-' % (order) in f
                 and 'dos' not in f]
     if kind == 'dos':
         return [join(folder, f) for f in listdir(folder)
                 if isfile(join(folder, f))
+                and '-%s-' % (spin) in f
                 and '-%s-' % (order) in f
                 and 'dos' in f]
     if kind == 'lims':
