@@ -1,4 +1,4 @@
-import func as kelf
+import qtmfunc as qtmf
 import numpy as np
 import bound
 
@@ -25,24 +25,24 @@ class Function:
 
             self.runVal.iAlpha = iAlpha
             self.runVal.alpha = alpha
-            func = kelf.Keldysh(self.runVal, self.funcVal)
-            self.kInc[0] = func.fK1
+            func = qtmf.Quantum(self.runVal, self.funcVal)
+            self.kInc[0] = func.Qf
 
             self.runVal.iAlpha = iAlpha + self.dAlpha / 2
             self.runVal.alpha = alpha + self.dAlpha / 2
-            func = kelf.Keldysh(self.runVal,
+            func = qtmf.Quantum(self.runVal,
                                 self.funcVal + self.dAlpha * self.kInc[0] / 2)
-            self.kInc[1] = func.fK1
+            self.kInc[1] = func.Qf
 
-            func = kelf.Keldysh(self.runVal,
+            func = qtmf.Quantum(self.runVal,
                                 self.funcVal + self.dAlpha * self.kInc[1] / 2)
-            self.kInc[2] = func.fK1
+            self.kInc[2] = func.Qf
 
             self.runVal.iAlpha = iAlpha + 1
             self.runVal.alpha = alpha + self.dAlpha
-            func = kelf.Keldysh(self.runVal,
+            func = qtmf.Quantum(self.runVal,
                                 self.funcVal + self.dAlpha * self.kInc[2])
-            self.kInc[3] = func.fK1
+            self.kInc[3] = func.Qf
 
             self.funcVal += self.dAlpha * (self.kInc[0]
                                            + 2 * (self.kInc[1] + self.kInc[2])

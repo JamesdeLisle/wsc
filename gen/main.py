@@ -6,13 +6,15 @@ import os
 def worker(runValue):
 
     if runValue.order == '0':
-        import uni.unifuncret as func
+        import urt.func as func
     elif runValue.order == '1':
-        import uni.unifunckel as func
+        import ukl.func as func
     elif runValue.order == '2':
-        import ret.retfunc as func
+        import ret.func as func
     elif runValue.order == '3':
         import kel.RK as func
+    elif runValue.order == '4':
+        import qtm.RK as func
 
     F = func.Function(runValue)
 
@@ -35,16 +37,16 @@ class Main:
             raise ValueError("The given order is not valid")
 
         if self.order == '0':
-            import uni.uniparamret as param
+            import urt.par as param
             self.string = 'gR'
         elif self.order == '1':
-            import uni.uniparamkel as param
+            import ukl.par as param
             self.string = 'gK'
         elif self.order == '2':
-            import ret.retparam as param
+            import ret.par as param
             self.string = 'gR'
         elif self.order == '3':
-            import kel.kelparam as param
+            import kel.par as param
             self.string = 'gK'
 
         self.P = param.ParamSpace(self.limits, self.order, self.string)

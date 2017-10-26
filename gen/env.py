@@ -88,3 +88,9 @@ class Environment(object):
 
         rv = (self.hamR - self.hamA) * self.thermD
         return rv
+
+    @property
+    def hamKG(self):
+
+        rv = (self.hamR - self.hamA) * self.thermDG
+        return rv

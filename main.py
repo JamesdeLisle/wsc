@@ -16,9 +16,7 @@ def clearup(data_folder):
                       os.path.join(data_folder, existingFiles[0][0:14], f))
 
 
-def Main(string, partial=False):
-
-    data_folder = 'data/'
+def getRunTime(partial, data_folder):
     if partial:
         files = getFiles(['0'], 'up', data_folder, 'raw')
         if files['0']:
@@ -28,7 +26,13 @@ def Main(string, partial=False):
     else:
         clearup(data_folder)
         run_time = time.strftime('%Y%m%d%H%M%S')
+    return run_time
 
+
+def Main(string, partial=False):
+
+    data_folder = 'data/'
+    run_time = getRunTime(partial, data_folder)
 
     L = lim.Limits()
     L.spinDir = string

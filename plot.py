@@ -13,6 +13,7 @@ def plotSingle():
         lin.dosline(files[order][0], order)
 
 
-print 'Plotting...'
-plotSingle()
-print 'Done!'
+if __name__ == '__main__':
+    print 'Plotting...'
+    plotSingle()
+    print 'Done!'

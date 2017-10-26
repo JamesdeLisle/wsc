@@ -1,10 +1,11 @@
 import numpy as np
 import gen.parser as ps
 from gen.lim import Limits
-import kel.kelparam as kPar
-import uni.uniparamkel as uPar
+import kel.par as kPar
+import urt.par as uPar
 import gen.forms as fm
 import sys
+from uti import simpFactor
 
 
 class HCOND:
@@ -39,28 +40,13 @@ class HCOND:
                     hTheta += np.trace(np.dot(fm.p3(), g))
                     hTheta /= 8 * np.pi * np.pi
                     hTheta *= self.lim.dKAzimu
-                    if iTheta in [0, self.lim.nKAzimu - 1]:
-                        pass
-                    elif iTheta % 2 == 0:
-                        hTheta *= 4.0
-                    else:
-                        hTheta *= 2.0
+                    hTheta *= simpFactor(iTheta, self.lim.nKAzimu)
                     hXi += hTheta
                 hXi *= np.sin(Xi) * np.cos(Xi) * self.lim.dKPolar * 3.0 / 8.0
-                if iXi in [0, self.lim.nKPolar - 1]:
-                    pass
-                elif iXi % 2 == 0:
-                    hXi *= 4.0
-                else:
-                    hXi *= 2.0
+                hXi *= simpFactor(iXi, self.lim.nKPolar)
                 hE += hXi
             hE *= E * self.lim.dEnergy * 3.0 / 8.0
-            if iE in [0, self.lim.nEnergy - 1]:
-                pass
-            elif iE % 2 == 0:
-                hE *= 4.0
-            else:
-                hE *= 2.0
+            hE *= simpFactor(iE, self.lim.nEnergy)
             rv += hE
         print '\nDone!'
         return np.imag(rv)
