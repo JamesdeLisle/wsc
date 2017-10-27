@@ -89,7 +89,7 @@ if __name__ == '__main__':
     # print 'up - heat current = %f' % H.compute()
     # H = HCOND('data/', 'dn')
     # print 'dn - heat current = %f' % H.compute()
-    M = MAG('data/', zero=True)
-    print 'B_z = 0 - Magnetization = %f' % M.compute()
-    M = MAG('data/', zero=False)
-    print 'B_z = 0.1 - Magnetization = %f' % M.compute()
+    orders = ['1', '3', '4', '5']
+    for order in orders:
+        M = MAG('data/', order)
+        print '%s - Magnetization = %f' % (order, M.compute())

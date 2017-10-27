@@ -1,8 +1,7 @@
 import numpy as np
 import gen.parser as ps
 from gen.lim import Limits
-import kel.par as kPar
-import urt.par as uPar
+import kel.par as par
 import gen.forms as fm
 import sys
 from uti import simpFactor
@@ -10,18 +9,27 @@ from uti import simpFactor
 
 class MAG:
 
-    def __init__(self, path, zero=False):
+    def __init__(self, path, order):
 
         self.path = path
         self.lim = Limits()
-        self.zero = zero
         self.spin = ['up', 'dn']
         self.lim.readData(self.path)
+        if order == '1':
+            self.orders = ['1']
+        elif order == '3':
+            self.orders = ['1', '3']
+        elif order == '4':
+            self.orders = ['1', '3', '4']
+        elif order == '5':
+            self.orders = ['1', '3', '4', '5']
+        else:
+            print '%s is not a valid order to compute.' % order
+            sys.exit()
         self.P = {}
-        self.P['1'] = {'up': uPar.ParamSpace(self.lim, '1', 'gK'),
-                       'dn': uPar.ParamSpace(self.lim, '1', 'gK')}
-        self.P['3'] = {'up': kPar.ParamSpace(self.lim, '3', 'gK'),
-                       'dn': kPar.ParamSpace(self.lim, '3', 'gK')}
+        for order in self.orders:
+            self.P[order] = {'up': par.ParamSpace(self.lim, order, 'gK'),
+                             'dn': par.ParamSpace(self.lim, order, 'gK')}
 
     def compute(self):
 
@@ -39,14 +47,10 @@ class MAG:
                 hXi = 0.0
                 for iTheta, Theta in enumerate(self.P['1']['up'].kAzi):
                     hTheta = 0.0
-                    if self.zero:
-                        g = self.P['1']['up'].data['gK'][iXi, iTheta] \
-                            - self.P['1']['dn'].data['gK'][iXi, iTheta]
-                    else:
-                        g = self.P['1']['up'].data['gK'][iXi, iTheta] \
-                            + self.P['3']['up'].data['gK'][iXi, iTheta] \
-                            - self.P['1']['dn'].data['gK'][iXi, iTheta] \
-                            - self.P['3']['dn'].data['gK'][iXi, iTheta]
+                    g = np.zeros(shape=(2, 2), dtype=np.complex128)
+                    for order in self.orders:
+                        g += self.P[order]['up'].data['gK'][iXi, iTheta]
+                        g -= self.P[order]['dn'].data['gK'][iXi, iTheta]
                     hTheta += np.trace(np.dot(fm.p3(), g))
                     hTheta /= 8 * np.pi * np.pi
                     hTheta *= self.lim.dKAzimu
