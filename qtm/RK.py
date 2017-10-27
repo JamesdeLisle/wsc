@@ -1,4 +1,4 @@
-import qtmfunc as qtmf
+import func as qtmf
 import numpy as np
 import bound
 

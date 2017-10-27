@@ -31,7 +31,7 @@ class Main:
         self.data_folder = data_folder
         self.order = order
 
-        if order in ['0', '1', '2', '3']:
+        if order in ['0', '1', '2', '3', '4']:
             self.order = order
         else:
             raise ValueError("The given order is not valid")
@@ -47,6 +47,9 @@ class Main:
             self.string = 'gR'
         elif self.order == '3':
             import kel.par as param
+            self.string = 'gK'
+        elif self.order == '4':
+            import qtm.par as param
             self.string = 'gK'
 
         self.P = param.ParamSpace(self.limits, self.order, self.string)

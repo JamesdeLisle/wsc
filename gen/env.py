@@ -105,5 +105,5 @@ class Environment(object):
         V.compSpace()
         V.Xi += L.dKPolar
         V.compSpace()
-        rv -= np.sin(V.Xi) * (self.hamKG - hZero) / (L.dKPolar * V.v)
+        rv -= np.sin(V.Xi) * (self.hamKG - hZero) / (L.dKPolar * L.v)
         return rv

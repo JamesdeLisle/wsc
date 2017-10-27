@@ -4,6 +4,7 @@ from jsci.Coding import NumericDecoder
 import json
 import os
 from gen.parser import fileName
+import numpy as np
 
 
 class ParamSpace(ParamSpaceBase):
@@ -24,7 +25,7 @@ class ParamSpace(ParamSpaceBase):
                                 enumerate(self.kAzi))
         rv = list()
         for (iXi, Xi), (iTheta, Theta) in DOF:
-            self.dTheta(iXi, iTheta)
+            self.dgR0(iXi, iTheta)
             gR = self.compData['0'][iXi, iTheta]
             values = {'string': string,
                       'order': self.order,
@@ -34,7 +35,7 @@ class ParamSpace(ParamSpaceBase):
                       'Xi': Xi,
                       'Theta': Theta,
                       'lim': self.lim,
-                      'dgR': self.dgR0,
+                      'dpzgR0': self.dpzgR0,
                       'gR': gR}
             rv.append(RunValue(**values))
 
@@ -42,7 +43,7 @@ class ParamSpace(ParamSpaceBase):
 
     def loadData(self, data_folder, start_time, iT, iE):
 
-        orders = {'0': 'gR', '1'}
+        orders = {'0': 'gR'}
         files = {order: os.path.join(data_folder, start_time +
                                      fileName(order, self.lim.spinDir, iT, iE))
                  for order in orders}
@@ -61,7 +62,7 @@ class ParamSpace(ParamSpaceBase):
         else:
             finish = iXi + 1
 
-        self.dgR0 = (self.compData['0'][iXi, start] -
+        self.dpzgR0 = (self.compData['0'][iXi, start] -
                      self.compData['0'][iXi, finish]) / self.lim.dKPolar
-        self.dgR0 /= -self.lim.v
-        self.dgR0 *= np.sin(self.kPol[iXi])
+        self.dpzgR0 /= -self.lim.v
+        self.dpzgR0 *= np.sin(self.kPol[iXi])
