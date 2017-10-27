@@ -15,6 +15,8 @@ def worker(runValue):
         import kel.RK as func
     elif runValue.order == '4':
         import qtm.RK as func
+    elif runValue.order == '5':
+        import qtb.RK as func
 
     F = func.Function(runValue)
 
@@ -31,7 +33,7 @@ class Main:
         self.data_folder = data_folder
         self.order = order
 
-        if order in ['0', '1', '2', '3', '4']:
+        if order in ['0', '1', '2', '3', '4', '5']:
             self.order = order
         else:
             raise ValueError("The given order is not valid")
@@ -50,6 +52,9 @@ class Main:
             self.string = 'gK'
         elif self.order == '4':
             import qtm.par as param
+            self.string = 'gK'
+        elif self.order == '5':
+            import qtb.par as param
             self.string = 'gK'
 
         self.P = param.ParamSpace(self.limits, self.order, self.string)

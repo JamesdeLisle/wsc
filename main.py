@@ -4,6 +4,7 @@ import time
 import numpy as np
 import os
 from gen.parser import nameParser, getFiles
+import sys
 
 
 def clearup(data_folder):
@@ -36,11 +37,11 @@ def Main(string, partial=False):
 
     L = lim.Limits()
     L.spinDir = string
-    L.nEnergy = 100
-    L.nKPolar = 50
-    L.nKAzimu = 100
+    L.nEnergy = 10
+    L.nKPolar = 10
+    L.nKAzimu = 10
     L.nTemp = 1
-    L.nAlpha = 100
+    L.nAlpha = 10
     L.energyMin = -1.0
     L.energyMax = 1.0
     L.kPolarMin = 0.0
@@ -64,7 +65,7 @@ def Main(string, partial=False):
     L.finalise()
     L.saveToFile(run_time)
 
-    orders = ['0', '1', '2', '3']
+    orders = ['0', '1', '2', '3', '4', '5']
     for order in orders:
         M = main.Main(L, run_time, data_folder, order)
         M.run()
@@ -72,6 +73,11 @@ def Main(string, partial=False):
 
 if __name__ == '__main__':
 
-    strings = ['up', 'dn']
-    for string in strings:
-        Main(string, partial=True)
+    par_val = False
+    if sys.argv:
+        print sys.argv
+        Main(sys.argv[1], partial=par_val)
+    else:
+        strings = ['up', 'dn']
+        for string in strings:
+            Main(string, partial=par_val)

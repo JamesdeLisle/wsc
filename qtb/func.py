@@ -20,12 +20,12 @@ class Quantum:
 
         epsil = V.ener * fm.p3()
         gA = np.dot(np.dot(fm.p3(), np.conj(V.gR).T), fm.p3())
-        dpzgA0 = np.dot(np.dot(fm.p3(), np.conj(V.dpzgR0).T), fm.p3())
+        dpzgA1 = np.dot(np.dot(fm.p3(), np.conj(V.dpzgR1).T), fm.p3())
         rv = np.dot((epsil - E.hamR), self.funcVal) \
             - np.dot(self.funcVal, (epsil - E.hamA)) \
             + np.dot(V.gR, E.hamKG) \
             - np.dot(E.hamKG, gA) \
-            - (1j / 2.0) * np.dot(V.dpzgR0, E.dzhamKG) \
-            - (1j / 2.0) * np.dot(E.dzhamKG, dpzgA0)
+            - (1j / 2.0) * np.dot(V.dpzgR1, E.dzhamKG) \
+            - (1j / 2.0) * np.dot(E.dzhamKG, dpzgA1)
 
         return -rv / V.lim.v
