@@ -73,7 +73,7 @@ def Main(string, partial=False):
 
 if __name__ == '__main__':
 
-    par_val = False
+    par_val = True
     if sys.argv:
         print sys.argv
         Main(sys.argv[1], partial=par_val)
