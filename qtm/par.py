@@ -25,8 +25,7 @@ class ParamSpace(ParamSpaceBase):
         rv = list()
         for (iXi, Xi), (iTheta, Theta) in DOF:
             self.dTheta(iXi, iTheta)
-            gR = self.compData['0'][iXi, iTheta] \
-                + self.compData['2'][iXi, iTheta]
+            gR = self.compData['0'][iXi, iTheta]
             values = {'string': string,
                       'order': self.order,
                       'index': (iT, iE, iXi, iTheta),
@@ -35,8 +34,7 @@ class ParamSpace(ParamSpaceBase):
                       'Xi': Xi,
                       'Theta': Theta,
                       'lim': self.lim,
-                      'gK0': self.compData['1'][iXi, iTheta],
-                      'dgK0': self.dgK0,
+                      'dgR': self.dgR0,
                       'gR': gR}
             rv.append(RunValue(**values))
 
@@ -44,7 +42,7 @@ class ParamSpace(ParamSpaceBase):
 
     def loadData(self, data_folder, start_time, iT, iE):
 
-        orders = {'0': 'gR', '1': 'gK', '2': 'gR'}
+        orders = {'0': 'gR', '1'}
         files = {order: os.path.join(data_folder, start_time +
                                      fileName(order, self.lim.spinDir, iT, iE))
                  for order in orders}
@@ -55,13 +53,15 @@ class ParamSpace(ParamSpaceBase):
                 content = json.loads(f.read(), cls=NumericDecoder)
                 self.compData[order] = content['data'][orders[order]]
 
-    def dTheta(self, iXi, iTheta):
+    def dgR0(self, iXi, iTheta):
 
-        start = iTheta
-        if iTheta == self.lim.nKAzimu - 1:
+        start = iXi
+        if iXi == self.lim.nKPolar - 1:
             finish = 0
         else:
-            finish = iTheta + 1
+            finish = iXi + 1
 
-        self.dgK0 = (self.compData['1'][iXi, start] -
-                     self.compData['1'][iXi, finish]) / self.lim.dKAzimu
+        self.dgR0 = (self.compData['0'][iXi, start] -
+                     self.compData['0'][iXi, finish]) / self.lim.dKPolar
+        self.dgR0 /= -self.lim.v
+        self.dgR0 *= np.sin(self.kPol[iXi])

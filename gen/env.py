@@ -86,11 +86,24 @@ class Environment(object):
     @property
     def hamK(self):
 
-        rv = (self.hamR - self.hamA) * self.thermD
-        return rv
+        return (self.hamR - self.hamA) * self.thermD
 
     @property
     def hamKG(self):
 
-        rv = (self.hamR - self.hamA) * self.thermDG
+        return (self.hamR - self.hamA) * self.thermDG
+
+    @property
+    def dzhamKG(self):
+        V = self.runVal
+        L = self.runVal.lim
+        hZero = self.hamKG
+        V.alpha += L.dAlpha
+        V.compSpace()
+        rv = np.cos(V.Xi) * (self.hamKG - hZero) / L.dAlpha
+        V.alpha -= L.dAlpha
+        V.compSpace()
+        V.Xi += L.dKPolar
+        V.compSpace()
+        rv -= np.sin(V.Xi) * (self.hamKG - hZero) / (L.dKPolar * V.v)
         return rv

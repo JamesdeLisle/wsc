@@ -18,15 +18,14 @@ class Quantum:
         V = self.runVal
         E = self.envi
 
-        epsil = np.zeros(shape=(2, 2), dtype=np.complex128)
-        epsil[0, 0] = V.ener
-        epsil[1, 1] = -V.ener
+        epsil = V.ener * fm.p3()
         gA = np.dot(np.dot(fm.p3(), np.conj(V.gR).T), fm.p3())
-
-        rv = (epsil - E.hamR) * self.funcVal \
-            - self.funcVal * (epsil - E.hamA) \
-            + V.gR * E.hamKG \
-            - E.hamKG * gA \
-            + 1j * V.lim.B_z * V.dgK0
+        dpzgA0 = np.dot(np.dot(fm.p3(), np.conj(V.dpzgR0).T), fm.p3())
+        rv = np.dot((epsil - E.hamR), self.funcVal) \
+            - np.dot(self.funcVal, (epsil - E.hamA)) \
+            + np.dot(V.gR, E.hamKG) \
+            - np.dot(E.hamKG, gA) \
+            + np.dot(V.dpzgR0, E.dzhamKG) \
+            + np.dot(E.dzhamKG, dpzgA0)
 
         return -rv / V.lim.v
