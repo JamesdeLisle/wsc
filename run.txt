@@ -1,0 +1,16 @@
+Calculating magnetisation...
+100.00%
+Done!
+1 - Magnetization = 0.001911
+Calculating magnetisation...
+100.00%
+Done!
+3 - Magnetization = 0.061989
+Calculating magnetisation...
+100.00%
+Done!
+4 - Magnetization = 0.061994
+Calculating magnetisation...
+100.00%
+Done!
+5 - Magnetization = 0.061997
