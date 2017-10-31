@@ -1,5 +1,9 @@
 from gen.par import RunValue, ParamSpaceBase
 import itertools
+import os
+import json
+from jsci.Coding import NumericDecoder
+from gen.parser import fileName
 
 
 class ParamSpace(ParamSpaceBase):
@@ -26,11 +30,21 @@ class ParamSpace(ParamSpaceBase):
                       'ener': self.ener[iE],
                       'Xi': Xi,
                       'Theta': Theta,
-                      'lim': self.lim}
+                      'lim': self.lim,
+                      'gR': self.compData['0'][iXi, iTheta]}
             rv.append(RunValue(**values))
 
         return rv
 
     def loadData(self, data_folder, start_time, iT, iE):
 
-        pass
+        orders = {'0': 'gR'}
+        files = {order: os.path.join(data_folder, start_time +
+                                     fileName(order, self.lim.spinDir, iT, iE))
+                 for order in orders}
+
+        self.compData = dict()
+        for order in orders:
+            with open(files[order], 'r') as f:
+                content = json.loads(f.read(), cls=NumericDecoder)
+                self.compData[order] = content['data'][orders[order]]
