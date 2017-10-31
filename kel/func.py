@@ -25,8 +25,8 @@ class Keldysh:
 
         rv = np.dot((epsil - E.hamR), self.funcVal) \
             - np.dot(self.funcVal, (epsil - E.hamA)) \
-            + np.dot(V.gR, E.hamK) \
-            - np.dot(E.hamK, gA) \
+            + np.dot(V.gR, E.hamKG) \
+            - np.dot(E.hamKG, gA) \
             + 1j * V.lim.B_z * V.dgK0
 
         return -rv / V.lim.v
