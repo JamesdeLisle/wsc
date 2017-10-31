@@ -37,7 +37,7 @@ def Main(string, partial=False):
 
     L = lim.Limits()
     L.spinDir = string
-    L.nEnergy = 10
+    L.nEnergy = 100
     L.nKPolar = 50
     L.nKAzimu = 100
     L.nTemp = 1
