@@ -93,3 +93,6 @@ if __name__ == '__main__':
     for order in orders:
         M = MAG('data/', order)
         print '%s - Magnetization = %f' % (order, M.compute())
+    for spin in ['up', 'dn']:
+        H = HCOND('data/', spin)
+        print '%s - heat current = %f' % (spin, H.compute())

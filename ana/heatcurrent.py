@@ -19,6 +19,8 @@ class HCOND:
         self.P = {}
         self.P['1'] = uPar.ParamSpace(self.lim, '1', 'gK')
         self.P['3'] = kPar.ParamSpace(self.lim, '3', 'gK')
+        self.P['4'] = kPar.ParamSpace(self.lim, '4', 'gK')
+        self.P['5'] = kPar.ParamSpace(self.lim, '5', 'gK')
 
     def compute(self):
 
@@ -35,8 +37,9 @@ class HCOND:
                 hXi = 0.0
                 for iTheta, Theta in enumerate(self.P['1'].kAzi):
                     hTheta = 0.0
-                    g = self.P['1'].data['gK'][iXi, iTheta] \
-                        + self.P['3'].data['gK'][iXi, iTheta]
+                    g = np.zeros(shape=(2, 2), dtype=np.complex128)
+                    for order in self.P:
+                        g += self.P[order].data['gK'][iXi, iTheta]
                     hTheta += np.trace(np.dot(fm.p3(), g))
                     hTheta /= 8 * np.pi * np.pi
                     hTheta *= self.lim.dKAzimu

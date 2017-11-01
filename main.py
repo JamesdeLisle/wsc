@@ -51,17 +51,17 @@ def Main(string, partial=False):
     L.T_c = 0.1
     L.tempMin = 0.02
     L.tempMax = 0.02
-    L.tempInc = 1.0 / 50.0
+    L.tempInc = 1.0 / 30.0
     L.alphaMin = -3.0
     L.alphaMax = 0.0
     L.a1 = 0.135
     L.a2 = 0.22
     L.a3 = 0.48
     L.a4 = -0.242
-    L.B_z = 0.05
+    L.B_z = 0.1
     L.tau = 0.01
     L.vU = 1.0
-    L.vD = 0.9
+    L.vD = 0.75
     L.finalise()
     L.saveToFile(run_time)
 
