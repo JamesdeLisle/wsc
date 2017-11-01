@@ -61,7 +61,7 @@ def Main(string, partial=False):
     L.B_z = 0.05
     L.tau = 0.01
     L.vU = 1.0
-    L.vD = 0.75
+    L.vD = 0.9
     L.finalise()
     L.saveToFile(run_time)
 
