@@ -23,10 +23,15 @@ class Keldysh:
         epsil[1, 1] = -V.ener
         gA = np.dot(np.dot(fm.p3(), np.conj(V.gR).T), fm.p3())
 
+        if self.runVal.Xi < np.pi / 2:
+            sgn = 1.0
+        else:
+            sgn = -1.0
+
         rv = np.dot((epsil - E.hamR), self.funcVal) \
             - np.dot(self.funcVal, (epsil - E.hamA)) \
             + np.dot(V.gR, E.hamKG) \
             - np.dot(E.hamKG, gA) \
-            + 1j * V.lim.B_z * V.dgK0
+            + sgn * 1j * V.lim.B_z * V.dgK0
 
         return -rv / V.lim.v

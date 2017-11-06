@@ -17,7 +17,7 @@ class Function:
         E = self.envi
 
         lam = V.ener * fm.p3() - E.hamR
-        if self.runVal.Theta < np.pi:
+        if self.runVal.Xi < np.pi / 2:
             sgn = 1.0
         else:
             sgn = -1.0

@@ -80,13 +80,13 @@ def Main():
     compTotalDOS(files, lims)
 
 
-def generateStore(sf, nb, nt):
+def generateStore(df, nb, nt):
     dat = {'b': [], 't': [], 'M': []}
     with open(join(df, 'DAT'), 'w') as f:
         f.write(json.dumps(dat, cls=NumericEncoder, indent=4, sort_keys=True))
 
 
-def updateStore(sf, b, t, val):
+def updateStore(df, b, t, val):
     with open(join(df, 'DAT'), 'r') as f:
         dat = json.loads(f.read(), cls=NumericDecoder)
     dat['b'].append(b)
