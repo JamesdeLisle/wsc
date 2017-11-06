@@ -42,11 +42,11 @@ def Main(string, B_z, tempInc, rtval=0, partial=False):
 
     L = lim.Limits()
     L.spinDir = string
-    L.nEnergy = 10
-    L.nKPolar = 10
-    L.nKAzimu = 10
+    L.nEnergy = 100
+    L.nKPolar = 50
+    L.nKAzimu = 100
     L.nTemp = 1
-    L.nAlpha = 10
+    L.nAlpha = 100
     L.energyMin = -1.0
     L.energyMax = 1.0
     L.kPolarMin = 0.0
