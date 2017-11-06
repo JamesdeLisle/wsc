@@ -112,6 +112,17 @@ def updateREG(df, pt, iB, it):
                            indent=4))
 
 
+def generateREG(df, nb, nt):
+    reg = [[{'up': False,
+             'dn': False,
+             'an': False}
+            for i in range(nb)] for j in range(nt)]
+    with open(join(df, 'REG'), 'w') as f:
+        f.write(json.dumps({'reg': reg},
+                           cls=NumericEncoder,
+                           indent=4))
+
+
 if __name__ == '__main__':
     sf = 'store/'
     df = 'data/'
@@ -124,6 +135,7 @@ if __name__ == '__main__':
     bSpace = np.linspace(bmin, bmax, nb)
     tSpace = np.linspace(tmin, tmax, nt)
     generateStore(sf, nb, nt)
+    generateREG(df, nb, nt)
     DOF = itertools.product(enumerate(bSpace), enumerate(tSpace))
     pre = (0, 0)
     orders = ['0', '1', '2', '3', '4', '5']
