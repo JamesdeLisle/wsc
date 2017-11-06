@@ -19,7 +19,7 @@ def generateREG(df, nb, nt):
              'an': False}
             for i in range(nb)] for j in range(nt)]
     with open(join(df, 'REG'), 'w') as f:
-        f.write(json.dumps({'reg', reg},
+        f.write(json.dumps({'reg': reg},
                            cls=NumericEncoder,
                            indent=4))
 
@@ -29,7 +29,7 @@ def updateREG(df, pt, iB, it):
         REG = json.loads(f.read(), cls=NumericDecoder)['reg']
     REG[iB][it][pt] = True
     with open(join(df, 'REG'), 'w') as f:
-        f.write(json.dumps({'reg', REG},
+        f.write(json.dumps({'reg': REG},
                            cls=NumericEncoder,
                            indent=4))
 
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     pre = (0, 0)
     for (ib, b), (it, t) in DOF:
         if ib or it:
-            while checkREG(df, pre[0], pre[1]):
+            while not checkREG(df, pre[0], pre[1]):
                 time.sleep(5)
             main.Main(spin, b, t, rtval=rt, partial=True)
             pre = (ib, it)

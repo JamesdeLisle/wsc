@@ -79,16 +79,6 @@ def Main():
     compTotalDOS(files, lims)
 
 
-def updateREG(pt, iB, it):
-    with open(join(df, 'REG'), 'r') as f:
-        REG = json.loads(f.read(), cls=NumericDecoder)['reg']
-    REG[iB][it][pt] = True
-    with open(join(df, 'REG'), 'w') as f:
-        f.write(json.dumps({'reg', REG},
-                           cls=NumericEncoder,
-                           indent=4))
-
-
 def generateStore(sf, nb, nt):
     dat = {'b': [], 't': [], 'M': []}
     with open(join(df, 'DAT'), 'w') as f:
@@ -116,7 +106,7 @@ def updateREG(df, pt, iB, it):
         REG = json.loads(f.read(), cls=NumericDecoder)['reg']
     REG[iB][it][pt] = True
     with open(join(df, 'REG'), 'w') as f:
-        f.write(json.dumps({'reg', REG},
+        f.write(json.dumps({'reg': REG},
                            cls=NumericEncoder,
                            indent=4))
 

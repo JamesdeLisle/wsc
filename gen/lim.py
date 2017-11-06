@@ -353,9 +353,10 @@ class Limits(object):
 
     @tempInc.setter
     def tempInc(self, value):
-        if type(value) == float:
+        if type(value) in [float, np.float64]:
             self._tempInc = value
         else:
+            print type(value)
             raise ValueError('The temperature increment must ' +
                              'be a float.')
 
@@ -452,7 +453,7 @@ class Limits(object):
 
     @B_z.setter
     def B_z(self, value):
-        if type(value) == float:
+        if type(value) in [float, np.float64]:
             self._B_z = value
         else:
             raise ValueError('The B_z must be a float')
