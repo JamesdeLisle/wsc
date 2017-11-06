@@ -99,7 +99,7 @@ def updateStore(sf, b, t, val):
 def checkREG(df, iB, it):
     with open(join(df, 'REG'), 'r') as f:
         REG = json.loads(f.read(), cls=NumericDecoder)['reg']
-    return all(REG[iB][it]['up'], REG[iB][it]['dn'])
+    return all([REG[iB][it]['up'], REG[iB][it]['dn']])
 
 
 def updateREG(df, pt, iB, it):
