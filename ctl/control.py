@@ -13,17 +13,6 @@ df = 'data/'
 sf = 'store'
 
 
-def generateREG(df, nb, nt):
-    reg = [[{'up': False,
-             'dn': False,
-             'an': False}
-            for i in range(nb)] for j in range(nt)]
-    with open(join(df, 'REG'), 'w') as f:
-        f.write(json.dumps({'reg': reg},
-                           cls=NumericEncoder,
-                           indent=4))
-
-
 def updateREG(df, pt, iB, it):
     with open(join(df, 'REG'), 'r') as f:
         REG = json.loads(f.read(), cls=NumericDecoder)['reg']
@@ -52,9 +41,8 @@ if __name__ == '__main__':
     spin = sys.argv[1]
     if spin == 'up':
         rt = time.strftime('%Y%m%d%H%M%S')
-        generateREG(df, nb, nt)
     else:
-        rt = nameParser(getFiles(['0'], 'up', 'df', 'raw')['0'][0], 'run')
+        rt = nameParser(getFiles(['0'], 'up', df, 'raw')['0'][0], 'run')
     DOF = itertools.product(enumerate(bSpace), enumerate(tSpace))
 
     pre = (0, 0)
