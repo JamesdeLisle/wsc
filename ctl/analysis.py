@@ -131,8 +131,8 @@ if __name__ == '__main__':
     bmax = 0.3
     tmin = 0.0
     tmax = 0.03
-    bSpace = np.linspace(bmin, bmax, nb)
-    tSpace = np.linspace(tmin, tmax, nt)
+    bSpace = np.linspace(bmax, bmin, nb)
+    tSpace = np.linspace(tmax, tmin, nt)
     generateStore(df, nb, nt)
     generateREG(df, nb, nt)
     DOF = itertools.product(enumerate(bSpace), enumerate(tSpace))

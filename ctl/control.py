@@ -36,8 +36,8 @@ if __name__ == '__main__':
     bmax = 0.3
     tmin = 0.0
     tmax = 0.03
-    bSpace = np.linspace(bmin, bmax, nb)
-    tSpace = np.linspace(tmin, tmax, nt)
+    bSpace = np.linspace(bmax, bmin, nb)
+    tSpace = np.linspace(tmax, tmin, nt)
     spin = sys.argv[1]
     if spin == 'up':
         rt = time.strftime('%Y%m%d%H%M%S')
