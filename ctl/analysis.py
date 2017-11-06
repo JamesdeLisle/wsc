@@ -11,6 +11,7 @@ from gen.parser import nameParser, getFiles
 from ana.heatcurrent import HCOND
 from ana.magnetisation import MAG
 import itertools
+import time
 
 
 data_folder = join(getcwd(), "data/")
@@ -127,13 +128,14 @@ if __name__ == '__main__':
     pre = (0, 0)
     orders = ['0', '1', '2', '3', '4', '5']
     for (ib, b), (it, t) in DOF:
-        if checkREG(df, ib, it):
-            M = MAG('data/', ['5'])
-            updateStore(sf, b, t, M.compute())
-            flsup = getFiles(orders, 'up', df, 'raw')
-            flsdn = getFiles(orders, 'dn', df, 'raw')
-            for order in orders:
-                for fup, fdn in zip(flsup[order], flsdn[order]):
-                    remove(fup)
-                    remove(fdn)
-            updateREG(df, 'an', ib, it)
+        while not checkREG(df, ib, it):
+            time.sleep(5)
+        M = MAG('data/', ['5'])
+        updateStore(sf, b, t, M.compute())
+        flsup = getFiles(orders, 'up', df, 'raw')
+        flsdn = getFiles(orders, 'dn', df, 'raw')
+        for order in orders:
+            for fup, fdn in zip(flsup[order], flsdn[order]):
+                remove(fup)
+                remove(fdn)
+        updateREG(df, 'an', ib, it)
