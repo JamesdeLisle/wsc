@@ -51,7 +51,8 @@ def getLims(path):
 
 
 def getFiles(orders, spin, folder, kind):
-    return {order: sorted(filter(order, spin, folder, kind)) for order in orders}
+    return {order: sorted(filter(order, spin, folder, kind))
+            for order in orders}
 
 
 def getData(path):
