@@ -69,11 +69,12 @@ def Main(string, B_z, tempInc, rtval=0, partial=False):
     L.finalise()
     L.saveToFile(rt)
 
+    t0 = time.time()
     orders = ['0', '1', '2', '3', '4', '5']
     for order in orders:
         M = main.Main(L, rt, df, order)
         M.run()
-
+    print 'Time taken: %d' % (time.time() - t0)
 
 
 if __name__ == '__main__':

@@ -125,8 +125,8 @@ def generateREG(df, nb, nt):
 
 if __name__ == '__main__':
     df = 'data/'
-    nb = 50
-    nt = 50
+    nb = 10
+    nt = 10
     bmin = 0.0
     bmax = 0.3
     tmin = 0.0

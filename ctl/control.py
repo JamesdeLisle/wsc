@@ -30,8 +30,8 @@ def checkREG(df, iB, it):
 
 
 if __name__ == '__main__':
-    nb = 50
-    nt = 50
+    nb = 10
+    nt = 10
     bmin = 0.0
     bmax = 0.3
     tmin = 0.0
