@@ -124,7 +124,6 @@ def generateREG(df, nb, nt):
 
 
 if __name__ == '__main__':
-    sf = 'store/'
     df = 'data/'
     nb = 50
     nt = 50
@@ -134,7 +133,7 @@ if __name__ == '__main__':
     tmax = 0.03
     bSpace = np.linspace(bmin, bmax, nb)
     tSpace = np.linspace(tmin, tmax, nt)
-    generateStore(sf, nb, nt)
+    generateStore(df, nb, nt)
     generateREG(df, nb, nt)
     DOF = itertools.product(enumerate(bSpace), enumerate(tSpace))
     pre = (0, 0)
