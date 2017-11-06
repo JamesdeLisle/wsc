@@ -3,7 +3,6 @@ import gen.main as main
 import time
 import numpy as np
 import os
-from os.path import join, exists
 from gen.parser import nameParser, getFiles
 import sys
 
@@ -42,11 +41,11 @@ def Main(string, B_z, tempInc, rtval=0, partial=False):
 
     L = lim.Limits()
     L.spinDir = string
-    L.nEnergy = 100
-    L.nKPolar = 50
-    L.nKAzimu = 100
+    L.nEnergy = 50
+    L.nKPolar = 25
+    L.nKAzimu = 50
     L.nTemp = 1
-    L.nAlpha = 100
+    L.nAlpha = 50
     L.energyMin = -1.0
     L.energyMax = 1.0
     L.kPolarMin = 0.0

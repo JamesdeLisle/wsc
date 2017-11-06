@@ -63,6 +63,6 @@ class ParamSpace(ParamSpaceBase):
             finish = iXi + 1
 
         self.dpzgR0 = (self.compData['0'][iXi, start] -
-                     self.compData['0'][iXi, finish]) / self.lim.dKPolar
+                       self.compData['0'][iXi, finish]) / self.lim.dKPolar
         self.dpzgR0 /= -self.lim.v
         self.dpzgR0 *= np.sin(self.kPol[iXi])
