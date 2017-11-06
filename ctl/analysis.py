@@ -142,7 +142,7 @@ if __name__ == '__main__':
     for (ib, b), (it, t) in DOF:
         while not checkREG(df, ib, it):
             time.sleep(5)
-        M = MAG('data/', ['5'])
+        M = MAG('data/', '5')
         updateStore(sf, b, t, M.compute())
         flsup = getFiles(orders, 'up', df, 'raw')
         flsdn = getFiles(orders, 'dn', df, 'raw')
