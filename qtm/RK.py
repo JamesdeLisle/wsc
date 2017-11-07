@@ -13,7 +13,7 @@ class Function:
                                     self.runVal.lim.nAlpha)
         self.runVal.alpha = self.alphaSpa[0]
         BC = bound.Function(self.runVal)
-        self.funcVal = BC.gK
+        self.funcVal = np.zeros(shape=(2, 2), dtype=np.complex128)
         self.runVal.alpha = 0
         self.dAlpha = self.runVal.lim.dAlpha
         self.kInc = [np.zeros(shape=(2, 2)) for x in range(4)]

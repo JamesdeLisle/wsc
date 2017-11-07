@@ -79,7 +79,7 @@ def Main(string, B_z, tempInc, rtval=0, partial=False):
 
 if __name__ == '__main__':
 
-    par_val = True
+    par_val = False
     spin = sys.argv[1]
     B_z = float(sys.argv[2])
     tempInc = float(sys.argv[3])
